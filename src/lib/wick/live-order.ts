@@ -1,11 +1,13 @@
+import { createWalletClient, http, type WalletClient } from "viem";
+import { polygon } from "viem/chains";
 import { privateKeyToAccount } from "viem/accounts";
-import { AssetType, ClobClient, OrderType, Side, SignatureType } from "@polymarket/clob-client";
+import { AssetType, Chain, ClobClient, OrderType, Side, SignatureTypeV2 } from "@polymarket/clob-client-v2";
 import type { LiveJob } from "./engine";
 
 const SIG = {
-  0: SignatureType.EOA,
-  1: SignatureType.POLY_PROXY,
-  2: SignatureType.POLY_GNOSIS_SAFE,
+  0: SignatureTypeV2.EOA,
+  1: SignatureTypeV2.POLY_PROXY,
+  2: SignatureTypeV2.POLY_GNOSIS_SAFE,
 } as const;
 
 /**
@@ -166,12 +168,11 @@ export async function deriveCreds(privateKey: string): Promise<{ apiKey: string;
 }
 
 function signerOnly(privateKey: string): ClobClient {
-  const account = privateKeyToAccount(privateKey as `0x${string}`);
-  const signer = {
-    account,
-    signTypedData: (args: Parameters<typeof account.signTypedData>[0]) => account.signTypedData(args),
-  };
-  return new ClobClient("https://clob.polymarket.com", 137, signer as never);
+  return new ClobClient({
+    host: "https://clob.polymarket.com",
+    chain: Chain.POLYGON,
+    signer: walletFor(privateKey),
+  });
 }
 
 function readCreds(raw: unknown): { apiKey: string; secret: string; passphrase: string } | null {
@@ -182,19 +183,23 @@ function readCreds(raw: unknown): { apiKey: string; secret: string; passphrase: 
   return { apiKey, secret: row.secret, passphrase: row.passphrase };
 }
 function clientFor(job: LiveJob): ClobClient {
-  const account = privateKeyToAccount(job.privateKey as `0x${string}`);
-  const signer = {
+  return new ClobClient({
+    host: "https://clob.polymarket.com",
+    chain: Chain.POLYGON,
+    signer: walletFor(job.privateKey),
+    creds: { key: job.apiKey, secret: job.secret, passphrase: job.passphrase },
+    signatureType: SIG[job.signatureType],
+    funderAddress: job.funder || undefined,
+  });
+}
+
+function walletFor(privateKey: string): WalletClient {
+  const account = privateKeyToAccount(privateKey as `0x${string}`);
+  return createWalletClient({
     account,
-    signTypedData: (args: Parameters<typeof account.signTypedData>[0]) => account.signTypedData(args),
-  };
-  return new ClobClient(
-    "https://clob.polymarket.com",
-    137,
-    signer as never,
-    { key: job.apiKey, secret: job.secret, passphrase: job.passphrase },
-    SIG[job.signatureType],
-    job.funder || undefined,
-  );
+    chain: polygon,
+    transport: http("https://polygon-bor-rpc.publicnode.com"),
+  });
 }
 
 function clean(msg: string, job: LiveJob): string {
