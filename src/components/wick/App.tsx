@@ -301,12 +301,19 @@ function TradeDesk({ snap }: { snap: Snap }) {
   const [key, setKey] = useState("");
   const [sig, setSig] = useState<"0" | "1" | "2">(String(desk.signatureType ?? 1) as "0" | "1" | "2");
   const [points, setPoints] = useState<{ t: number; pnl: number }[]>([]);
-  const [note, setNote] = useState("");
+  const [hint, setHint] = useState("");
   const [busy, setBusy] = useState(false);
+  const [press, setPress] = useState<"" | "test" | "pause" | "wallet">("");
 
   useEffect(() => {
     if (desk.address) setAddress(desk.address);
   }, [desk.address]);
+
+  useEffect(() => {
+    if (press !== "test") return;
+    if (desk.note.startsWith("Checking")) return;
+    setPress("");
+  }, [desk.note, press]);
 
   useEffect(() => {
     if (!desk.address) {
@@ -321,9 +328,8 @@ function TradeDesk({ snap }: { snap: Snap }) {
         const body = (await res.json()) as { points?: { t: number; pnl: number }[]; error?: string };
         if (stop) return;
         setPoints(Array.isArray(body.points) ? body.points : []);
-        setNote(body.error ? "Polymarket did not return a profit series." : "");
       } catch {
-        if (!stop) setNote("Could not reach the profit API.");
+        if (!stop) setHint("Profit chart did not load.");
       } finally {
         if (!stop) setBusy(false);
       }
@@ -338,46 +344,54 @@ function TradeDesk({ snap }: { snap: Snap }) {
 
   const last = points.length ? points[points.length - 1].pnl : null;
   const tone = last == null ? "" : last > 0.005 ? "pos" : last < -0.005 ? "neg" : "";
-  const call = snap.phase === "resolving" ? "skip" : snap.verdict;
+  const api = describeApi(press === "test" ? "Checking" : desk.note, snap.polySaved);
 
-  function connect() {
+  function flash(which: "pause" | "wallet") {
+    setPress(which);
+    window.setTimeout(() => setPress((cur) => (cur === which ? "" : cur)), 700);
+  }
+
+  function saveWallet() {
     const next = address.trim();
     if (!/^0x[a-fA-F0-9]{40}$/.test(next)) {
-      setNote("Paste the 0x wallet address from Polymarket.");
+      setHint("Paste the 0x wallet address.");
       return;
     }
-    if (!snap.polySaved) {
-      setNote("Save the API key in Settings first.");
-      return;
-    }
+    setHint("");
+    flash("wallet");
     live.connectTrade(next);
-    setNote("Connected. The chart is your Polymarket account, not Wick.");
   }
 
   function saveCap() {
     const n = Number(cap);
     if (!Number.isFinite(n) || n < 1) {
-      setNote("The cap has to be at least $1.");
+      setHint("The cap has to be at least $1.");
       return;
     }
     live.setTradeCap(n);
-    setNote("Cap sent to the worker.");
+    setHint("Cap saved.");
   }
 
   function saveKey() {
     const raw = key.trim();
     const hex = raw.startsWith("0x") || raw.startsWith("0X") ? raw.slice(2) : raw;
     if (!/^[a-fA-F0-9]{64}$/.test(hex)) {
-      setNote("The private key should be 64 hex characters.");
+      setHint("The private key should be 64 hex characters.");
       return;
     }
     if (!snap.polySaved) {
-      setNote("Save the API key in Settings first.");
+      setHint("Add the API key in Settings first.");
       return;
     }
     live.saveTradeKey(`0x${hex}`, Number(sig) as 0 | 1 | 2);
     setKey("");
-    setNote("Key sent. It is not shown again.");
+    setHint("Key saved.");
+  }
+
+  function testApi() {
+    setHint("");
+    setPress("test");
+    live.checkTrade();
   }
 
   return (
@@ -385,25 +399,38 @@ function TradeDesk({ snap }: { snap: Snap }) {
       <div className="sim-tools">
         <div>
           <h2 className="card-title">5 minute account</h2>
-          <p className="cal">Profit comes from Polymarket. Wick only supplies the 5-minute call.</p>
+          <p className="cal">Save wallet loads the chart. Test API checks the key. It does not buy.</p>
         </div>
         <div className="trade-actions">
-          <button type="button" className="modal-btn" onClick={connect}>
-            {desk.address ? "Reconnect" : "Connect"}
+          <button type="button" className={press === "wallet" ? "modal-btn is-down" : "modal-btn"} onClick={saveWallet}>
+            {press === "wallet" && <Spinner />}
+            Save wallet
           </button>
-          <button type="button" className="modal-btn" onClick={() => live.checkTrade()}>
+          <button type="button" className={press === "test" ? "modal-btn is-down" : "modal-btn"} onClick={testApi} disabled={press === "test"}>
+            {press === "test" && <Spinner />}
             Test API
           </button>
           <button
             type="button"
-            className="modal-btn"
+            className={press === "pause" ? "modal-btn is-down" : "modal-btn"}
             disabled={!desk.address}
-            onClick={() => live.pauseTrade(!desk.paused)}
+            onClick={() => {
+              flash("pause");
+              live.pauseTrade(!desk.paused);
+            }}
           >
+            {press === "pause" && <Spinner />}
             {desk.paused ? "Resume" : "Pause"}
           </button>
         </div>
       </div>
+
+      <div className="trade-flags">
+        <span className={`trade-flag ${api.kind}`}>{api.kind === "wait" && <Spinner />}{api.label}</span>
+        <span className="trade-flag">{desk.paused ? "Paused" : "Resumed"}</span>
+        <span className={`trade-flag ${desk.keySaved ? "ok" : ""}`}>{desk.keySaved ? "Key saved" : "No key"}</span>
+      </div>
+      {(hint || api.hint) && <p className="cal trade-hint">{hint || api.hint}</p>}
 
       <div className="trade-row">
         <label>
@@ -457,22 +484,23 @@ function TradeDesk({ snap }: { snap: Snap }) {
           <span className={`pnl-now ${tone}`}>{desk.paused ? "Paused" : "Watching"}</span>
         </div>
         <PnlChart points={points} />
-        <p className="cal pnl-note">
-          This line is Polymarket's own profit series for the wallet above. It is not the simulation. The 5-minute call
-          right now is {call === "up" ? "Buy Up" : call === "down" ? "Buy Down" : "No trade"}. One order per window,
-          at most ${desk.cap.toFixed(0)}. {desk.paused ? "Paused, so nothing is sent." : "Resumed. The worker can send."}{" "}
-          {desk.note || ""}
-        </p>
+        <p className="cal pnl-note">Polymarket account. Not the simulation.</p>
       </article>
-      {note && <p className="cal">{note}</p>}
-      {desk.note && <p className="cal">{desk.note}</p>}
-      <p className="cal">
-        {snap.polySaved ? "API key is saved on the worker." : "API key is not saved. Open Settings and save it first."}
-        {desk.keySaved ? " Private key is saved and hidden." : " Private key is not saved."}
-        {desk.address ? ` Connected to ${desk.address.slice(0, 6)}…${desk.address.slice(-4)}.` : " Not connected."}
-      </p>
     </section>
   );
+}
+
+function describeApi(raw: string, saved: boolean): { kind: "idle" | "wait" | "ok" | "bad"; label: string; hint: string } {
+  if (raw.startsWith("Checking")) return { kind: "wait", label: "Checking", hint: "" };
+  if (raw.startsWith("API works") || raw.startsWith("API key works")) return { kind: "ok", label: "API works", hint: "" };
+  if (raw.includes("rejected")) return { kind: "bad", label: "API rejected", hint: "Save the private key, then test again." };
+  if (!saved || raw.includes("not saved")) return { kind: "bad", label: "No API key", hint: "Add it in Settings." };
+  if (raw.includes("wallet") || raw.includes("Paste")) return { kind: "bad", label: "Need a wallet", hint: "Save the wallet address first." };
+  return { kind: "idle", label: "Not checked", hint: "" };
+}
+
+function Spinner() {
+  return <i className="btn-spin" aria-hidden="true" />;
 }
 
 function BookDash({ snap, id }: { snap: Snap; id: BookId }) {
