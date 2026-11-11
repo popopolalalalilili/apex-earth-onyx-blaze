@@ -32,15 +32,71 @@ export async function postFiveBuy(job: LiveJob): Promise<string> {
   return `${resp?.status || "ok"} ${id}`;
 }
 
-/** Collateral the funder can spend, in dollars. Null when Polymarket does not say. */
+/** Collateral the funder can spend, in dollars. Null when neither source answers. */
 export async function readCash(job: LiveJob): Promise<number | null> {
-  const client = clientFor(job);
-  const bal = (await client.getBalanceAllowance({ asset_type: AssetType.COLLATERAL })) as {
-    balance?: string;
-    error?: string;
-  };
-  if (bal?.error) return null;
-  const raw = bal?.balance;
+  const clob = await clobCash(job);
+  const chain = job.funder ? await walletCash(job.funder) : null;
+  if (clob == null && chain == null) return null;
+  return Math.max(clob ?? 0, chain ?? 0);
+}
+
+async function clobCash(job: LiveJob): Promise<number | null> {
+  try {
+    const client = clientFor(job);
+    try {
+      await client.updateBalanceAllowance({ asset_type: AssetType.COLLATERAL });
+    } catch {
+      /* the read below still works */
+    }
+    const bal = (await client.getBalanceAllowance({ asset_type: AssetType.COLLATERAL })) as {
+      balance?: string;
+      error?: string;
+    };
+    if (bal?.error) return null;
+    return units(bal?.balance);
+  } catch {
+    return null;
+  }
+}
+
+/** pUSD is what Polymarket holds now. USDC is only there on older deposits. */
+async function walletCash(holder: string): Promise<number | null> {
+  const tokens = [
+    "0xC011a7E12a19f7B1f670d46F03B03f3342E82DFB",
+    "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+    "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",
+  ];
+  const data = "0x70a08231" + holder.slice(2).toLowerCase().padStart(64, "0");
+  let total = 0;
+  let seen = false;
+  for (const token of tokens) {
+    const n = await tokenBalance(token, data);
+    if (n == null) continue;
+    seen = true;
+    total += n;
+  }
+  return seen ? total : null;
+}
+
+async function tokenBalance(token: string, data: string): Promise<number | null> {
+  for (const rpc of ["https://polygon-bor-rpc.publicnode.com", "https://polygon-rpc.com"]) {
+    try {
+      const res = await fetch(rpc, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "eth_call", params: [{ to: token, data }, "latest"] }),
+      });
+      const body = (await res.json()) as { result?: string };
+      if (typeof body.result !== "string" || !body.result.startsWith("0x")) continue;
+      return Number(BigInt(body.result)) / 1_000_000;
+    } catch {
+      /* try the next endpoint */
+    }
+  }
+  return null;
+}
+
+function units(raw: string | undefined): number | null {
   if (raw == null || raw === "") return null;
   const n = Number(raw);
   if (!Number.isFinite(n)) return null;
