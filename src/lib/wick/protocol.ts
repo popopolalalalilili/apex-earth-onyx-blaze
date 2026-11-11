@@ -13,7 +13,9 @@ export type WickCommand =
   | { kind: "trade-connect"; address: string }
   | { kind: "trade-pause"; paused: boolean }
   | { kind: "trade-cap"; cap: number }
-  | { kind: "trade-disconnect" };
+  | { kind: "trade-disconnect" }
+  | { kind: "trade-key"; privateKey: string; signatureType: 0 | 1 | 2 }
+  | { kind: "trade-key-clear" };
 
 export type WorkerHealth = {
   status: "starting" | "leading" | "standby" | "offline" | "stopped";
@@ -115,6 +117,13 @@ export function parseCommand(raw: unknown): WickCommand | null {
     return { kind: "trade-cap", cap: Math.round(cap * 100) / 100 };
   }
   if (row.kind === "trade-disconnect") return { kind: "trade-disconnect" };
+  if (row.kind === "trade-key") {
+    const privateKey = clipKey(row.privateKey);
+    const signatureType = row.signatureType === 0 || row.signatureType === 2 ? row.signatureType : row.signatureType === 1 ? 1 : null;
+    if (!privateKey || signatureType == null) return null;
+    return { kind: "trade-key", privateKey, signatureType };
+  }
+  if (row.kind === "trade-key-clear") return { kind: "trade-key-clear" };
   return null;
 }
 
@@ -130,6 +139,14 @@ function clipAddress(v: unknown): string | null {
   if (typeof v !== "string") return null;
   const s = v.trim();
   return /^0x[a-fA-F0-9]{40}$/.test(s) ? s : null;
+}
+
+function clipKey(v: unknown): string | null {
+  if (typeof v !== "string") return null;
+  const s = v.trim();
+  const hex = s.startsWith("0x") || s.startsWith("0X") ? s.slice(2) : s;
+  if (!/^[a-fA-F0-9]{64}$/.test(hex)) return null;
+  return `0x${hex}`;
 }
 
 /** A dead process must not look like it is still leading. */

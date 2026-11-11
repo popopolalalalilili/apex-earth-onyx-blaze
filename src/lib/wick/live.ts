@@ -148,6 +148,12 @@ export const live = {
   setTradeCap(cap: number) {
     void send({ kind: "trade-cap", cap });
   },
+  saveTradeKey(privateKey: string, signatureType: 0 | 1 | 2) {
+    void send({ kind: "trade-key", privateKey, signatureType });
+  },
+  clearTradeKey() {
+    void send({ kind: "trade-key-clear" });
+  },
   setTarget(price: number | null) {
     void send({ kind: "target", price });
   },

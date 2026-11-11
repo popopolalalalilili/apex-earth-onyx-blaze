@@ -126,7 +126,8 @@ button, input, select { font-family: inherit; color: inherit; }
 .trade-actions { display: flex; gap: 8px; }
 .trade-row { display: flex; gap: 10px; align-items: end; flex-wrap: wrap; margin: 0 0 16px; }
 .trade-row label { display: flex; flex-direction: column; gap: 6px; color: var(--mid); font-size: 12px; }
-.trade-row input {
+.trade-row input,
+.trade-row select {
   height: 36px;
   min-width: 180px;
   border-radius: 10px;

@@ -196,6 +196,22 @@ export type TradeDesk = {
   address: string | null;
   paused: boolean;
   cap: number;
+  keySaved: boolean;
+  signatureType: 0 | 1 | 2;
+  note: string;
+};
+
+export type LiveJob = {
+  windowStart: number;
+  tokenId: string;
+  ask: number;
+  dollars: number;
+  privateKey: string;
+  apiKey: string;
+  secret: string;
+  passphrase: string;
+  funder: string;
+  signatureType: 0 | 1 | 2;
 };
 
 export type LaneSnap = {
@@ -285,7 +301,9 @@ export type Persist = {
   scratches?: Scratch[];
   /** Worker-only. Never copy this onto the public snapshot. */
   poly?: { apiKey: string; secret: string; passphrase: string } | null;
-  trade?: { address?: string | null; paused?: boolean; cap?: number };
+  trade?: { address?: string | null; paused?: boolean; cap?: number; signatureType?: number; filledWin?: number; note?: string };
+  /** Worker-only. Never copy this onto the public snapshot. */
+  signer?: { privateKey: string } | null;
 };
 
 function emptyQuote(): Quote {
@@ -369,7 +387,7 @@ export function blankSnap(): Snap {
     waiting15: null,
     shadowLane: { verdict: "skip", call: null, reason: null, edge: null, gate: null },
     polySaved: false,
-    trade: { address: null, paused: true, cap: 25 },
+    trade: { address: null, paused: true, cap: 25, keySaved: false, signatureType: 1, note: "" },
   };
 }
 
@@ -524,6 +542,9 @@ export type Engine = {
   resetBook: (id: "five" | "fifteen" | "combined" | "shadow") => void;
   exportBooks: () => void;
   push: (cmd: WickCommand) => void;
+  /** Real 5-minute order, or null when the desk is paused, missing a key, or already sent. */
+  liveJob: () => LiveJob | null;
+  markLive: (windowStart: number, note: string, filled: boolean) => void;
 };
 
 const NO_HOST: EngineHost = {
@@ -544,6 +565,12 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
   let tradeAddress: string | null = null;
   let tradePaused = true;
   let tradeCap = 25;
+  let tradeSig: 0 | 1 | 2 = 1;
+  let tradeNote = "";
+  let signerKey: string | null = null;
+  let liveFilledWin = 0;
+  let liveLockWin = 0;
+  let liveTriedAt = 0;
   let tape: TapeMark[] = [];
   let paper: PaperTrade[] = [];
   let calib: CalibRow[] = [];
@@ -736,7 +763,11 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
         if ("address" in data.trade) tradeAddress = clipTradeAddress(data.trade.address);
         if (typeof data.trade.paused === "boolean") tradePaused = data.trade.paused;
         if (typeof data.trade.cap === "number" && data.trade.cap >= 1 && data.trade.cap <= 100000) tradeCap = data.trade.cap;
+        if (data.trade.signatureType === 0 || data.trade.signatureType === 1 || data.trade.signatureType === 2) tradeSig = data.trade.signatureType;
+        if (typeof data.trade.filledWin === "number") liveFilledWin = data.trade.filledWin;
+        if (typeof data.trade.note === "string") tradeNote = data.trade.note.slice(0, 180);
       }
+      if ("signer" in data) signerKey = data.signer?.privateKey && /^0x[a-fA-F0-9]{64}$/.test(data.signer.privateKey) ? data.signer.privateKey : null;
     } catch {
       /* ignore broken local storage */
     }
@@ -791,7 +822,8 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
         books: { five: books.five, fifteen: books.fifteen, combined: books.combined, shadow: books.shadow },
         scratches: scratches.slice(-8),
         poly,
-        trade: { address: tradeAddress, paused: tradePaused, cap: tradeCap },
+        trade: { address: tradeAddress, paused: tradePaused, cap: tradeCap, signatureType: tradeSig, filledWin: liveFilledWin, note: tradeNote },
+        signer: signerKey ? { privateKey: signerKey } : null,
       };
       try {
         host.write(data);
@@ -2277,8 +2309,19 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
         tradeAddress = null;
         tradePaused = true;
         save();
+      } else if (cmd.kind === "trade-key") {
+        signerKey = cmd.privateKey;
+        tradeSig = cmd.signatureType;
+        tradeNote = "Key saved. Resume to send 5-minute orders.";
+        save();
+      } else if (cmd.kind === "trade-key-clear") {
+        signerKey = null;
+        tradePaused = true;
+        tradeNote = "Key removed.";
+        save();
       }
     }
+    if (batch.length) emit();
   }
 
   function tick() {
@@ -2444,7 +2487,14 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
       waiting15: waitSnap(wait15, l15.win, l15.model),
       shadowLane,
       polySaved: poly != null,
-      trade: { address: tradeAddress, paused: tradePaused, cap: tradeCap },
+      trade: {
+        address: tradeAddress,
+        paused: tradePaused,
+        cap: tradeCap,
+        keySaved: signerKey != null,
+        signatureType: tradeSig,
+        note: tradeNote,
+      },
     };
   }
 
@@ -2675,6 +2725,43 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
     },
     push(cmd) {
       inbox.push(cmd);
+      drain();
+    },
+    liveJob() {
+      if (tradePaused || !signerKey || !poly || !tradeAddress) return null;
+      if (phase !== "open" || !market?.accepting || !win) return null;
+      if (liveFilledWin === win) return null;
+      if (liveLockWin === win && Date.now() - liveTriedAt < 20_000) return null;
+      const left = (win + 300) * 1000 - Date.now();
+      if (left < 15_000) return null;
+      const side = verdictSnap?.side;
+      if (side !== "up" && side !== "down") return null;
+      const ask = side === "up" ? up.ask : down.ask;
+      if (ask == null || ask <= 0.01 || ask >= 0.99) return null;
+      if (quoteAt && Date.now() - quoteAt > 8_000) return null;
+      const tokenId = side === "up" ? market.up : market.down;
+      if (!tokenId) return null;
+      liveLockWin = win;
+      liveTriedAt = Date.now();
+      return {
+        windowStart: win,
+        tokenId,
+        ask,
+        dollars: tradeCap,
+        privateKey: signerKey,
+        apiKey: poly.apiKey,
+        secret: poly.secret,
+        passphrase: poly.passphrase,
+        funder: tradeAddress,
+        signatureType: tradeSig,
+      };
+    },
+    markLive(windowStart, note, filled) {
+      tradeNote = note.replace(/0x[a-fA-F0-9]{64}/g, "0x…").slice(0, 180);
+      if (filled) liveFilledWin = windowStart;
+      else if (liveLockWin === windowStart) liveLockWin = 0;
+      save();
+      emit();
     },
   };
   return api;

@@ -295,9 +295,11 @@ function SimPanel({ snap, which, onWhich }: { snap: Snap; which: BookTab; onWhic
 }
 
 function TradeDesk({ snap }: { snap: Snap }) {
-  const desk = snap.trade ?? { address: null, paused: true, cap: 25 };
+  const desk = snap.trade ?? { address: null, paused: true, cap: 25, keySaved: false, signatureType: 1 as const, note: "" };
   const [address, setAddress] = useState(desk.address ?? "");
   const [cap, setCap] = useState(String(desk.cap));
+  const [key, setKey] = useState("");
+  const [sig, setSig] = useState<"0" | "1" | "2">(String(desk.signatureType ?? 1) as "0" | "1" | "2");
   const [points, setPoints] = useState<{ t: number; pnl: number }[]>([]);
   const [note, setNote] = useState("");
   const [busy, setBusy] = useState(false);
@@ -362,6 +364,22 @@ function TradeDesk({ snap }: { snap: Snap }) {
     setNote("Cap sent to the worker.");
   }
 
+  function saveKey() {
+    const raw = key.trim();
+    const hex = raw.startsWith("0x") || raw.startsWith("0X") ? raw.slice(2) : raw;
+    if (!/^[a-fA-F0-9]{64}$/.test(hex)) {
+      setNote("The private key should be 64 hex characters.");
+      return;
+    }
+    if (!snap.polySaved) {
+      setNote("Save the API key in Settings first.");
+      return;
+    }
+    live.saveTradeKey(`0x${hex}`, Number(sig) as 0 | 1 | 2);
+    setKey("");
+    setNote("Key sent. It is not shown again.");
+  }
+
   return (
     <section className="sim trade-desk">
       <div className="sim-tools">
@@ -397,6 +415,35 @@ function TradeDesk({ snap }: { snap: Snap }) {
           Save cap
         </button>
       </div>
+      <div className="trade-row">
+        <label>
+          Private key
+          <input
+            type="password"
+            value={key}
+            onChange={(e) => setKey(e.target.value)}
+            placeholder={desk.keySaved ? "Saved" : "0x…"}
+            autoComplete="off"
+            spellCheck={false}
+          />
+        </label>
+        <label>
+          Login
+          <select value={sig} onChange={(e) => setSig(e.target.value as "0" | "1" | "2")}>
+            <option value="1">Email</option>
+            <option value="2">Browser wallet</option>
+            <option value="0">Key is the wallet</option>
+          </select>
+        </label>
+        <button type="button" className="modal-btn" onClick={saveKey}>
+          Save key
+        </button>
+        {desk.keySaved && (
+          <button type="button" className="modal-btn" onClick={() => live.clearTradeKey()}>
+            Remove key
+          </button>
+        )}
+      </div>
 
       <div className="sim-top">
         <div className={`sim-bal ${tone}`}>{last == null ? (busy ? "…" : "--") : signedDollars(last, 2)}</div>
@@ -409,13 +456,15 @@ function TradeDesk({ snap }: { snap: Snap }) {
         <PnlChart points={points} />
         <p className="cal pnl-note">
           This line is Polymarket's own profit series for the wallet above. It is not the simulation. The 5-minute call
-          right now is {call === "up" ? "Buy Up" : call === "down" ? "Buy Down" : "No trade"}. The cap is ${desk.cap.toFixed(0)}.
-          No order is sent: Polymarket still needs a wallet signature on every order, and this page does not hold that key.
+          right now is {call === "up" ? "Buy Up" : call === "down" ? "Buy Down" : "No trade"}. One order per window,
+          at most ${desk.cap.toFixed(0)}. {desk.paused ? "Paused, so nothing is sent." : "Resumed. The worker can send."}{" "}
+          {desk.note || ""}
         </p>
       </article>
       {note && <p className="cal">{note}</p>}
       <p className="cal">
         {snap.polySaved ? "API key is saved on the worker." : "API key is not saved. Open Settings and save it first."}
+        {desk.keySaved ? " Private key is saved and hidden." : " Private key is not saved."}
         {desk.address ? ` Connected to ${desk.address.slice(0, 6)}…${desk.address.slice(-4)}.` : " Not connected."}
       </p>
     </section>

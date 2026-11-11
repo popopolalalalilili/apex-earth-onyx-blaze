@@ -1,7 +1,8 @@
 /**
- * Wick paper worker. This process is the only place that trades.
- * It never sends an order. Balances live in Postgres when DATABASE_URL is set,
- * otherwise in WICK_DATA_DIR (preview). A second copy waits on the lease.
+ * Wick worker. Paper books always run here.
+ * A real 5-minute order is sent only when Trade is resumed and a key is saved.
+ * Balances live in Postgres when DATABASE_URL is set, otherwise in WICK_DATA_DIR.
+ * A second copy waits on the lease.
  *
  * Railway: set DATABASE_URL. The health check is GET /health on PORT.
  * Optional: WICK_HEALTH_PORT overrides PORT. WICK_DATA_DIR overrides the file store.
@@ -10,6 +11,7 @@ import { createServer } from "node:http";
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { createEngine, type Engine, type Persist } from "../lib/wick/engine.ts";
+import { postFiveBuy } from "../lib/wick/live-order.ts";
 import { blankWorker, type LiveFile, type WorkerHealth } from "../lib/wick/protocol.ts";
 import { createStore, type Store } from "../lib/wick/store.ts";
 
@@ -24,6 +26,7 @@ let startedAt = 0;
 let lastSuccessAt: number | null = null;
 let lastError: string | null = null;
 let status: WorkerHealth["status"] = "starting";
+let liveBusy = false;
 
 function healthBody() {
   const now = Date.now();
@@ -155,11 +158,26 @@ async function lead(store: Store) {
   }
   if (stopped) return;
   engine.start();
-  console.log("[wick] leading, paper only, no orders");
+  console.log("[wick] leading. Paper books keep running. Live 5-minute orders only when Trade is resumed.");
   while (!stopped) {
     try {
       const cmds = await store.takeCommands();
       for (const cmd of cmds) engine.push(cmd);
+      if (!liveBusy) {
+        const job = engine.liveJob();
+        if (job) {
+          liveBusy = true;
+          try {
+            const line = await postFiveBuy(job);
+            engine.markLive(job.windowStart, `Order ${line}`, true);
+          } catch (err) {
+            const msg = err instanceof Error ? err.message : "order failed";
+            engine.markLive(job.windowStart, msg.slice(0, 180), false);
+          } finally {
+            liveBusy = false;
+          }
+        }
+      }
       const snap = engine.getSnapshot();
       const healthy = snap.priceLive || snap.clobLive;
       if (healthy) lastSuccessAt = Date.now();
