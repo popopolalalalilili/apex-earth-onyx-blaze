@@ -122,7 +122,7 @@ export function WickApp() {
           <button type="button" className={tab === "sim" ? "on" : ""} onClick={() => go("sim", which)}>
             Simulation
           </button>
-          <button type="button" onClick={() => setSettingsOpen(true)}>
+          <button type="button" data-build="settings-2" onClick={() => setSettingsOpen(true)}>
             Settings
           </button>
         </nav>
