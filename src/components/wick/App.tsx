@@ -391,6 +391,9 @@ function TradeDesk({ snap }: { snap: Snap }) {
           <button type="button" className="modal-btn" onClick={connect}>
             {desk.address ? "Reconnect" : "Connect"}
           </button>
+          <button type="button" className="modal-btn" onClick={() => live.checkTrade()}>
+            Test API
+          </button>
           <button
             type="button"
             className="modal-btn"
@@ -462,6 +465,7 @@ function TradeDesk({ snap }: { snap: Snap }) {
         </p>
       </article>
       {note && <p className="cal">{note}</p>}
+      {desk.note && <p className="cal">{desk.note}</p>}
       <p className="cal">
         {snap.polySaved ? "API key is saved on the worker." : "API key is not saved. Open Settings and save it first."}
         {desk.keySaved ? " Private key is saved and hidden." : " Private key is not saved."}

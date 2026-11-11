@@ -24,6 +24,8 @@ const listeners = new Set<() => void>();
 let users = 0;
 let timer = 0;
 let polling = false;
+let pauseHold: { paused: boolean; until: number } | null = null;
+let noteHold: { text: string; previous: string; until: number } | null = null;
 
 function emit() {
   listeners.forEach((fn) => fn());
@@ -41,6 +43,16 @@ async function pull() {
       worker?: WorkerHealth;
     };
     if (body.snap && typeof body.snap === "object") snap = body.snap;
+    if (pauseHold) {
+      if (!snap.trade || snap.trade.paused === pauseHold.paused || Date.now() > pauseHold.until) pauseHold = null;
+      else snap = { ...snap, trade: { ...snap.trade, paused: pauseHold.paused } };
+    }
+    if (noteHold && snap.trade) {
+      const got = snap.trade.note ?? "";
+      const done = (got !== noteHold.previous && got !== noteHold.text) || Date.now() > noteHold.until;
+      if (done) noteHold = null;
+      else snap = { ...snap, trade: { ...snap.trade, note: noteHold.text } };
+    }
     if (body.settings && typeof body.settings === "object") settings = { ...DEFAULTS, ...body.settings };
     if (body.worker) worker = { ...blankWorker(), ...body.worker, paper: true };
     emit();
@@ -143,7 +155,18 @@ export const live = {
     void send({ kind: "trade-disconnect" });
   },
   pauseTrade(paused: boolean) {
+    pauseHold = { paused, until: Date.now() + 8_000 };
+    const base = snap.trade ?? { address: null, paused: true, cap: 25, keySaved: false, signatureType: 1 as const, note: "" };
+    snap = { ...snap, trade: { ...base, paused } };
+    emit();
     void send({ kind: "trade-pause", paused });
+  },
+  checkTrade() {
+    const base = snap.trade ?? { address: null, paused: true, cap: 25, keySaved: false, signatureType: 1 as const, note: "" };
+    noteHold = { text: "Checking the API. No order is sent.", previous: base.note, until: Date.now() + 15_000 };
+    snap = { ...snap, trade: { ...base, note: noteHold.text } };
+    emit();
+    void send({ kind: "trade-check" });
   },
   setTradeCap(cap: number) {
     void send({ kind: "trade-cap", cap });

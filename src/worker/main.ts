@@ -11,7 +11,7 @@ import { createServer } from "node:http";
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { createEngine, type Engine, type Persist } from "../lib/wick/engine.ts";
-import { postFiveBuy } from "../lib/wick/live-order.ts";
+import { checkAccount, postFiveBuy } from "../lib/wick/live-order.ts";
 import { blankWorker, type LiveFile, type WorkerHealth } from "../lib/wick/protocol.ts";
 import { createStore, type Store } from "../lib/wick/store.ts";
 
@@ -163,6 +163,16 @@ async function lead(store: Store) {
     try {
       const cmds = await store.takeCommands();
       for (const cmd of cmds) engine.push(cmd);
+      const check = engine.takeCheck();
+      if (check) {
+        try {
+          const line = await checkAccount(check);
+          engine.markLive(0, line, false);
+        } catch (err) {
+          const msg = err instanceof Error ? err.message : "API check failed";
+          engine.markLive(0, msg.slice(0, 180), false);
+        }
+      }
       if (!liveBusy) {
         const job = engine.liveJob();
         if (job) {
@@ -219,7 +229,7 @@ async function lead(store: Store) {
       lastError = err instanceof Error ? err.message : String(err);
       console.error("[wick] loop", err);
     }
-    await sleep(1000);
+    await sleep(400);
   }
   try {
     engine.stop();

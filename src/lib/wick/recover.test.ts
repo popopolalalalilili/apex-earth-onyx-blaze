@@ -138,11 +138,13 @@ test("polymarket keys stay on the worker and are not copied onto the snapshot", 
 
   let saved: Persist | null = null;
   let storedSecret: string | null = null;
+  let storedKey: string | null = null;
   const engine = createEngine({
     read: () => saved,
     write: (data) => {
       saved = data;
       storedSecret = data.poly?.secret ?? null;
+      storedKey = data.signer?.privateKey ?? null;
     },
     feeds: false,
   });
@@ -163,6 +165,6 @@ test("polymarket keys stay on the worker and are not copied onto the snapshot", 
   const after = engine.getSnapshot();
   assert.equal(after.trade.keySaved, true);
   assert.equal(JSON.stringify(after).includes(key.slice(2)), false);
-  assert.equal(saved?.signer?.privateKey, key);
+  assert.equal(storedKey, key);
   engine.stop();
 });

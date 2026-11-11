@@ -15,7 +15,8 @@ export type WickCommand =
   | { kind: "trade-cap"; cap: number }
   | { kind: "trade-disconnect" }
   | { kind: "trade-key"; privateKey: string; signatureType: 0 | 1 | 2 }
-  | { kind: "trade-key-clear" };
+  | { kind: "trade-key-clear" }
+  | { kind: "trade-check" };
 
 export type WorkerHealth = {
   status: "starting" | "leading" | "standby" | "offline" | "stopped";
@@ -124,6 +125,7 @@ export function parseCommand(raw: unknown): WickCommand | null {
     return { kind: "trade-key", privateKey, signatureType };
   }
   if (row.kind === "trade-key-clear") return { kind: "trade-key-clear" };
+  if (row.kind === "trade-check") return { kind: "trade-check" };
   return null;
 }
 

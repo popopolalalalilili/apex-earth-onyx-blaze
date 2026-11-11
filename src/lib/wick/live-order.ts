@@ -1,5 +1,5 @@
 import { privateKeyToAccount } from "viem/accounts";
-import { ClobClient, OrderType, Side, SignatureType } from "@polymarket/clob-client";
+import { AssetType, ClobClient, OrderType, Side, SignatureType } from "@polymarket/clob-client";
 import type { LiveJob } from "./engine";
 
 const SIG = {
@@ -13,19 +13,7 @@ const SIG = {
  * A failure string never includes the key.
  */
 export async function postFiveBuy(job: LiveJob): Promise<string> {
-  const account = privateKeyToAccount(job.privateKey as `0x${string}`);
-  const signer = {
-    account,
-    signTypedData: (args: Parameters<typeof account.signTypedData>[0]) => account.signTypedData(args),
-  };
-  const client = new ClobClient(
-    "https://clob.polymarket.com",
-    137,
-    signer as never,
-    { key: job.apiKey, secret: job.secret, passphrase: job.passphrase },
-    SIG[job.signatureType],
-    job.funder,
-  );
+  const client = clientFor(job);
   const tickSize = await client.getTickSize(job.tokenId);
   const negRisk = await client.getNegRisk(job.tokenId);
   const resp = (await client.createAndPostMarketOrder(
@@ -42,4 +30,69 @@ export async function postFiveBuy(job: LiveJob): Promise<string> {
   if (resp?.success === false) throw new Error(resp.errorMsg || "Order rejected");
   const id = resp?.orderID ? `${resp.orderID.slice(0, 8)}…` : "sent";
   return `${resp?.status || "ok"} ${id}`;
+}
+
+/** Asks Polymarket if the saved key is accepted. Does not place an order. */
+export async function checkAccount(job: LiveJob): Promise<string> {
+  if (job.privateKey) {
+    const client = clientFor(job);
+    const keys = (await client.getApiKeys()) as { error?: string; apiKeys?: unknown[] };
+    if (keys?.error) throw new Error(clean(String(keys.error), job));
+    let cash = "";
+    try {
+      const bal = (await client.getBalanceAllowance({ asset_type: AssetType.COLLATERAL })) as {
+        balance?: string;
+        error?: string;
+      };
+      const n = Number(bal?.balance);
+      if (Number.isFinite(n)) cash = ` Buying power $${(n / 1_000_000).toFixed(2)}.`;
+    } catch {
+      /* the key already matched */
+    }
+    return `API works.${cash} No order was sent.`;
+  }
+  const path = "/auth/api-keys";
+  const ts = Math.floor(Date.now() / 1000);
+  const signature = await hmac(job.secret, ts, "GET", path);
+  const res = await fetch(`https://clob.polymarket.com${path}`, {
+    headers: {
+      POLY_ADDRESS: job.funder,
+      POLY_SIGNATURE: signature,
+      POLY_TIMESTAMP: String(ts),
+      POLY_API_KEY: job.apiKey,
+      POLY_PASSPHRASE: job.passphrase,
+    },
+  });
+  if (res.status === 401) {
+    throw new Error("Polymarket rejected this API key for that address. Save the private key and test again.");
+  }
+  if (!res.ok) throw new Error(`Polymarket said ${res.status}.`);
+  return "API key works for this address. No order was sent.";
+}
+
+function clientFor(job: LiveJob): ClobClient {
+  const account = privateKeyToAccount(job.privateKey as `0x${string}`);
+  const signer = {
+    account,
+    signTypedData: (args: Parameters<typeof account.signTypedData>[0]) => account.signTypedData(args),
+  };
+  return new ClobClient(
+    "https://clob.polymarket.com",
+    137,
+    signer as never,
+    { key: job.apiKey, secret: job.secret, passphrase: job.passphrase },
+    SIG[job.signatureType],
+    job.funder || undefined,
+  );
+}
+
+function clean(msg: string, job: LiveJob): string {
+  return msg.split(job.secret).join("…").split(job.passphrase).join("…").split(job.apiKey).join("…").slice(0, 180);
+}
+
+async function hmac(secret: string, timestamp: number, method: string, requestPath: string): Promise<string> {
+  const pad = secret.replace(/-/g, "+").replace(/_/g, "/");
+  const key = Buffer.from(pad, "base64");
+  const { createHmac } = await import("node:crypto");
+  return createHmac("sha256", key).update(`${timestamp}${method}${requestPath}`).digest("base64").replace(/\+/g, "-").replace(/\//g, "_");
 }

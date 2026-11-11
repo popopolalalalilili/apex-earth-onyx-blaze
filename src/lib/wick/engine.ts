@@ -545,6 +545,8 @@ export type Engine = {
   /** Real 5-minute order, or null when the desk is paused, missing a key, or already sent. */
   liveJob: () => LiveJob | null;
   markLive: (windowStart: number, note: string, filled: boolean) => void;
+  /** Read-only Polymarket check. Null when nothing was asked, or the desk is missing a key. */
+  takeCheck: () => LiveJob | null;
 };
 
 const NO_HOST: EngineHost = {
@@ -571,6 +573,7 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
   let liveFilledWin = 0;
   let liveLockWin = 0;
   let liveTriedAt = 0;
+  let wantCheck = false;
   let tape: TapeMark[] = [];
   let paper: PaperTrade[] = [];
   let calib: CalibRow[] = [];
@@ -2319,6 +2322,9 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
         tradePaused = true;
         tradeNote = "Key removed.";
         save();
+      } else if (cmd.kind === "trade-check") {
+        wantCheck = true;
+        tradeNote = "Checking the API. No order is sent.";
       }
     }
     if (batch.length) emit();
@@ -2762,6 +2768,32 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
       else if (liveLockWin === windowStart) liveLockWin = 0;
       save();
       emit();
+    },
+    takeCheck() {
+      if (!wantCheck) return null;
+      wantCheck = false;
+      if (!poly) {
+        tradeNote = "API key is not saved. Open Settings and save it first.";
+        emit();
+        return null;
+      }
+      if (!signerKey && !tradeAddress) {
+        tradeNote = "Paste the wallet address, or save the private key, then test again.";
+        emit();
+        return null;
+      }
+      return {
+        windowStart: 0,
+        tokenId: "",
+        ask: 0,
+        dollars: 0,
+        privateKey: signerKey ?? "",
+        apiKey: poly.apiKey,
+        secret: poly.secret,
+        passphrase: poly.passphrase,
+        funder: tradeAddress ?? "",
+        signatureType: tradeSig,
+      };
     },
   };
   return api;
