@@ -547,6 +547,9 @@ export type Engine = {
   markLive: (windowStart: number, note: string, filled: boolean) => void;
   /** Read-only Polymarket check. Null when nothing was asked, or the desk is missing a key. */
   takeCheck: () => LiveJob | null;
+  /** Private key waiting to be exchanged for a trading key. Never put this on the snapshot. */
+  takeDerive: () => string | null;
+  dropCheck: () => void;
 };
 
 const NO_HOST: EngineHost = {
@@ -574,6 +577,7 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
   let liveLockWin = 0;
   let liveTriedAt = 0;
   let wantCheck = false;
+  let wantDerive = false;
   let tape: TapeMark[] = [];
   let paper: PaperTrade[] = [];
   let calib: CalibRow[] = [];
@@ -2315,7 +2319,8 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
       } else if (cmd.kind === "trade-key") {
         signerKey = cmd.privateKey;
         tradeSig = cmd.signatureType;
-        tradeNote = "Key saved. Resume to send 5-minute orders.";
+        wantDerive = true;
+        tradeNote = "Checking the API. No order is sent.";
         save();
       } else if (cmd.kind === "trade-key-clear") {
         signerKey = null;
@@ -2325,6 +2330,9 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
       } else if (cmd.kind === "trade-sig") {
         tradeSig = cmd.signatureType;
         save();
+      } else if (cmd.kind === "trade-derive") {
+        wantDerive = true;
+        tradeNote = "Checking the API. No order is sent.";
       } else if (cmd.kind === "trade-check") {
         wantCheck = true;
         tradeNote = "Checking the API. No order is sent.";
@@ -2797,6 +2805,19 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
         funder: tradeAddress ?? "",
         signatureType: tradeSig,
       };
+    },
+    takeDerive() {
+      if (!wantDerive) return null;
+      wantDerive = false;
+      if (!signerKey) {
+        tradeNote = "Paste the private key.";
+        emit();
+        return null;
+      }
+      return signerKey;
+    },
+    dropCheck() {
+      wantCheck = false;
     },
   };
   return api;

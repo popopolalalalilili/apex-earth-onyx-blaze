@@ -298,9 +298,6 @@ function TradeDesk({ snap }: { snap: Snap }) {
   const desk = snap.trade ?? { address: null, paused: true, cap: 25, keySaved: false, signatureType: 1 as const, note: "" };
   const [address, setAddress] = useState(desk.address ?? "");
   const [cap, setCap] = useState(String(desk.cap));
-  const [apiKey, setApiKey] = useState("");
-  const [secret, setSecret] = useState("");
-  const [passphrase, setPassphrase] = useState("");
   const [key, setKey] = useState("");
   const [sig, setSig] = useState<"0" | "1" | "2">(String(desk.signatureType ?? 1) as "0" | "1" | "2");
   const [points, setPoints] = useState<{ t: number; pnl: number }[]>([]);
@@ -356,16 +353,6 @@ function TradeDesk({ snap }: { snap: Snap }) {
       setHint("Paste the wallet address.");
       return;
     }
-    const apiFilled = apiKey.trim().length >= 8 && secret.trim().length >= 8 && passphrase.trim().length >= 8;
-    const apiPartial = apiKey.trim() !== "" || secret.trim() !== "" || passphrase.trim() !== "";
-    if (apiPartial && !apiFilled) {
-      setHint("Fill in the API key, secret and passphrase together.");
-      return;
-    }
-    if (!apiFilled && !snap.polySaved) {
-      setHint("Fill in the API key, secret and passphrase.");
-      return;
-    }
     const raw = key.trim();
     const hex = raw.startsWith("0x") || raw.startsWith("0X") ? raw.slice(2) : raw;
     const keyFilled = /^[a-fA-F0-9]{64}$/.test(hex);
@@ -388,14 +375,8 @@ function TradeDesk({ snap }: { snap: Snap }) {
       address: addr,
       cap: n,
       signatureType: Number(sig) as 0 | 1 | 2,
-      apiKey: apiFilled ? apiKey.trim() : undefined,
-      secret: apiFilled ? secret.trim() : undefined,
-      passphrase: apiFilled ? passphrase.trim() : undefined,
       privateKey: keyFilled ? `0x${hex}` : undefined,
     });
-    setApiKey("");
-    setSecret("");
-    setPassphrase("");
     setKey("");
   }
 
@@ -404,7 +385,7 @@ function TradeDesk({ snap }: { snap: Snap }) {
       <div className="sim-tools">
         <div>
           <h2 className="card-title">5 minute account</h2>
-          <p className="cal">One save. It stores the account and checks the key. Nothing is bought.</p>
+          <p className="cal">Wallet, private key and login. One save. Nothing is bought.</p>
         </div>
         <div className="trade-actions">
           <button type="button" className={press === "save" ? "modal-btn is-down" : "modal-btn"} onClick={saveAll} disabled={press === "save"}>
@@ -459,18 +440,6 @@ function TradeDesk({ snap }: { snap: Snap }) {
           <input value={cap} onChange={(e) => setCap(e.target.value)} inputMode="decimal" />
         </label>
         <label>
-          API key
-          <input type="password" value={apiKey} onChange={(e) => setApiKey(e.target.value)} placeholder={snap.polySaved ? "Saved" : ""} autoComplete="off" spellCheck={false} />
-        </label>
-        <label>
-          Secret
-          <input type="password" value={secret} onChange={(e) => setSecret(e.target.value)} placeholder={snap.polySaved ? "Saved" : ""} autoComplete="off" spellCheck={false} />
-        </label>
-        <label>
-          Passphrase
-          <input type="password" value={passphrase} onChange={(e) => setPassphrase(e.target.value)} placeholder={snap.polySaved ? "Saved" : ""} autoComplete="off" spellCheck={false} />
-        </label>
-        <label>
           Private key
           <input type="password" value={key} onChange={(e) => setKey(e.target.value)} placeholder={desk.keySaved ? "Saved" : "0x…"} autoComplete="off" spellCheck={false} />
         </label>
@@ -502,9 +471,9 @@ function TradeDesk({ snap }: { snap: Snap }) {
 function describeApi(raw: string, saved: boolean): { kind: "idle" | "wait" | "ok" | "bad"; label: string; hint: string } {
   if (raw.startsWith("Checking")) return { kind: "wait", label: "Checking", hint: "" };
   if (raw.startsWith("API works") || raw.startsWith("API key works")) return { kind: "ok", label: "API works", hint: "" };
-  if (!saved || raw.includes("not saved")) return { kind: "bad", label: "No API key", hint: "Fill in the fields and press Save." };
-  if (raw.includes("rejected") || raw.includes("Unauthorized") || raw.includes("Invalid") || raw.includes("failed") || raw.includes("Polymarket said")) {
-    return { kind: "bad", label: "API does not work", hint: "The key, secret or passphrase was not accepted." };
+  if (!saved || raw.includes("not saved")) return { kind: "bad", label: "No key", hint: "Paste the private key and press Save." };
+  if (raw.includes("rejected") || raw.includes("Unauthorized") || raw.includes("Invalid") || raw.includes("did not accept") || raw.includes("failed") || raw.includes("Polymarket said")) {
+    return { kind: "bad", label: "API does not work", hint: "Polymarket did not accept this private key." };
   }
   return { kind: "idle", label: "Not checked", hint: "" };
 }

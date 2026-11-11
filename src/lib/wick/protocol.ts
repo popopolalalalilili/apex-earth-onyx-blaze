@@ -17,6 +17,7 @@ export type WickCommand =
   | { kind: "trade-key"; privateKey: string; signatureType: 0 | 1 | 2 }
   | { kind: "trade-key-clear" }
   | { kind: "trade-sig"; signatureType: 0 | 1 | 2 }
+  | { kind: "trade-derive" }
   | { kind: "trade-check" };
 
 export type WorkerHealth = {
@@ -131,6 +132,7 @@ export function parseCommand(raw: unknown): WickCommand | null {
     if (signatureType == null) return null;
     return { kind: "trade-sig", signatureType };
   }
+  if (row.kind === "trade-derive") return { kind: "trade-derive" };
   if (row.kind === "trade-check") return { kind: "trade-check" };
   return null;
 }

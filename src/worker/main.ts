@@ -11,7 +11,7 @@ import { createServer } from "node:http";
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { createEngine, type Engine, type Persist } from "../lib/wick/engine.ts";
-import { checkAccount, postFiveBuy } from "../lib/wick/live-order.ts";
+import { checkAccount, deriveCreds, postFiveBuy } from "../lib/wick/live-order.ts";
 import { blankWorker, type LiveFile, type WorkerHealth } from "../lib/wick/protocol.ts";
 import { createStore, type Store } from "../lib/wick/store.ts";
 
@@ -163,6 +163,17 @@ async function lead(store: Store) {
     try {
       const cmds = await store.takeCommands();
       for (const cmd of cmds) engine.push(cmd);
+      const pending = engine.takeDerive();
+      if (pending) {
+        try {
+          const creds = await deriveCreds(pending);
+          engine.push({ kind: "poly", apiKey: creds.apiKey, secret: creds.secret, passphrase: creds.passphrase });
+        } catch (err) {
+          const msg = err instanceof Error ? err.message : "Could not derive the trading key";
+          engine.dropCheck();
+          engine.markLive(0, msg.slice(0, 180), false);
+        }
+      }
       const check = engine.takeCheck();
       if (check) {
         try {

@@ -70,6 +70,32 @@ export async function checkAccount(job: LiveJob): Promise<string> {
   return "API key works for this address. No order was sent.";
 }
 
+/** Recovers the trading key, secret and passphrase from the private key. No order is sent. */
+export async function deriveCreds(privateKey: string): Promise<{ apiKey: string; secret: string; passphrase: string }> {
+  const client = signerOnly(privateKey);
+  const derived = readCreds(await client.deriveApiKey());
+  if (derived) return derived;
+  const created = readCreds(await client.createApiKey());
+  if (created) return created;
+  throw new Error("Polymarket did not accept this private key.");
+}
+
+function signerOnly(privateKey: string): ClobClient {
+  const account = privateKeyToAccount(privateKey as `0x${string}`);
+  const signer = {
+    account,
+    signTypedData: (args: Parameters<typeof account.signTypedData>[0]) => account.signTypedData(args),
+  };
+  return new ClobClient("https://clob.polymarket.com", 137, signer as never);
+}
+
+function readCreds(raw: unknown): { apiKey: string; secret: string; passphrase: string } | null {
+  if (!raw || typeof raw !== "object") return null;
+  const row = raw as { key?: string; apiKey?: string; secret?: string; passphrase?: string; error?: string };
+  const apiKey = row.key || row.apiKey || "";
+  if (!apiKey || !row.secret || !row.passphrase) return null;
+  return { apiKey, secret: row.secret, passphrase: row.passphrase };
+}
 function clientFor(job: LiveJob): ClobClient {
   const account = privateKeyToAccount(job.privateKey as `0x${string}`);
   const signer = {
