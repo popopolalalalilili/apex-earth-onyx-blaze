@@ -1,0 +1,1073 @@
+{
+  "url": "https://x.ai/",
+  "libraries": [],
+  "keyframes": [
+    "marquee",
+    "pulse",
+    "spin",
+    "waveform",
+    "fadeIn",
+    "tooltip-in",
+    "tooltip-out",
+    "border-beam",
+    "context-menu-in",
+    "context-menu-out",
+    "hero-shimmer",
+    "border-shimmer",
+    "cli-dot-loader",
+    "fadeSlideUp",
+    "fadeSlideRight",
+    "barGrow",
+    "tilePopIn",
+    "swipe-out",
+    "sonner-fade-in",
+    "sonner-fade-out",
+    "sonner-spin",
+    "baby-grok-bot-typing-dot",
+    "baby-grok-bot-pending-in",
+    "baby-grok-bot-pending-label-in",
+    "baby-grok-bot-entry-enter",
+    "baby-grok-bot-receipt-check",
+    "baby-grok-bot-portal-agent-cursor",
+    "baby-grok-bot-row-enter",
+    "baby-grok-bot-spin",
+    "baby-grok-bot-mount-fade",
+    "onetrust-fade-in",
+    "ot-go-spin"
+  ],
+  "scripts": [
+    "https://www.googletagmanager.com/gtm.js?id=GTM-MSD4MG6C",
+    "https://x.ai/_next/static/chunks/2xi50x2mc5eqx.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/1qvj6a0vvhxc6.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/0v6rucvbmn2cy.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/2iyu03dbubggy.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/2m6ymsplz0vot.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/turbopack-3yv6cmuran_d1.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/2pqyc1z4fcqts.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/2l59alh7wh9b7.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/1ls88smn6q24p.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/0nukhv03fkzkc.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/3zgfuajs9p_pt.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/3v-_n8ey92z4u.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/07m3m7vzeyyur.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/1lh35i1xr0hod.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/292rp0_zfo2a0.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/2v57mf8hl40ax.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/3b38uiq9aej22.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/3xklb84l7fq7j.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/2an5jnj4tphrb.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/0zg3yme8cr433.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/3_yjjlk1-wbc-.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/0xpsi1lon4ro_.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/0dbwum5iax9d6.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/21rz-kjqxi-fo.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/30ekwp9bh8_41.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/3kbk9sithzs32.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/1naqqgbht-bv2.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/00x181t7rnzhf.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/0zc5p42i4wxtm.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/1jo1hu6k7w768.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/38x8_3ckew8bl.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/2ap3k_tfo5qty.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/1ots289xph_cg.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/1876rvh3ypc6w.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/1m6s0871ke60v.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/0cz1d0mv5g_q7.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/1_myja0ltjd21.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/0xjb1omx74w-f.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://cdn.cookielaw.org/scripttemplates/202607.1.0/otBannerSdk.js",
+    "https://x.ai/_next/static/chunks/1fhky732qf8y1.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/41ol-kakk7i2q.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/40shxpa2v0zbf.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/0-c0dl8idjco7.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/3vadk_k6l9izl.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/2vf-wd1sablbu.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/0dt0328p7nfkl.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/2d-h9tdcj1bl6.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/0u9_jqj1ocuhg.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/0ejsv4iqecy_g.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/12leuy1b4xi56.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/0u8juo9-qlv0k.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/3r4y_tdl8btht.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/0otv1t91wl95y.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/2yofi97iv0jt6.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://x.ai/_next/static/chunks/2ehoi8nqhq-et.js?dpl=1f0473552015f8ca18c7e5ee30ac55617d26e8dd",
+    "https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092",
+    "https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
+  ],
+  "animatedElementen": [
+    {
+      "el": "body.SzM1Sq_variable.Z7Vuyq_variable.bg-background.text-primary.font-sans.antialiased",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.2s"
+    },
+    {
+      "el": "header.group.fixed.inset-x-0.top-0.z-50.duration-200",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.flex.items-center.gap-1.px-3.py-1.5.text-[13px].font-medium.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.flex.items-center.gap-1.px-3.py-1.5.text-[13px].font-medium.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.flex.items-center.gap-1.px-3.py-1.5.text-[13px].font-medium.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.flex.items-center.gap-1.px-3.py-1.5.text-[13px].font-medium.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.flex.items-center.gap-1.px-3.py-1.5.text-[13px].font-medium.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.flex.items-center.gap-1.px-3.py-1.5.text-[13px].font-medium.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.relative.isolate.shrink-0.items-center.justify-center.border-0.text-sm.font-medium.transition-[color,background-color,border-color,filter].duration-150.focus:outline-none.focus-visible:ring-2.focus-visible:ring-primary/30.focus-visible:ring-offset-2.focus-visible:ring-offset-background.disabled:pointer-events-none.disabled:opacity-50.[&>[data-slot=icon]]:-mx-0.5.[&>[data-slot=icon]]:shrink-0.gap-x-3.px-[18px].py-2.5.sm:text-sm.[&>[data-slot=icon]]:size-5.[&>[data-slot=icon]]:sm:size-4.bg-[--btn-bg].text-[--btn-text].hover:bg-[--btn-hover].rounded-full.[--btn-bg:color-mix(in_srgb,hsl(var(--primary))_3%,hsl(var(--card)))].[--btn-hover:color-mix(in_srgb,hsl(var(--primary))_7%,hsl(var(--card)))].[--btn-text:theme(colors.primary)].hidden.nav:flex",
+      "animation": "none",
+      "transition": "color, background-color, border-color, filter",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-background.flex.items-center.rounded-l-full.py-2.pl-4.pr-3.text-sm.font-medium.transition-colors.hover:bg-white/10",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "button.text-background.flex.items-center.self-stretch.rounded-r-full.pl-2.pr-3.transition-colors.hover:bg-white/10",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "div.absolute.right-0.top-full.z-50.pt-2",
+      "animation": "none",
+      "transition": "opacity, transform",
+      "duur": "0.12s, 0.12s"
+    },
+    {
+      "el": "div.bg-primary/[0.04].pointer-events-none.absolute.rounded-md",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.group.flex.h-[36px].items-center.gap-1.5.rounded-md.px-2.text-sm.font-medium.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.group.flex.h-[36px].items-center.gap-1.5.rounded-md.px-2.text-sm.font-medium.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.group.flex.h-[36px].items-center.gap-1.5.rounded-md.px-2.text-sm.font-medium.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.group.flex.h-[36px].items-center.gap-1.5.rounded-md.px-2.text-sm.font-medium.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.group.flex.h-[36px].items-center.gap-1.5.rounded-md.px-2.text-sm.font-medium.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.group.flex.h-[36px].items-center.gap-1.5.rounded-md.px-2.text-sm.font-medium.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.group.flex.h-[36px].items-center.gap-1.5.rounded-md.px-2.text-sm.font-medium.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.group.flex.h-[36px].items-center.gap-1.5.rounded-md.px-2.text-sm.font-medium.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.group.flex.h-[36px].items-center.gap-1.5.rounded-md.px-2.text-sm.font-medium.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.group.flex.h-[36px].items-center.gap-1.5.rounded-md.px-2.text-sm.font-medium.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.relative.isolate.inline-flex.shrink-0.items-center.justify-center.border-0.text-sm.font-medium.focus:outline-none.focus-visible:ring-2.focus-visible:ring-primary/30.focus-visible:ring-offset-2.focus-visible:ring-offset-background.disabled:pointer-events-none.disabled:opacity-50.[&>[data-slot=icon]]:-mx-0.5.[&>[data-slot=icon]]:shrink-0.gap-x-3.px-[18px].py-2.5.sm:text-sm.[&>[data-slot=icon]]:size-5.[&>[data-slot=icon]]:sm:size-4.bg-[--btn-bg].text-[--btn-text].hover:brightness-90.rounded-full.[--btn-bg:theme(colors.primary)].[--btn-hover:theme(colors.nimbus)].[--btn-text:theme(colors.background)].nav:hidden.pointer-events-none.opacity-0.transition-opacity.duration-200",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.2s"
+    },
+    {
+      "el": "button.relative.isolate.inline-flex.shrink-0.items-center.justify-center.border-0.text-sm.font-medium.transition-[color,background-color,border-color,filter].duration-150.focus:outline-none.focus-visible:ring-2.focus-visible:ring-primary/30.focus-visible:ring-offset-2.focus-visible:ring-offset-background.disabled:pointer-events-none.disabled:opacity-50.[&>[data-slot=icon]]:-mx-0.5.[&>[data-slot=icon]]:shrink-0.aspect-square.gap-x-3.px-[18px].py-2.5.sm:text-sm.[&>[data-slot=icon]]:size-5.[&>[data-slot=icon]]:sm:size-4.bg-[--btn-bg].text-[--btn-text].hover:bg-[--btn-hover].rounded-full.[--btn-bg:color-mix(in_srgb,hsl(var(--primary))_3%,hsl(var(--card)))].[--btn-hover:color-mix(in_srgb,hsl(var(--primary))_7%,hsl(var(--card)))].[--btn-text:theme(colors.primary)].visible.nav:hidden",
+      "animation": "none",
+      "transition": "color, background-color, border-color, filter",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.group/trigger.mx-auto.inline-flex.items-center.gap-2.5.rounded-full.py-1.5.pe-1.5.ps-2.5.border-primary/[0.08].dark:bg-card/60.border.backdrop-blur-sm.hover:border-primary/15.dark:hover:bg-card.transition-colors.focus:outline-none.focus-visible:ring-primary/30.focus-visible:ring-offset-background.focus-visible:ring-2.focus-visible:ring-offset-2",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "span.text-primary.group-hover/trigger:text-primary/80.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "span.bg-primary/[0.04].text-primary.group-hover/trigger:bg-primary/[0.08].group-hover/trigger:text-primary.flex.size-6.shrink-0.items-center.justify-center.rounded-full.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "span.absolute.-bottom-1.left-0.right-0.z-0.h-[3px].rounded-full",
+      "animation": "hero-shimmer",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "a.relative.isolate.inline-flex.shrink-0.items-center.justify-center.border-0.text-sm.font-medium.transition-[color,background-color,border-color,filter].duration-150.focus:outline-none.focus-visible:ring-2.focus-visible:ring-primary/30.focus-visible:ring-offset-2.focus-visible:ring-offset-background.disabled:pointer-events-none.disabled:opacity-50.[&>[data-slot=icon]]:-mx-0.5.[&>[data-slot=icon]]:shrink-0.sm:text-md.[&>[data-slot=icon]]:sm:size-4.5.gap-x-3.px-5.py-3.[&>[data-slot=icon]]:size-5.bg-[--btn-bg].text-[--btn-text].hover:brightness-90.rounded-full.[--btn-bg:theme(colors.primary)].[--btn-hover:theme(colors.nimbus)].[--btn-text:theme(colors.background)].group.!gap-x-1.[&>[data-slot=icon]]:-mr-1",
+      "animation": "none",
+      "transition": "color, background-color, border-color, filter",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.relative.isolate.inline-flex.shrink-0.items-center.justify-center.border-0.text-sm.font-medium.transition-[color,background-color,border-color,filter].duration-150.focus:outline-none.focus-visible:ring-2.focus-visible:ring-primary/30.focus-visible:ring-offset-2.focus-visible:ring-offset-background.disabled:pointer-events-none.disabled:opacity-50.[&>[data-slot=icon]]:-mx-0.5.[&>[data-slot=icon]]:shrink-0.sm:text-md.[&>[data-slot=icon]]:sm:size-4.5.gap-x-3.px-5.py-3.[&>[data-slot=icon]]:size-5.bg-[--btn-bg].text-[--btn-text].hover:bg-[--btn-hover].rounded-full.[--btn-bg:color-mix(in_srgb,hsl(var(--primary))_3%,hsl(var(--card)))].[--btn-hover:color-mix(in_srgb,hsl(var(--primary))_7%,hsl(var(--card)))].[--btn-text:theme(colors.primary)]",
+      "animation": "none",
+      "transition": "color, background-color, border-color, filter",
+      "duur": "0.15s"
+    },
+    {
+      "el": "div.pointer-events-none.absolute.inset-0.transition-transform.duration-500.ease-out.group-hover/card:scale-[1.02]",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.5s"
+    },
+    {
+      "el": "span.text-sm.font-medium.transition-colors.duration-300.text-primary.group-hover/card:text-primary",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.3s"
+    },
+    {
+      "el": "span.text-sm.font-medium.transition-all.duration-300.text-primary.group-hover/card:text-primary/80",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div.pointer-events-none.absolute.inset-0.transition-transform.duration-500.ease-out.group-hover/card:scale-[1.02]",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.5s"
+    },
+    {
+      "el": "span.block",
+      "animation": "none",
+      "transition": "width",
+      "duur": "0.7s"
+    },
+    {
+      "el": "span",
+      "animation": "cli-dot-loader",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "span",
+      "animation": "cli-dot-loader",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "span",
+      "animation": "cli-dot-loader",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "span",
+      "animation": "cli-dot-loader",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "span",
+      "animation": "cli-dot-loader",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "span",
+      "animation": "cli-dot-loader",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "span.text-sm.font-medium.transition-colors.duration-300.text-white/80.group-hover/card:text-white",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.3s"
+    },
+    {
+      "el": "span.text-sm.font-medium.transition-all.duration-300.text-white/55.group-hover/card:text-white/90",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div.pointer-events-none.absolute.inset-0.transition-transform.duration-500.ease-out.group-hover/card:scale-[1.02]",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.5s"
+    },
+    {
+      "el": "div.baby-grok-bot.transition-opacity.duration-300.ease-out.motion-reduce:transition-none",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div.flex.h-full.flex-col.justify-end.transition-opacity.duration-300.ease-out",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div.baby-grok-bot-entry-enter",
+      "animation": "baby-grok-bot-entry-enter",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "div.baby-grok-bot-entry-enter.mt-3.first:mt-0",
+      "animation": "baby-grok-bot-entry-enter",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "span.text-sm.font-medium.transition-colors.duration-300.text-primary.group-hover/card:text-primary",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.3s"
+    },
+    {
+      "el": "span.text-sm.font-medium.transition-all.duration-300.text-primary.group-hover/card:text-primary/80",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div.absolute.inset-0.transition-transform.duration-500.ease-out.group-hover/card:scale-[1.02]",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.5s"
+    },
+    {
+      "el": "div.absolute.inset-0.transition-transform.duration-500.ease-out.group-hover/card:scale-[1.02]",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.5s"
+    },
+    {
+      "el": "div.absolute.inset-0.transition-transform.duration-500.ease-out.group-hover/card:scale-[1.02]",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.5s"
+    },
+    {
+      "el": "span.text-sm.font-medium.transition-colors.duration-300.text-white/80.group-hover/card:text-white",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.3s"
+    },
+    {
+      "el": "span.text-sm.font-medium.transition-all.duration-300.text-white/55.group-hover/card:text-white/90",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div.pointer-events-none.absolute.inset-0.transition-transform.duration-500.ease-out.group-hover/card:scale-[1.02]",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.5s"
+    },
+    {
+      "el": "span.text-sm.font-medium.transition-colors.duration-300.text-primary.group-hover/card:text-primary",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.3s"
+    },
+    {
+      "el": "span.text-sm.font-medium.transition-all.duration-300.text-primary.group-hover/card:text-primary/80",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.relative.isolate.inline-flex.shrink-0.items-center.justify-center.border-0.text-sm.font-medium.transition-[color,background-color,border-color,filter].duration-150.focus:outline-none.focus-visible:ring-2.focus-visible:ring-primary/30.focus-visible:ring-offset-2.focus-visible:ring-offset-background.disabled:pointer-events-none.disabled:opacity-50.[&>[data-slot=icon]]:-mx-0.5.[&>[data-slot=icon]]:shrink-0.gap-x-3.px-[18px].py-2.5.sm:text-sm.[&>[data-slot=icon]]:size-5.[&>[data-slot=icon]]:sm:size-4.bg-[--btn-bg].text-[--btn-text].hover:brightness-90.rounded-full.[--btn-bg:theme(colors.primary)].[--btn-hover:theme(colors.nimbus)].[--btn-text:theme(colors.background)]",
+      "animation": "none",
+      "transition": "color, background-color, border-color, filter",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.relative.isolate.inline-flex.shrink-0.items-center.justify-center.border-0.text-sm.font-medium.transition-[color,background-color,border-color,filter].duration-150.focus:outline-none.focus-visible:ring-2.focus-visible:ring-primary/30.focus-visible:ring-offset-2.focus-visible:ring-offset-background.disabled:pointer-events-none.disabled:opacity-50.[&>[data-slot=icon]]:-mx-0.5.[&>[data-slot=icon]]:shrink-0.gap-x-3.px-[18px].py-2.5.sm:text-sm.[&>[data-slot=icon]]:size-5.[&>[data-slot=icon]]:sm:size-4.bg-[--btn-bg].text-[--btn-text].hover:bg-[--btn-hover].rounded-full.[--btn-bg:color-mix(in_srgb,hsl(var(--primary))_3%,hsl(var(--card)))].[--btn-hover:color-mix(in_srgb,hsl(var(--primary))_7%,hsl(var(--card)))].[--btn-text:theme(colors.primary)]",
+      "animation": "none",
+      "transition": "color, background-color, border-color, filter",
+      "duur": "0.15s"
+    },
+    {
+      "el": "button.relative.ml-auto.flex.h-4.min-w-[4.75rem].text-xs.font-medium.transition-colors.duration-200.text-[var(--terminal-dim)].hover:text-[var(--terminal-fg)]",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.2s"
+    },
+    {
+      "el": "button.relative.z-[1].inline-flex.shrink-0.items-center.justify-center.rounded-full.px-3.py-1.5.text-sm.font-medium.transition-colors.text-primary",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "button.relative.z-[1].inline-flex.shrink-0.items-center.justify-center.rounded-full.px-3.py-1.5.text-sm.font-medium.transition-colors.text-secondary.hover:text-primary",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "button.relative.z-[1].inline-flex.shrink-0.items-center.justify-center.rounded-full.px-3.py-1.5.text-sm.font-medium.transition-colors.text-secondary.hover:text-primary",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "button.relative.z-[1].inline-flex.shrink-0.items-center.justify-center.rounded-full.px-3.py-1.5.text-sm.font-medium.transition-colors.text-secondary.hover:text-primary",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "span",
+      "animation": "",
+      "transition": "",
+      "duur": ""
+    },
+    {
+      "el": "span",
+      "animation": "",
+      "transition": "",
+      "duur": ""
+    },
+    {
+      "el": "a.hover:text-primary.inline-flex.items-center.gap-2.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "span",
+      "animation": "",
+      "transition": "",
+      "duur": ""
+    },
+    {
+      "el": "a.hover:text-primary.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.group.flex.items-center.gap-1.text-sm.font-medium.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "div.border-primary/[0.06].bg-card.relative.overflow-hidden.border.transition-colors.duration-300.group-hover/card:border-primary/20.rounded-lg",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.3s"
+    },
+    {
+      "el": "img.absolute.inset-0.h-full.w-full.transition-transform.duration-700.ease-[cubic-bezier(0.22,1,0.36,1)].will-change-transform.group-hover/card:scale-[1.03]",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.7s"
+    },
+    {
+      "el": "div.border-primary/[0.06].bg-card.relative.overflow-hidden.border.transition-colors.duration-300.group-hover/card:border-primary/20.rounded-lg",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.3s"
+    },
+    {
+      "el": "img.absolute.inset-0.h-full.w-full.transition-transform.duration-700.ease-[cubic-bezier(0.22,1,0.36,1)].will-change-transform.group-hover/card:scale-[1.03]",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.7s"
+    },
+    {
+      "el": "div.border-primary/[0.06].bg-card.relative.overflow-hidden.border.transition-colors.duration-300.group-hover/card:border-primary/20.rounded-lg",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.3s"
+    },
+    {
+      "el": "img.absolute.inset-0.h-full.w-full.transition-transform.duration-700.ease-[cubic-bezier(0.22,1,0.36,1)].will-change-transform.group-hover/card:scale-[1.03]",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.7s"
+    },
+    {
+      "el": "div.border-primary/[0.06].bg-card.relative.overflow-hidden.border.transition-colors.duration-300.group-hover/card:border-primary/20.rounded-lg",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.3s"
+    },
+    {
+      "el": "img.absolute.inset-0.h-full.w-full.transition-transform.duration-700.ease-[cubic-bezier(0.22,1,0.36,1)].will-change-transform.group-hover/card:scale-[1.03]",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.7s"
+    },
+    {
+      "el": "a.relative.isolate.inline-flex.shrink-0.items-center.border-0.text-sm.font-medium.transition-[color,background-color,border-color,filter].duration-150.focus:outline-none.focus-visible:ring-2.focus-visible:ring-primary/30.focus-visible:ring-offset-2.focus-visible:ring-offset-background.disabled:pointer-events-none.disabled:opacity-50.[&>[data-slot=icon]]:-mx-0.5.[&>[data-slot=icon]]:shrink-0.gap-x-3.px-[18px].py-2.5.sm:text-sm.[&>[data-slot=icon]]:size-5.[&>[data-slot=icon]]:sm:size-4.bg-[--btn-bg].text-[--btn-text].hover:brightness-90.rounded-full.[--btn-bg:theme(colors.primary)].[--btn-hover:theme(colors.nimbus)].[--btn-text:theme(colors.background)].w-full.justify-center",
+      "animation": "none",
+      "transition": "color, background-color, border-color, filter",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.relative.isolate.inline-flex.shrink-0.items-center.border-0.text-sm.font-medium.transition-[color,background-color,border-color,filter].duration-150.focus:outline-none.focus-visible:ring-2.focus-visible:ring-primary/30.focus-visible:ring-offset-2.focus-visible:ring-offset-background.disabled:pointer-events-none.disabled:opacity-50.[&>[data-slot=icon]]:-mx-0.5.[&>[data-slot=icon]]:shrink-0.gap-x-3.px-[18px].py-2.5.sm:text-sm.[&>[data-slot=icon]]:size-5.[&>[data-slot=icon]]:sm:size-4.bg-[--btn-bg].text-[--btn-text].hover:bg-[--btn-hover].rounded-full.[--btn-bg:color-mix(in_srgb,hsl(var(--primary))_3%,hsl(var(--card)))].[--btn-hover:color-mix(in_srgb,hsl(var(--primary))_7%,hsl(var(--card)))].[--btn-text:theme(colors.primary)].w-full.justify-center",
+      "animation": "none",
+      "transition": "color, background-color, border-color, filter",
+      "duur": "0.15s"
+    },
+    {
+      "el": "button.text-primary/30.hover:text-primary.flex.size-7.items-center.justify-center.rounded-full.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.border-primary/[0.06].hover:border-primary/[0.12].text-primary/25.hover:text-primary/60.inline-flex.items-center.gap-2.rounded-full.border.py-1.5.pl-2.5.pr-3.text-[10px].font-medium.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.mb-1.5.block.w-fit.text-[13px].font-medium.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "button.text-primary.hover:text-primary.text-left.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.text-primary.hover:text-primary.text-[13px].leading-relaxed.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "button.text-primary/30.hover:text-primary.flex.size-7.items-center.justify-center.rounded-full.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "a.border-primary/[0.06].hover:border-primary/[0.12].text-primary/25.hover:text-primary/60.inline-flex.items-center.gap-2.rounded-full.border.py-1.5.pl-2.5.pr-3.text-[10px].font-medium.transition-colors",
+      "animation": "none",
+      "transition": "color, background-color, border-color, text-decoration-color, fill, stroke",
+      "duur": "0.15s"
+    },
+    {
+      "el": "div#_R_5kpfalbH1_.min-w-[8rem].overflow-hidden.outline-none.ease-[cubic-bezier(0.16,1,0.3,1)].transition-[opacity,transform].duration-150.data-[open]:scale-100.data-[open]:opacity-100.data-[closed]:pointer-events-none.data-[closed]:scale-95.data-[closed]:opacity-0.data-[starting-style]:scale-95.data-[starting-style]:opacity-0.bg-background.border-primary/[0.06].text-primary.w-56.origin-[var(--transform-origin)].rounded-xl.border.p-2.shadow-[0_16px_48px_-8px].shadow-black/[0.22].backdrop-blur-none",
+      "animation": "none",
+      "transition": "opacity, transform",
+      "duur": "0.15s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.15s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.15s"
+    },
+    {
+      "el": "div.onetrust-pc-dark-filter.ot-hide.ot-fade-in",
+      "animation": "onetrust-fade-in",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "div#onetrust-pc-sdk.otPcCenter.ot-hide.ot-fade-in",
+      "animation": "onetrust-fade-in",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "div.ot-acc-grpcntr.ot-acc-txt",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.25s"
+    },
+    {
+      "el": "span.ot-switch-nob",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.ot-acc-grpcntr.ot-acc-txt",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.25s"
+    },
+    {
+      "el": "span.ot-switch-nob",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.ot-acc-grpcntr.ot-acc-txt",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.25s"
+    },
+    {
+      "el": "span.ot-switch-nob",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.ot-acc-grpcntr.ot-acc-txt",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.25s"
+    },
+    {
+      "el": "button#filter-btn-handler",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.1s"
+    },
+    {
+      "el": "section#ot-fltr-modal",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    }
+  ],
+  "dataAttributen": []
+}

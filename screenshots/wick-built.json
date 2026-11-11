@@ -1,0 +1,46 @@
+{
+  "url": "http://127.0.0.1:8081/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Predict up or down",
+      "hasCanvas": true,
+      "bodyTextLen": 745,
+      "bodyTextHash": "363d8790cf716875fefbb38a1f620e3bd6c9a6138dc726c3f5f72775f1f5191b",
+      "bodyTextPrefix": "wick connecting Finding the window Predict up . - - Up - - Down ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/wick-built.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Skip 4:47",
+      "hasCanvas": true,
+      "bodyTextLen": 751,
+      "bodyTextHash": "f1ab16f6a46f2abbabb3a19783cfbc9e936108eb74b31e01f7728fb37f044fc3",
+      "bodyTextPrefix": "wick chainlink -- Window 3:15 to 3:20 PM ET Predict up . - - Up ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/wick-built-mobile.png"
+    }
+  },
+  "brandWarnings": [
+    "BRAND WARNING: this looks like a game/canvas app but /workspace/public/og.jpg is missing. Games and visually rich apps must ship a custom 1200x630 share card built from the app's own art — the default og.grok.me placeholder card is not acceptable for them. You are not done: open /workspace/.grok/skills/og/SKILL.md and finish the brand-asset pass.",
+    "BRAND WARNING: this looks like a game/canvas app but src/lib/og/site.json is missing \"type\": \"x:game\". X uses og:type=x:game to present the unfurl as a game card — set it in /workspace/src/lib/og/site.json per /workspace/.grok/skills/og/SKILL.md. Do not invent x:type or overload twitter:card as the game signal."
+  ],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/wick-built.json",
+  "divergesFromBaseline": true,
+  "baselineReasons": [
+    "desktop: title changed (\"Skip 4:16\" -> \"Predict up or down\")",
+    "desktop: body text replaced (similar length, page start changed)",
+    "mobile: title changed (\"Skip 4:15\" -> \"Skip 4:47\")",
+    "mobile: body text replaced (similar length, page start changed)"
+  ]
+}

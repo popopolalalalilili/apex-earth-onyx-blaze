@@ -1,0 +1,3490 @@
+{
+  "url": "https://www.raycast.com/",
+  "libraries": [],
+  "keyframes": [
+    "IS8qgq_nightRider",
+    "pSp8Ga_slideIn",
+    "_1rhCwW_moreFadeIn",
+    "_1rhCwW_animateIn",
+    "xNzkeW_progress",
+    "_0Keh4G_blink",
+    "hk6uka_blink",
+    "hk6uka_fadeInScaleUp",
+    "pbCala_fadeInScaleUp",
+    "IlL0Oq_bounceDockAppIcon",
+    "IlL0Oq_glow",
+    "IlL0Oq_fadeSlideDownDesktop",
+    "IlL0Oq_fadeSlideDownMobile",
+    "JI4HIW_blink",
+    "_0KjAa_bgEnter",
+    "_0KjAa_fgEnter",
+    "_4yfQwq_enter",
+    "_4yfQwq_reveal",
+    "mAGNPW_overlayShow",
+    "mAGNPW_contentShow",
+    "_3Yq4tG_slideIn",
+    "xGV29W_overlayShow",
+    "xGV29W_contentShow",
+    "j3Kqfa_iconSuccess",
+    "_3QuK8a_progress",
+    "NFhuXW_fadeIn",
+    "KonClW_sizeOne",
+    "KonClW_sizeTwo",
+    "KonClW_sizeThree",
+    "ezSJPa_x",
+    "ezSJPa_rotating2",
+    "opOpAa_slideIn",
+    "FPj0oG_fadeInUp",
+    "_80EXsG_loadingSweep",
+    "_80EXsG_blink",
+    "rL_KEq_iconSuccess",
+    "O9JzEq_slideUpAndFade",
+    "O9JzEq_slideRightAndFade",
+    "O9JzEq_slideDownAndFade",
+    "O9JzEq_slideLeftAndFade",
+    "YkiDJG_fadeIn",
+    "oMomFq_shake",
+    "iMMMTW_contentShow",
+    "WsrxNG_blink",
+    "u2wRGq_enter",
+    "u2wRGq_background-enter",
+    "qDZGta_rotate-right",
+    "qDZGta_rotate-left",
+    "qDZGta_compensate-rotation-right",
+    "qDZGta_compensate-rotation-left",
+    "GvlVLa_blink",
+    "GvlVLa_spinThinking",
+    "GvlVLa_spinLoading",
+    "H3BVAa_fade-in-up",
+    "m8tKeW_shimmer",
+    "lSQKOG_reveal",
+    "paGIba_blink",
+    "OvGovq_blink",
+    "_38IWKG_screenBlinkStartup",
+    "vXIR5q_float"
+  ],
+  "scripts": [
+    "https://public.profitwell.com/js/profitwell.js?auth=284e3a36bf442fe2d3af547e4e1270b0",
+    "https://www.raycast.com/_next/static/immutable/chunks/37e8tott0lef2.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/1tb_ejsszs279.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/0rjm8otq_93wn.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/1-wkbpbfqzujs.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/3xe1sorcqlzdu.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/3w8uhz8uigsvx.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/turbopack-2_04ewhudzrza.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/2jbxsyqj3u141.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/29y-63n5757v-.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/1yoe4-recs5gq.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/0tg0vlpzjck6o.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/1to8f77vnne26.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/1hd3fbfxrjvra.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/2ixypbji-1yxs.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/2n3uzxmfke4t-.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/2p2msflg1sykk.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/2q38gze4h8urd.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/32xwp5et91guh.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/0w-zcro936gd1.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/3i2uxsiax7qf4.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/2_rs_aplsmaon.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/3_2i7c9jqxbve.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/1a8f--i22p9j6.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/3bwwtipkplhyj.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/0c0hxoamwjsbw.js",
+    "https://www.raycast.com/_r/array/phc_ufAVDrqtNrZvSEYSBqc69o8tgvwLoA2ulCHDe0NFvLg/config.js",
+    "https://www.raycast.com/_vercel/insights/script.js",
+    "https://www.raycast.com/08f6dc5eab646201/script.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/3zes08_xx_9jd.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/0o-9t_s7w6-t8.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/0g9me6ox1p3e7.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/3desqsnzf_qmr.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/34f3x5ws1plg_.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/341gx3o7fbkix.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/1nf3-pin6l544.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/1kz0ro13z5-6d.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/1zv2l95hbxr7h.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/0s2ao98ajk9m6.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/2ih9y5b36t7sh.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/3opgutjxrrc2s.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/3kiup8yc5rcs4.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/3v363d0z3sxbt.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/20_7thrx681d6.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/2lz2b-lyex9o5.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/32ukw8v6vinyt.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/1m3luzlhgmem4.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/2wpmt94kh8vub.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/3nw5ur-ctxndl.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/0htk3djlkiijj.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/3t8s_xxirgyzz.js",
+    "https://www.raycast.com/_next/static/immutable/chunks/0-qc35x__bjj-.js",
+    "https://r.wdfl.co/rw.js"
+  ],
+  "animatedElementen": [
+    {
+      "el": "body",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.pSp8Ga_navbar",
+      "animation": "none",
+      "transition": "height, transform",
+      "duur": "0.3s, 0.3s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.2s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.pSp8Ga_navToggle",
+      "animation": "none",
+      "transition": "transform, opacity",
+      "duur": "0.5s, 0.3s"
+    },
+    {
+      "el": "div.pSp8Ga_navToggleLine",
+      "animation": "none",
+      "transition": "transform, opacity",
+      "duur": "0.5s, 0.25s"
+    },
+    {
+      "el": "div.pSp8Ga_navToggleLine",
+      "animation": "none",
+      "transition": "transform, opacity",
+      "duur": "0.5s, 0.25s"
+    },
+    {
+      "el": "div.pSp8Ga_navToggleLine",
+      "animation": "none",
+      "transition": "transform, opacity",
+      "duur": "0.5s, 0.25s"
+    },
+    {
+      "el": "a.qZd0pW_navLink",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.qZd0pW_navLink",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.qZd0pW_navLink",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.qZd0pW_navLink",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.qZd0pW_navLink",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.qZd0pW_navLink",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.qZd0pW_navLink",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.qZd0pW_navLink",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.qZd0pW_navLink",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.qZd0pW_navLink",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a._3dJGfa_button._3dJGfa_light.pSp8Ga_downloadButton",
+      "animation": "none",
+      "transition": "background-image, background-color, box-shadow, transform",
+      "duur": "0.2s, 0.2s, 0.2s, 0.1s"
+    },
+    {
+      "el": "span.Y1tPWW_icon.Y1tPWW_hydrated",
+      "animation": "none",
+      "transition": "opacity, transform",
+      "duur": "0.3s, 0.3s"
+    },
+    {
+      "el": "span.Y1tPWW_label.Y1tPWW_hydrated",
+      "animation": "none",
+      "transition": "opacity, transform",
+      "duur": "0.3s, 0.3s"
+    },
+    {
+      "el": "a._3dJGfa_button._3dJGfa_light",
+      "animation": "none",
+      "transition": "background-image, background-color, box-shadow, transform",
+      "duur": "0.2s, 0.2s, 0.2s, 0.1s"
+    },
+    {
+      "el": "div.H3BVAa_heroText.H3BVAa_fadeInUp",
+      "animation": "H3BVAa_fade-in-up",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "p.H3BVAa_fadeInUpStagger",
+      "animation": "H3BVAa_fade-in-up",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "a._3dJGfa_button._3dJGfa_light",
+      "animation": "none",
+      "transition": "background-image, background-color, box-shadow, transform",
+      "duur": "0.2s, 0.2s, 0.2s, 0.1s"
+    },
+    {
+      "el": "span.Y1tPWW_icon.Y1tPWW_hydrated",
+      "animation": "none",
+      "transition": "opacity, transform",
+      "duur": "0.3s, 0.3s"
+    },
+    {
+      "el": "span.Y1tPWW_label.Y1tPWW_hydrated",
+      "animation": "none",
+      "transition": "opacity, transform",
+      "duur": "0.3s, 0.3s"
+    },
+    {
+      "el": "p.EQy08a_requirements.EQy08a_hydrated",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div.EQy08a_sub.EQy08a_hydrated",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.3s"
+    },
+    {
+      "el": "button.j3Kqfa_trigger",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.ezSJPa_announcementOuter",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "span.hk6uka_cursor.hk6uka_blink",
+      "animation": "hk6uka_blink",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.2s"
+    },
+    {
+      "el": "span.hk6uka_cursor.hk6uka_blink",
+      "animation": "hk6uka_blink",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "span._0Keh4G_cursor._0Keh4G_blink",
+      "animation": "_0Keh4G_blink",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "div.sGimBG_window",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div.sGimBG_window",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div.sGimBG_window",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "span.hk6uka_cursor.hk6uka_blink",
+      "animation": "hk6uka_blink",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "div.utU0aa_item.utU0aa_active",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.utU0aa_item",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.utU0aa_item",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.utU0aa_item",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.utU0aa_item",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a._3dJGfa_button._3dJGfa_light.o1EREW_downloadButton",
+      "animation": "none",
+      "transition": "background-image, background-color, box-shadow, transform",
+      "duur": "0.2s, 0.2s, 0.2s, 0.1s"
+    },
+    {
+      "el": "span.Y1tPWW_icon.Y1tPWW_hydrated",
+      "animation": "none",
+      "transition": "opacity, transform",
+      "duur": "0.3s, 0.3s"
+    },
+    {
+      "el": "span.Y1tPWW_label.Y1tPWW_hydrated",
+      "animation": "none",
+      "transition": "opacity, transform",
+      "duur": "0.3s, 0.3s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div._3Yq4tG_activeBackdrop",
+      "animation": "none",
+      "transition": "transform, width",
+      "duur": "0.3s, 0.3s"
+    },
+    {
+      "el": "a",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div._3Yq4tG_extensionCardWrapper",
+      "animation": "_3Yq4tG_slideIn",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "span.pFn2Lq_action",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div._3Yq4tG_extensionCardWrapper",
+      "animation": "_3Yq4tG_slideIn",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "span.pFn2Lq_action",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div._3Yq4tG_extensionCardWrapper",
+      "animation": "_3Yq4tG_slideIn",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "span.pFn2Lq_action",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div._3Yq4tG_extensionCardWrapper",
+      "animation": "_3Yq4tG_slideIn",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "span.pFn2Lq_action",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div._3Yq4tG_extensionCardWrapper",
+      "animation": "_3Yq4tG_slideIn",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "span.pFn2Lq_action",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div._3Yq4tG_extensionCardWrapper",
+      "animation": "_3Yq4tG_slideIn",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "span.pFn2Lq_action",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div._3Yq4tG_extensionCardWrapper",
+      "animation": "_3Yq4tG_slideIn",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "span.pFn2Lq_action",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div._3Yq4tG_extensionCardWrapper",
+      "animation": "_3Yq4tG_slideIn",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "span.pFn2Lq_action",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div._3Yq4tG_extensionCardWrapper",
+      "animation": "_3Yq4tG_slideIn",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "span.pFn2Lq_action",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div._3Yq4tG_extensionCardWrapper",
+      "animation": "_3Yq4tG_slideIn",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "span.pFn2Lq_action",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div._3Yq4tG_extensionCardWrapper",
+      "animation": "_3Yq4tG_slideIn",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "span.pFn2Lq_action",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div._3Yq4tG_extensionCardWrapper",
+      "animation": "_3Yq4tG_slideIn",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "span.pFn2Lq_action",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div._3Yq4tG_extensionCardWrapper",
+      "animation": "_3Yq4tG_slideIn",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "span.pFn2Lq_action",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div._3Yq4tG_extensionCardWrapper",
+      "animation": "_3Yq4tG_slideIn",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "span.pFn2Lq_action",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div._3Yq4tG_extensionCardWrapper",
+      "animation": "_3Yq4tG_slideIn",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "span.pFn2Lq_action",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div._3Yq4tG_extensionCardWrapper",
+      "animation": "_3Yq4tG_slideIn",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "span.pFn2Lq_action",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div._3Yq4tG_extensionCardWrapper",
+      "animation": "_3Yq4tG_slideIn",
+      "transition": "all",
+      "duur": "0s"
+    },
+    {
+      "el": "span.pFn2Lq_action",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a._3Yq4tG_browseMore",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.3s"
+    },
+    {
+      "el": "img",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.3s"
+    },
+    {
+      "el": "button._3Yq4tG_previous",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "button._3Yq4tG_next",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "rotate",
+      "duur": "0.18s"
+    },
+    {
+      "el": "span.m8tKeW_label",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "span.m8tKeW_label",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "span.m8tKeW_label",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.qz07da_link.qz07da_right",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div.NFhuXW_embla__slide.NFhuXW_card.NFhuXW_active.is-in-view",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.NFhuXW_embla__slide.NFhuXW_card.is-in-view",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.NFhuXW_embla__slide.NFhuXW_card",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.NFhuXW_embla__slide.NFhuXW_card",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.NFhuXW_embla__slide.NFhuXW_card",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.NFhuXW_embla__slide.NFhuXW_card",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.NFhuXW_embla__slide.NFhuXW_card",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.NFhuXW_embla__slide.NFhuXW_card",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.NFhuXW_embla__slide.NFhuXW_card",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.NFhuXW_embla__slide.NFhuXW_card",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.NFhuXW_embla__slide.NFhuXW_card",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.NFhuXW_embla__slide.NFhuXW_card",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.NFhuXW_embla__slide.NFhuXW_card",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.NFhuXW_embla__slide.NFhuXW_card",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.NFhuXW_embla__slide.NFhuXW_card",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.NFhuXW_embla__slide.NFhuXW_card",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.NFhuXW_embla__slide.NFhuXW_card",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.NFhuXW_embla__slide.NFhuXW_card",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.NFhuXW_embla__slide.NFhuXW_card",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.NFhuXW_embla__slide.NFhuXW_card",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.NFhuXW_embla__slide.NFhuXW_card",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.NFhuXW_embla__slide.NFhuXW_card",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.NFhuXW_embla__slide.NFhuXW_card",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div.NFhuXW_embla__slide.NFhuXW_card.is-in-view",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "opacity, transform",
+      "duur": "0.3s, 0.5s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "opacity, transform",
+      "duur": "0.3s, 0.5s"
+    },
+    {
+      "el": "button._3dJGfa_button._3dJGfa_light.OvGovq_sendButton",
+      "animation": "none",
+      "transition": "background-image, background-color, box-shadow, transform",
+      "duur": "0.2s, 0.2s, 0.2s, 0.1s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "span._3QuK8a_text._3QuK8a_active",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "span._3QuK8a_text",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "span._3QuK8a_text",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "span._3QuK8a_text",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "span._3QuK8a_text",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "span._3QuK8a_text",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "span._3QuK8a_text",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "span._3QuK8a_text",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "span._3QuK8a_text",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "span._3QuK8a_text",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "span._3QuK8a_text",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "span._3QuK8a_text",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a._3QuK8a_text",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div._3QuK8a_desktopWrapper",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "div._3QuK8a_desktop",
+      "animation": "none",
+      "transition": "box-shadow",
+      "duur": "0.2s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.3s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.Jy8ojW_placeholder",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "img",
+      "animation": "none",
+      "transition": "filter",
+      "duur": "0.3s"
+    },
+    {
+      "el": "p.Jy8ojW_title",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.Jy8ojW_placeholder",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "img",
+      "animation": "none",
+      "transition": "filter",
+      "duur": "0.3s"
+    },
+    {
+      "el": "p.Jy8ojW_title",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.Jy8ojW_placeholder",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "img",
+      "animation": "none",
+      "transition": "filter",
+      "duur": "0.3s"
+    },
+    {
+      "el": "p.Jy8ojW_title",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.Jy8ojW_placeholder",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "img",
+      "animation": "none",
+      "transition": "filter",
+      "duur": "0.3s"
+    },
+    {
+      "el": "p.Jy8ojW_title",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.Jy8ojW_placeholder",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "img",
+      "animation": "none",
+      "transition": "filter",
+      "duur": "0.3s"
+    },
+    {
+      "el": "p.Jy8ojW_title",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.Jy8ojW_placeholder",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "img",
+      "animation": "none",
+      "transition": "filter",
+      "duur": "0.3s"
+    },
+    {
+      "el": "p.Jy8ojW_title",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.Jy8ojW_placeholder",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "img",
+      "animation": "none",
+      "transition": "filter",
+      "duur": "0.3s"
+    },
+    {
+      "el": "p.Jy8ojW_title",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.Jy8ojW_placeholder",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "img",
+      "animation": "none",
+      "transition": "filter",
+      "duur": "0.3s"
+    },
+    {
+      "el": "p.Jy8ojW_title",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.Jy8ojW_placeholder",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "img",
+      "animation": "none",
+      "transition": "filter",
+      "duur": "0.3s"
+    },
+    {
+      "el": "p.Jy8ojW_title",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.Jy8ojW_placeholder",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "img",
+      "animation": "none",
+      "transition": "filter",
+      "duur": "0.3s"
+    },
+    {
+      "el": "p.Jy8ojW_title",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.Jy8ojW_placeholder",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "img",
+      "animation": "none",
+      "transition": "filter",
+      "duur": "0.3s"
+    },
+    {
+      "el": "p.Jy8ojW_title",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.Jy8ojW_placeholder",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "img",
+      "animation": "none",
+      "transition": "filter",
+      "duur": "0.3s"
+    },
+    {
+      "el": "p.Jy8ojW_title",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.Jy8ojW_placeholder",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "img",
+      "animation": "none",
+      "transition": "filter",
+      "duur": "0.3s"
+    },
+    {
+      "el": "p.Jy8ojW_title",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.Jy8ojW_placeholder",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "img",
+      "animation": "none",
+      "transition": "filter",
+      "duur": "0.3s"
+    },
+    {
+      "el": "p.Jy8ojW_title",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.Jy8ojW_placeholder",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "img",
+      "animation": "none",
+      "transition": "filter",
+      "duur": "0.3s"
+    },
+    {
+      "el": "p.Jy8ojW_title",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.Jy8ojW_placeholder",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "img",
+      "animation": "none",
+      "transition": "filter",
+      "duur": "0.3s"
+    },
+    {
+      "el": "p.Jy8ojW_title",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.Jy8ojW_placeholder",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "img",
+      "animation": "none",
+      "transition": "filter",
+      "duur": "0.3s"
+    },
+    {
+      "el": "p.Jy8ojW_title",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.Jy8ojW_placeholder",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "img",
+      "animation": "none",
+      "transition": "filter",
+      "duur": "0.3s"
+    },
+    {
+      "el": "p.Jy8ojW_title",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.qz07da_link.qz07da_right",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.DBt7hq_col.DBt7hq_colLink",
+      "animation": "none",
+      "transition": "background-color",
+      "duur": "0.15s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "g",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "1.5s"
+    },
+    {
+      "el": "g",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "1s"
+    },
+    {
+      "el": "g",
+      "animation": "none",
+      "transition": "all",
+      "duur": "2s"
+    },
+    {
+      "el": "g",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "1.5s"
+    },
+    {
+      "el": "g",
+      "animation": "none",
+      "transition": "all",
+      "duur": "2s"
+    },
+    {
+      "el": "g",
+      "animation": "none",
+      "transition": "all",
+      "duur": "2s"
+    },
+    {
+      "el": "g",
+      "animation": "none",
+      "transition": "all",
+      "duur": "2s"
+    },
+    {
+      "el": "a.DBt7hq_col.DBt7hq_colLink",
+      "animation": "none",
+      "transition": "background-color",
+      "duur": "0.15s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "g",
+      "animation": "none",
+      "transition": "transform, opacity",
+      "duur": "0.5s, 0.5s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "g",
+      "animation": "none",
+      "transition": "transform, opacity",
+      "duur": "0.5s, 0.5s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.DBt7hq_col.DBt7hq_colLink",
+      "animation": "none",
+      "transition": "background-color",
+      "duur": "0.15s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "g",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "1.2s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.DBt7hq_col.DBt7hq_colLink",
+      "animation": "none",
+      "transition": "background-color",
+      "duur": "0.15s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.2s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "1.5s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "all",
+      "duur": "1.5s"
+    },
+    {
+      "el": "g",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "1.5s"
+    },
+    {
+      "el": "g",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "1.5s"
+    },
+    {
+      "el": "a.DBt7hq_col.DBt7hq_colLink",
+      "animation": "none",
+      "transition": "background-color",
+      "duur": "0.15s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.DBt7hq_col.DBt7hq_colLink",
+      "animation": "none",
+      "transition": "background-color",
+      "duur": "0.15s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "all",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "div.h8MSgW_key",
+      "animation": "none",
+      "transition": "opacity, box-shadow, transform, color, --key-bg-start-color, --key-bg-end-color",
+      "duur": "0.4s, 0.2s, 0.2s, 0.2s, 0.4s, 0.4s"
+    },
+    {
+      "el": "path",
+      "animation": "none",
+      "transition": "fill",
+      "duur": "0.4s"
+    },
+    {
+      "el": "a._3dJGfa_button._3dJGfa_light",
+      "animation": "none",
+      "transition": "background-image, background-color, box-shadow, transform",
+      "duur": "0.2s, 0.2s, 0.2s, 0.1s"
+    },
+    {
+      "el": "span.Y1tPWW_icon.Y1tPWW_hydrated",
+      "animation": "none",
+      "transition": "opacity, transform",
+      "duur": "0.3s, 0.3s"
+    },
+    {
+      "el": "span.Y1tPWW_label.Y1tPWW_hydrated",
+      "animation": "none",
+      "transition": "opacity, transform",
+      "duur": "0.3s, 0.3s"
+    },
+    {
+      "el": "p.EQy08a_requirements.EQy08a_hydrated",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.3s"
+    },
+    {
+      "el": "div.EQy08a_sub.EQy08a_hydrated",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.3s"
+    },
+    {
+      "el": "button.j3Kqfa_trigger",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.2s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "svg",
+      "animation": "none",
+      "transition": "transform",
+      "duur": "0.3s"
+    },
+    {
+      "el": "a.nhiC3q_footerLink",
+      "animation": "none",
+      "transition": "color",
+      "duur": "0.3s"
+    },
+    {
+      "el": "input.oMomFq_input",
+      "animation": "none",
+      "transition": "color, border",
+      "duur": "0.3s, 0.3s"
+    },
+    {
+      "el": "input.Fa7Cva_submit",
+      "animation": "none",
+      "transition": "color, background-color, transform",
+      "duur": "0.3s, 0.3s, 0.1s"
+    },
+    {
+      "el": "span.Fa7Cva_glow",
+      "animation": "none",
+      "transition": "opacity",
+      "duur": "0.3s"
+    }
+  ],
+  "dataAttributen": []
+}

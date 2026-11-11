@@ -1,0 +1,39 @@
+{
+  "url": "http://127.0.0.1:8080",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Skip 4:16",
+      "hasCanvas": true,
+      "bodyTextLen": 758,
+      "bodyTextHash": "489b400ba68ead962e081f0569bbf51ee871421f5121e7583b25ce1abaac1e29",
+      "bodyTextPrefix": "wick chainlink -- Window 3:10 to 3:15 PM ET Predict up . - - Up ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/wick-dev.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Skip 4:15",
+      "hasCanvas": true,
+      "bodyTextLen": 758,
+      "bodyTextHash": "64e328a72a47fc28fc7b36bb39176230e3682ab18ef672082258ef77a208ffe7",
+      "bodyTextPrefix": "wick chainlink -- Window 3:10 to 3:15 PM ET Predict up . - - Up ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/wick-dev-mobile.png"
+    }
+  },
+  "brandWarnings": [
+    "BRAND WARNING: this looks like a game/canvas app but /workspace/public/og.jpg is missing. Games and visually rich apps must ship a custom 1200x630 share card built from the app's own art — the default og.grok.me placeholder card is not acceptable for them. You are not done: open /workspace/.grok/skills/og/SKILL.md and finish the brand-asset pass.",
+    "BRAND WARNING: this looks like a game/canvas app but src/lib/og/site.json is missing \"type\": \"x:game\". X uses og:type=x:game to present the unfurl as a game card — set it in /workspace/src/lib/og/site.json per /workspace/.grok/skills/og/SKILL.md. Do not invent x:type or overload twitter:card as the game signal."
+  ],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/wick-dev.json"
+}
