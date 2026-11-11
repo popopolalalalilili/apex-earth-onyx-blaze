@@ -4,12 +4,6 @@ import { privateKeyToAccount } from "viem/accounts";
 import { AssetType, Chain, ClobClient, OrderType, Side, SignatureTypeV2 } from "@polymarket/clob-client-v2";
 import type { LiveJob } from "./engine";
 
-const SIG = {
-  0: SignatureTypeV2.EOA,
-  1: SignatureTypeV2.POLY_PROXY,
-  2: SignatureTypeV2.POLY_GNOSIS_SAFE,
-} as const;
-
 /**
  * Signs and posts one fill-or-kill buy. The key stays in this process.
  * A failure string never includes the key.
@@ -183,13 +177,14 @@ function readCreds(raw: unknown): { apiKey: string; secret: string; passphrase: 
   return { apiKey, secret: row.secret, passphrase: row.passphrase };
 }
 function clientFor(job: LiveJob): ClobClient {
+  if (!job.funder) throw new Error("Save the deposit wallet address from your Polymarket profile.");
   return new ClobClient({
     host: "https://clob.polymarket.com",
     chain: Chain.POLYGON,
     signer: walletFor(job.privateKey),
     creds: { key: job.apiKey, secret: job.secret, passphrase: job.passphrase },
-    signatureType: SIG[job.signatureType],
-    funderAddress: job.funder || undefined,
+    signatureType: SignatureTypeV2.POLY_1271,
+    funderAddress: job.funder,
   });
 }
 
