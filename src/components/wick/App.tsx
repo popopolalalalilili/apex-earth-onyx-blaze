@@ -493,9 +493,10 @@ function TradeDesk({ snap }: { snap: Snap }) {
 function describeApi(raw: string, saved: boolean): { kind: "idle" | "wait" | "ok" | "bad"; label: string; hint: string } {
   if (raw.startsWith("Checking")) return { kind: "wait", label: "Checking", hint: "" };
   if (raw.startsWith("API works") || raw.startsWith("API key works")) return { kind: "ok", label: "API works", hint: "" };
-  if (raw.includes("rejected")) return { kind: "bad", label: "API rejected", hint: "Save the private key, then test again." };
   if (!saved || raw.includes("not saved")) return { kind: "bad", label: "No API key", hint: "Add it in Settings." };
-  if (raw.includes("wallet") || raw.includes("Paste")) return { kind: "bad", label: "Need a wallet", hint: "Save the wallet address first." };
+  if (raw.includes("rejected") || raw.includes("Unauthorized") || raw.includes("Invalid") || raw.includes("failed") || raw.includes("Polymarket said")) {
+    return { kind: "bad", label: "API does not work", hint: "The key, secret or passphrase was not accepted." };
+  }
   return { kind: "idle", label: "Not checked", hint: "" };
 }
 
