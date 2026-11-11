@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { freshen, parseCommand } from "@/lib/wick/protocol";
+import { gateOpen } from "@/lib/wick/gate";
 
 /**
  * The site reads the worker's latest snapshot and leaves commands for it.
@@ -8,7 +9,8 @@ import { freshen, parseCommand } from "@/lib/wick/protocol";
 export const Route = createFileRoute("/api/wick")({
   server: {
     handlers: {
-      GET: async () => {
+      GET: async ({ request }) => {
+        if (!gateOpen(request)) return Response.json({ error: "locked" }, { status: 401, headers: { "cache-control": "no-store" } });
         try {
           const { getStore } = await import("@/lib/wick/store");
           const body = await getStore().readLive();
@@ -18,6 +20,7 @@ export const Route = createFileRoute("/api/wick")({
         }
       },
       POST: async ({ request }) => {
+        if (!gateOpen(request)) return Response.json({ ok: false }, { status: 401, headers: { "cache-control": "no-store" } });
         let raw: unknown = null;
         try {
           raw = await request.json();

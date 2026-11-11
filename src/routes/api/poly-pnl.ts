@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { gateOpen } from "@/lib/wick/gate";
 
 /**
  * Proxies Polymarket's public PnL series so the browser does not need CORS.
@@ -8,6 +9,9 @@ export const Route = createFileRoute("/api/poly-pnl")({
   server: {
     handlers: {
       GET: async ({ request }) => {
+        if (!gateOpen(request)) {
+          return Response.json({ points: [], error: "locked" }, { status: 401, headers: { "cache-control": "no-store" } });
+        }
         const url = new URL(request.url);
         const user = url.searchParams.get("user") ?? "";
         if (!/^0x[a-fA-F0-9]{40}$/.test(user)) {

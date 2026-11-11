@@ -1,4 +1,4 @@
-import { useEffect, useId, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useId, useLayoutEffect, useRef, useState, useSyncExternalStore, type FormEvent } from "react";
 import type { RelBin, Settings, Side, SimFill, SimPoint, Snap } from "@/lib/wick/engine";
 import type { BookId, BookView, Pos } from "@/lib/wick/desk";
 import { centsLabel, chanceLabel, clock, dollars, formatWindow, remainParts, signedCents, signedDollars } from "@/lib/wick/format";
@@ -23,13 +23,65 @@ function readRoute(): { tab: "live" | "sim" | "trade"; which: BookTab } {
   return { tab: "live", which: "five" };
 }
 
-function useWick(): Snap {
+function useWick(on: boolean): Snap {
   const snap = useSyncExternalStore(live.subscribe, live.getSnapshot, live.getServerSnapshot);
   useEffect(() => {
+    if (!on) return;
     live.start();
     return () => live.stop();
-  }, []);
+  }, [on]);
   return snap;
+}
+
+function SiteLock({ ready, onUnlock }: { ready: boolean; onUnlock: () => void }) {
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  async function submit(e: FormEvent) {
+    e.preventDefault();
+    if (!ready || busy) return;
+    setBusy(true);
+    setError("");
+    try {
+      const res = await fetch("/api/gate", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      if (!res.ok) {
+        setError("Wrong password.");
+        setBusy(false);
+        return;
+      }
+      onUnlock();
+    } catch {
+      setError("Could not reach the site.");
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="gate">
+      <form className="gate-card" onSubmit={(e) => void submit(e)}>
+        <div className="mark">wick</div>
+        <h1>Enter the password</h1>
+        <p>This page stays closed until the password is right.</p>
+        <input
+          type="password"
+          autoFocus
+          autoComplete="current-password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          disabled={!ready || busy}
+        />
+        <p className="gate-error">{error}</p>
+        <button type="submit" disabled={!ready || busy}>
+          {busy ? "Checking" : "Continue"}
+        </button>
+      </form>
+    </div>
+  );
 }
 
 function useWorker(): WorkerHealth {
@@ -37,12 +89,28 @@ function useWorker(): WorkerHealth {
 }
 
 export function WickApp() {
-  const snap = useWick();
+  const [gate, setGate] = useState<"wait" | "in" | "no">("wait");
+  const snap = useWick(gate === "in");
   const worker = useWorker();
   const reduced = useReducedMotion();
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [tab, setTab] = useState<"live" | "sim" | "trade">("live");
   const [which, setWhich] = useState<BookTab>("five");
+
+  useEffect(() => {
+    let stop = false;
+    fetch("/api/gate", { cache: "no-store" })
+      .then((res) => res.json())
+      .then((body: { ok?: boolean }) => {
+        if (!stop) setGate(body.ok ? "in" : "no");
+      })
+      .catch(() => {
+        if (!stop) setGate("no");
+      });
+    return () => {
+      stop = true;
+    };
+  }, []);
 
   useEffect(() => {
     const route = readRoute();
@@ -111,6 +179,8 @@ export function WickApp() {
   const waiting = snap.price == null && snap.phase !== "resolving";
   const fiveLeft = snap.windowStart ? remainParts(snap.now, snap.windowStart, 300).total : 0;
   const modelP = snap.call === "down" ? snap.model?.pDown : snap.model?.pUp;
+
+  if (gate !== "in") return <SiteLock ready={gate === "no"} onUnlock={() => setGate("in")} />;
 
   return (
     <div className="wick">
