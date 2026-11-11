@@ -189,6 +189,13 @@ export type Snap = {
   waiting15: WaitSnap | null;
   shadowLane: CallSnap;
   polySaved: boolean;
+  trade: TradeDesk;
+};
+
+export type TradeDesk = {
+  address: string | null;
+  paused: boolean;
+  cap: number;
 };
 
 export type LaneSnap = {
@@ -278,6 +285,7 @@ export type Persist = {
   scratches?: Scratch[];
   /** Worker-only. Never copy this onto the public snapshot. */
   poly?: { apiKey: string; secret: string; passphrase: string } | null;
+  trade?: { address?: string | null; paused?: boolean; cap?: number };
 };
 
 function emptyQuote(): Quote {
@@ -361,6 +369,7 @@ export function blankSnap(): Snap {
     waiting15: null,
     shadowLane: { verdict: "skip", call: null, reason: null, edge: null, gate: null },
     polySaved: false,
+    trade: { address: null, paused: true, cap: 25 },
   };
 }
 
@@ -532,6 +541,9 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
   let users = 0;
   let settings: Settings = { ...DEFAULTS };
   let poly: { apiKey: string; secret: string; passphrase: string } | null = null;
+  let tradeAddress: string | null = null;
+  let tradePaused = true;
+  let tradeCap = 25;
   let tape: TapeMark[] = [];
   let paper: PaperTrade[] = [];
   let calib: CalibRow[] = [];
@@ -720,6 +732,11 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
       if (savedBooks?.shadow) books.shadow = mergeBook("shadow", savedBooks.shadow);
       if (Array.isArray(data.scratches)) scratches = data.scratches.slice(-8);
       if ("poly" in data) poly = data.poly == null ? null : readPoly(data.poly) ?? poly;
+      if (data.trade) {
+        if ("address" in data.trade) tradeAddress = clipTradeAddress(data.trade.address);
+        if (typeof data.trade.paused === "boolean") tradePaused = data.trade.paused;
+        if (typeof data.trade.cap === "number" && data.trade.cap >= 1 && data.trade.cap <= 100000) tradeCap = data.trade.cap;
+      }
     } catch {
       /* ignore broken local storage */
     }
@@ -774,6 +791,7 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
         books: { five: books.five, fifteen: books.fifteen, combined: books.combined, shadow: books.shadow },
         scratches: scratches.slice(-8),
         poly,
+        trade: { address: tradeAddress, paused: tradePaused, cap: tradeCap },
       };
       try {
         host.write(data);
@@ -2246,6 +2264,19 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
       } else if (cmd.kind === "poly-clear") {
         poly = null;
         save();
+      } else if (cmd.kind === "trade-connect") {
+        tradeAddress = cmd.address;
+        save();
+      } else if (cmd.kind === "trade-pause") {
+        tradePaused = cmd.paused;
+        save();
+      } else if (cmd.kind === "trade-cap") {
+        tradeCap = cmd.cap;
+        save();
+      } else if (cmd.kind === "trade-disconnect") {
+        tradeAddress = null;
+        tradePaused = true;
+        save();
       }
     }
   }
@@ -2413,6 +2444,7 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
       waiting15: waitSnap(wait15, l15.win, l15.model),
       shadowLane,
       polySaved: poly != null,
+      trade: { address: tradeAddress, paused: tradePaused, cap: tradeCap },
     };
   }
 
@@ -2830,6 +2862,12 @@ function readPoly(raw: unknown): { apiKey: string; secret: string; passphrase: s
   if (apiKey.length < 8 || secret.length < 8 || passphrase.length < 8) return null;
   if (apiKey.length > 256 || secret.length > 256 || passphrase.length > 256) return null;
   return { apiKey, secret, passphrase };
+}
+
+function clipTradeAddress(v: unknown): string | null {
+  if (typeof v !== "string") return null;
+  const s = v.trim();
+  return /^0x[a-fA-F0-9]{40}$/.test(s) ? s : null;
 }
 
 function sanitize(s: Settings): Settings {

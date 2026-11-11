@@ -123,6 +123,19 @@ button, input, select { font-family: inherit; color: inherit; }
 }
 .subtabs { margin: 0; flex-wrap: wrap; }
 .sim-tools { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 16px; flex-wrap: wrap; }
+.trade-actions { display: flex; gap: 8px; }
+.trade-row { display: flex; gap: 10px; align-items: end; flex-wrap: wrap; margin: 0 0 16px; }
+.trade-row label { display: flex; flex-direction: column; gap: 6px; color: var(--mid); font-size: 12px; }
+.trade-row input {
+  height: 36px;
+  min-width: 180px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #111;
+  color: var(--text);
+  padding: 0 12px;
+  font-family: var(--mono);
+}
 .sim {
   width: min(860px, 100%);
   margin: 0 auto;

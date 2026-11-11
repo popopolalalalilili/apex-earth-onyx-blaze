@@ -9,7 +9,11 @@ export type WickCommand =
   | { kind: "reset"; book: BookName }
   | { kind: "import"; body: Record<string, unknown> }
   | { kind: "poly"; apiKey: string; secret: string; passphrase: string }
-  | { kind: "poly-clear" };
+  | { kind: "poly-clear" }
+  | { kind: "trade-connect"; address: string }
+  | { kind: "trade-pause"; paused: boolean }
+  | { kind: "trade-cap"; cap: number }
+  | { kind: "trade-disconnect" };
 
 export type WorkerHealth = {
   status: "starting" | "leading" | "standby" | "offline" | "stopped";
@@ -99,6 +103,18 @@ export function parseCommand(raw: unknown): WickCommand | null {
     return { kind: "poly", apiKey, secret, passphrase };
   }
   if (row.kind === "poly-clear") return { kind: "poly-clear" };
+  if (row.kind === "trade-connect") {
+    const address = clipAddress(row.address);
+    if (!address) return null;
+    return { kind: "trade-connect", address };
+  }
+  if (row.kind === "trade-pause") return { kind: "trade-pause", paused: row.paused === true };
+  if (row.kind === "trade-cap") {
+    const cap = Number(row.cap);
+    if (!Number.isFinite(cap) || cap < 1 || cap > 100000) return null;
+    return { kind: "trade-cap", cap: Math.round(cap * 100) / 100 };
+  }
+  if (row.kind === "trade-disconnect") return { kind: "trade-disconnect" };
   return null;
 }
 
@@ -108,6 +124,12 @@ function clipSecret(v: unknown): string | null {
   if (s.length < 8 || s.length > 256) return null;
   if (/[\u0000-\u001f]/.test(s)) return null;
   return s;
+}
+
+function clipAddress(v: unknown): string | null {
+  if (typeof v !== "string") return null;
+  const s = v.trim();
+  return /^0x[a-fA-F0-9]{40}$/.test(s) ? s : null;
 }
 
 /** A dead process must not look like it is still leading. */

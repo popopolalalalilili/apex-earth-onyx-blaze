@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiOpenRouteImport } from './routes/api/open'
+import { Route as ApiPolyPnlRouteImport } from './routes/api/poly-pnl'
 import { Route as ApiWickRouteImport } from './routes/api/wick'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +24,11 @@ const ApiOpenRoute = ApiOpenRouteImport.update({
   path: '/api/open',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPolyPnlRoute = ApiPolyPnlRouteImport.update({
+  id: '/api/poly-pnl',
+  path: '/api/poly-pnl',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiWickRoute = ApiWickRouteImport.update({
   id: '/api/wick',
   path: '/api/wick',
@@ -32,30 +38,34 @@ const ApiWickRoute = ApiWickRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/api/open': typeof ApiOpenRoute
+  '/api/poly-pnl': typeof ApiPolyPnlRoute
   '/api/wick': typeof ApiWickRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/api/open': typeof ApiOpenRoute
+  '/api/poly-pnl': typeof ApiPolyPnlRoute
   '/api/wick': typeof ApiWickRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/api/open': typeof ApiOpenRoute
+  '/api/poly-pnl': typeof ApiPolyPnlRoute
   '/api/wick': typeof ApiWickRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/open' | '/api/wick'
+  fullPaths: '/' | '/api/open' | '/api/poly-pnl' | '/api/wick'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/open' | '/api/wick'
-  id: '__root__' | '/' | '/api/open' | '/api/wick'
+  to: '/' | '/api/open' | '/api/poly-pnl' | '/api/wick'
+  id: '__root__' | '/' | '/api/open' | '/api/poly-pnl' | '/api/wick'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApiOpenRoute: typeof ApiOpenRoute
+  ApiPolyPnlRoute: typeof ApiPolyPnlRoute
   ApiWickRoute: typeof ApiWickRoute
 }
 
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiOpenRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/poly-pnl': {
+      id: '/api/poly-pnl'
+      path: '/api/poly-pnl'
+      fullPath: '/api/poly-pnl'
+      preLoaderRoute: typeof ApiPolyPnlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/wick': {
       id: '/api/wick'
       path: '/api/wick'
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApiOpenRoute: ApiOpenRoute,
+  ApiPolyPnlRoute: ApiPolyPnlRoute,
   ApiWickRoute: ApiWickRoute,
 }
 export const routeTree = rootRouteImport

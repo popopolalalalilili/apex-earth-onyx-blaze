@@ -136,6 +136,18 @@ export const live = {
   clearPoly() {
     void send({ kind: "poly-clear" });
   },
+  connectTrade(address: string) {
+    void send({ kind: "trade-connect", address });
+  },
+  disconnectTrade() {
+    void send({ kind: "trade-disconnect" });
+  },
+  pauseTrade(paused: boolean) {
+    void send({ kind: "trade-pause", paused });
+  },
+  setTradeCap(cap: number) {
+    void send({ kind: "trade-cap", cap });
+  },
   setTarget(price: number | null) {
     void send({ kind: "target", price });
   },

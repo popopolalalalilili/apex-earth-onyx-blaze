@@ -11,9 +11,10 @@ import { RotatingWord } from "./Word";
 
 type BookTab = "five" | "fifteen" | "combined" | "shadow" | "compare";
 
-function readRoute(): { tab: "live" | "sim"; which: BookTab } {
+function readRoute(): { tab: "live" | "sim" | "trade"; which: BookTab } {
   if (typeof window === "undefined") return { tab: "live", which: "five" };
   const h = window.location.hash.replace(/^#/, "");
+  if (h === "trade") return { tab: "trade", which: "five" };
   if (h === "sim") return { tab: "sim", which: "five" };
   if (h.startsWith("sim/")) {
     const w = h.slice(4);
@@ -40,7 +41,7 @@ export function WickApp() {
   const worker = useWorker();
   const reduced = useReducedMotion();
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [tab, setTab] = useState<"live" | "sim">("live");
+  const [tab, setTab] = useState<"live" | "sim" | "trade">("live");
   const [which, setWhich] = useState<BookTab>("five");
 
   useEffect(() => {
@@ -56,10 +57,10 @@ export function WickApp() {
     return () => window.removeEventListener("hashchange", onHash);
   }, []);
 
-  function go(nextTab: "live" | "sim", nextWhich: BookTab = which) {
+  function go(nextTab: "live" | "sim" | "trade", nextWhich: BookTab = which) {
     setTab(nextTab);
     setWhich(nextWhich);
-    const hash = nextTab === "live" ? "#live" : `#sim/${nextWhich}`;
+    const hash = nextTab === "live" ? "#live" : nextTab === "trade" ? "#trade" : `#sim/${nextWhich}`;
     if (window.location.hash !== hash) history.replaceState(null, "", hash);
   }
 
@@ -121,6 +122,9 @@ export function WickApp() {
           </button>
           <button type="button" className={tab === "sim" ? "on" : ""} onClick={() => go("sim", which)}>
             Simulation
+          </button>
+          <button type="button" className={tab === "trade" ? "on" : ""} onClick={() => go("trade")}>
+            Trade
           </button>
           <button type="button" data-build="settings-2" onClick={() => setSettingsOpen(true)}>
             Settings
@@ -223,6 +227,8 @@ export function WickApp() {
           </div>
           <ScratchCard snap={snap} />
         </div>
+      ) : tab === "trade" ? (
+        <TradeDesk snap={snap} />
       ) : (
         <SimPanel snap={snap} which={which} onWhich={(id) => go("sim", id)} />
       )}
@@ -284,6 +290,134 @@ function SimPanel({ snap, which, onWhich }: { snap: Snap; which: BookTab; onWhic
         </button>
       </div>
       {which === "compare" ? <Compare snap={snap} /> : <BookDash snap={snap} id={which} />}
+    </section>
+  );
+}
+
+function TradeDesk({ snap }: { snap: Snap }) {
+  const desk = snap.trade ?? { address: null, paused: true, cap: 25 };
+  const [address, setAddress] = useState(desk.address ?? "");
+  const [cap, setCap] = useState(String(desk.cap));
+  const [points, setPoints] = useState<{ t: number; pnl: number }[]>([]);
+  const [note, setNote] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    if (desk.address) setAddress(desk.address);
+  }, [desk.address]);
+
+  useEffect(() => {
+    if (!desk.address) {
+      setPoints([]);
+      return;
+    }
+    let stop = false;
+    async function pull() {
+      setBusy(true);
+      try {
+        const res = await fetch(`/api/poly-pnl?user=${desk.address}&interval=1w`);
+        const body = (await res.json()) as { points?: { t: number; pnl: number }[]; error?: string };
+        if (stop) return;
+        setPoints(Array.isArray(body.points) ? body.points : []);
+        setNote(body.error ? "Polymarket did not return a profit series." : "");
+      } catch {
+        if (!stop) setNote("Could not reach the profit API.");
+      } finally {
+        if (!stop) setBusy(false);
+      }
+    }
+    void pull();
+    const id = window.setInterval(pull, 60_000);
+    return () => {
+      stop = true;
+      window.clearInterval(id);
+    };
+  }, [desk.address]);
+
+  const last = points.length ? points[points.length - 1].pnl : null;
+  const tone = last == null ? "" : last > 0.005 ? "pos" : last < -0.005 ? "neg" : "";
+  const call = snap.phase === "resolving" ? "skip" : snap.verdict;
+
+  function connect() {
+    const next = address.trim();
+    if (!/^0x[a-fA-F0-9]{40}$/.test(next)) {
+      setNote("Paste the 0x wallet address from Polymarket.");
+      return;
+    }
+    if (!snap.polySaved) {
+      setNote("Save the API key in Settings first.");
+      return;
+    }
+    live.connectTrade(next);
+    setNote("Connected. The chart is your Polymarket account, not Wick.");
+  }
+
+  function saveCap() {
+    const n = Number(cap);
+    if (!Number.isFinite(n) || n < 1) {
+      setNote("The cap has to be at least $1.");
+      return;
+    }
+    live.setTradeCap(n);
+    setNote("Cap sent to the worker.");
+  }
+
+  return (
+    <section className="sim trade-desk">
+      <div className="sim-tools">
+        <div>
+          <h2 className="card-title">5 minute account</h2>
+          <p className="cal">Profit comes from Polymarket. Wick only supplies the 5-minute call.</p>
+        </div>
+        <div className="trade-actions">
+          <button type="button" className="modal-btn" onClick={connect}>
+            {desk.address ? "Reconnect" : "Connect"}
+          </button>
+          <button
+            type="button"
+            className="modal-btn"
+            disabled={!desk.address}
+            onClick={() => live.pauseTrade(!desk.paused)}
+          >
+            {desk.paused ? "Resume" : "Pause"}
+          </button>
+        </div>
+      </div>
+
+      <div className="trade-row">
+        <label>
+          Wallet
+          <input value={address} onChange={(e) => setAddress(e.target.value)} placeholder="0x…" spellCheck={false} />
+        </label>
+        <label>
+          Max to trade
+          <input value={cap} onChange={(e) => setCap(e.target.value)} inputMode="decimal" />
+        </label>
+        <button type="button" className="modal-btn" onClick={saveCap}>
+          Save cap
+        </button>
+      </div>
+
+      <div className="sim-top">
+        <div className={`sim-bal ${tone}`}>{last == null ? (busy ? "…" : "--") : signedDollars(last, 2)}</div>
+      </div>
+      <article className="card side sim-chart">
+        <div className="sim-chart-head">
+          <h2 className="card-title">Account profit</h2>
+          <span className={`pnl-now ${tone}`}>{desk.paused ? "Paused" : "Watching"}</span>
+        </div>
+        <PnlChart points={points} />
+        <p className="cal pnl-note">
+          This line is Polymarket's own profit series for the wallet above. It is not the simulation. The 5-minute call
+          right now is {call === "up" ? "Buy Up" : call === "down" ? "Buy Down" : "No trade"}. The cap is ${desk.cap.toFixed(0)}.
+          No order is sent: Polymarket still needs a wallet signature on every order, and this page does not hold that key.
+        </p>
+      </article>
+      {note && <p className="cal">{note}</p>}
+      <p className="cal">
+        {snap.polySaved ? "API key is saved on the worker." : "API key is not saved. Open Settings and save it first."}
+        {desk.address ? ` Connected to ${desk.address.slice(0, 6)}…${desk.address.slice(-4)}.` : " Not connected."}
+      </p>
     </section>
   );
 }
