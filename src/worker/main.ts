@@ -159,7 +159,7 @@ async function lead(store: Store) {
   }
   if (stopped) return;
   engine.start();
-  console.log("[wick] leading. Paper books keep running. Live 5-minute orders only when Trade is resumed.");
+  console.log("[wick] leading. Paper books keep running. Live orders follow Combined: 15-minute first, then 5-minute, half size when both want the same side.");
   while (!stopped) {
     try {
       const cmds = await store.takeCommands();
@@ -203,10 +203,10 @@ async function lead(store: Store) {
           liveBusy = true;
           try {
             const line = await postFiveBuy(job);
-            engine.markLive(job.windowStart, `Order ${line}`, true);
+            engine.markLive(job.windowStart, `Order ${line}`, true, job.span);
           } catch (err) {
             const msg = err instanceof Error ? err.message : "order failed";
-            engine.markLive(job.windowStart, msg.slice(0, 180), false);
+            engine.markLive(job.windowStart, msg.slice(0, 180), false, job.span);
           } finally {
             liveBusy = false;
           }

@@ -429,7 +429,8 @@ function TradeDesk({ snap }: { snap: Snap }) {
         </span>
       </div>
       {(hint || api.hint) && <p className="cal trade-hint">{hint || api.hint}</p>}
-      <p className="cal trade-hint">{orderLine(snap.kellyFrac, desk.cash ?? null, desk.cap, desk.paused, snap.reason, desk.note)}</p>
+      <p className="cal trade-hint">{orderLine("15 min", snap.lane15.kellyFrac, desk.cash ?? null, desk.cap, desk.paused, snap.lane15.reason, desk.note)}</p>
+      <p className="cal trade-hint">{orderLine("5 min", snap.kellyFrac, desk.cash ?? null, desk.cap, desk.paused, snap.reason, desk.note)}</p>
 
       <div className="trade-form">
         <label>
@@ -469,16 +470,19 @@ function TradeDesk({ snap }: { snap: Snap }) {
   );
 }
 
-function orderLine(frac: number | null, cash: number | null, cap: number, paused: boolean, reason: string | null, note: string): string {
+function orderLine(label: string, frac: number | null, cash: number | null, cap: number, paused: boolean, reason: string | null, note: string): string {
   const refusal = /refused|rejected|did not accept|403|401/.test(note) ? note : "";
-  if (paused) return refusal ? `Paused. ${refusal}` : "Paused. Press Resume to buy.";
-  if (cash == null) return "Balance has not loaded yet.";
-  if (frac == null || frac < 0.02) return reason ? `No buy. ${reason}` : "No buy this window.";
+  if (paused) {
+    if (label !== "15 min") return "";
+    return refusal ? `Paused. ${refusal}` : "Paused. Press Resume to buy.";
+  }
+  if (cash == null) return `${label}: balance has not loaded yet.`;
+  if (frac == null || frac < 0.02) return reason ? `${label}: no buy. ${reason}` : `${label}: no buy this window.`;
   const use = Math.min(frac, cap / 100);
   const dollars = Math.round(cash * use * 100) / 100;
   const pct = `${Math.round(use * 1000) / 10}%`;
-  if (dollars < 1) return `This window is ${pct} of the balance, under $1, so nothing is bought.`;
-  return refusal || `This window buys ${pct} of the balance, about $${dollars.toFixed(2)}.`;
+  if (dollars < 1) return `${label}: ${pct} of the balance is under $1, so nothing is bought.`;
+  return refusal || `${label}: about $${dollars.toFixed(2)} (${pct}). If the other window is already on this side, this one is half.`;
 }
 
 function describeApi(raw: string, saved: boolean): { kind: "idle" | "wait" | "ok" | "bad"; label: string; hint: string } {

@@ -24,6 +24,7 @@ import {
   PACE_15,
   PACE_5,
   runModel,
+  stakeFraction,
   summarizeTrades,
   type ModelOut,
   type SecondPrice,
@@ -204,6 +205,7 @@ export type TradeDesk = {
 
 export type LiveJob = {
   windowStart: number;
+  span: 300 | 900;
   tokenId: string;
   ask: number;
   dollars: number;
@@ -234,6 +236,7 @@ export type LaneSnap = {
   marketError: string | null;
   bookLive: boolean;
   gate: Gate | null;
+  kellyFrac: number | null;
 };
 
 export type Notice = { id: number; text: string; tone: "up" | "down" | "warn" };
@@ -302,7 +305,18 @@ export type Persist = {
   scratches?: Scratch[];
   /** Worker-only. Never copy this onto the public snapshot. */
   poly?: { apiKey: string; secret: string; passphrase: string } | null;
-  trade?: { address?: string | null; paused?: boolean; cap?: number; cash?: number | null; signatureType?: number; filledWin?: number; note?: string };
+  trade?: {
+    address?: string | null;
+    paused?: boolean;
+    cap?: number;
+    cash?: number | null;
+    signatureType?: number;
+    filledWin?: number;
+    filledSide?: "up" | "down" | null;
+    filled15?: number;
+    filled15Side?: "up" | "down" | null;
+    note?: string;
+  };
   /** Worker-only. Never copy this onto the public snapshot. */
   signer?: { privateKey: string } | null;
 };
@@ -412,6 +426,7 @@ function emptyLane(): LaneSnap {
     marketError: null,
     bookLive: false,
     gate: null,
+    kellyFrac: null,
   };
 }
 
@@ -545,7 +560,7 @@ export type Engine = {
   push: (cmd: WickCommand) => void;
   /** Real 5-minute order, or null when the desk is paused, missing a key, or already sent. */
   liveJob: () => LiveJob | null;
-  markLive: (windowStart: number, note: string, filled: boolean) => void;
+  markLive: (windowStart: number, note: string, filled: boolean, span?: 300 | 900) => void;
   /** Read-only Polymarket check. Null when nothing was asked, or the desk is missing a key. */
   takeCheck: () => LiveJob | null;
   /** Private key waiting to be exchanged for a trading key. Never put this on the snapshot. */
@@ -578,8 +593,9 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
   let tradeSig: 0 | 1 | 2 = 1;
   let tradeNote = "";
   let signerKey: string | null = null;
-  let liveFilledWin = 0;
-  let liveLockWin = 0;
+  let live5: { win: number; side: "up" | "down" | null } | null = null;
+  let live15: { win: number; side: "up" | "down" | null } | null = null;
+  let liveLock: { span: 300 | 900; win: number; side: "up" | "down"; dollars: number } | null = null;
   let liveTriedAt = 0;
   let wantCheck = false;
   let wantDerive = false;
@@ -778,9 +794,14 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
         else if (typeof data.trade.cap === "number" && data.trade.cap > 100) tradeCap = 25;
         if (typeof data.trade.cash === "number" && Number.isFinite(data.trade.cash) && data.trade.cash >= 0) tradeCash = data.trade.cash;
         if (data.trade.signatureType === 0 || data.trade.signatureType === 1 || data.trade.signatureType === 2) tradeSig = data.trade.signatureType;
-        if (typeof data.trade.filledWin === "number") liveFilledWin = data.trade.filledWin;
+        if (typeof data.trade.filledWin === "number" && data.trade.filledWin > 0) {
+          live5 = { win: data.trade.filledWin, side: data.trade.filledSide === "up" || data.trade.filledSide === "down" ? data.trade.filledSide : null };
+        }
+        if (typeof data.trade.filled15 === "number" && data.trade.filled15 > 0) {
+          live15 = { win: data.trade.filled15, side: data.trade.filled15Side === "up" || data.trade.filled15Side === "down" ? data.trade.filled15Side : null };
+        }
         if (typeof data.trade.note === "string") tradeNote = data.trade.note.slice(0, 180);
-        if (tradeNote.startsWith("Order 403")) liveFilledWin = 0;
+        if (tradeNote.startsWith("Order 403")) live5 = null;
       }
       if ("signer" in data) signerKey = data.signer?.privateKey && /^0x[a-fA-F0-9]{64}$/.test(data.signer.privateKey) ? data.signer.privateKey : null;
     } catch {
@@ -837,7 +858,18 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
         books: { five: books.five, fifteen: books.fifteen, combined: books.combined, shadow: books.shadow },
         scratches: scratches.slice(-8),
         poly,
-        trade: { address: tradeAddress, paused: tradePaused, cap: tradeCap, cash: tradeCash, signatureType: tradeSig, filledWin: liveFilledWin, note: tradeNote },
+        trade: {
+          address: tradeAddress,
+          paused: tradePaused,
+          cap: tradeCap,
+          cash: tradeCash,
+          signatureType: tradeSig,
+          filledWin: live5?.win ?? 0,
+          filledSide: live5?.side ?? null,
+          filled15: live15?.win ?? 0,
+          filled15Side: live15?.side ?? null,
+          note: tradeNote,
+        },
         signer: signerKey ? { privateKey: signerKey } : null,
       };
       try {
@@ -2149,6 +2181,7 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
       marketError: l15.error,
       bookLive: l15.clobLive,
       gate: closed ? null : v.gate,
+      kellyFrac: closed ? null : v.kellyFrac,
     };
   }
 
@@ -2587,6 +2620,51 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
     save();
   }
 
+  function liveCandidate(span: 300 | 900): LiveJob | null {
+    if (!signerKey || !poly || !tradeAddress || tradeCash == null || tradeCash < 1) return null;
+    const five = span === 300;
+    const windowStart = five ? win : l15.win;
+    const open = five ? phase === "open" && (market?.accepting ?? false) : l15.phase === "open" && (l15.market?.accepting ?? false);
+    if (!open || !windowStart) return null;
+    const held = five ? live5 : live15;
+    if (held?.win === windowStart) return null;
+    if (liveLock?.span === span && liveLock.win === windowStart && Date.now() - liveTriedAt < 20_000) return null;
+    if ((windowStart + span) * 1000 - Date.now() < 15_000) return null;
+    const verdict = five ? verdictSnap : l15.verdict;
+    const side = verdict?.side;
+    if (side !== "up" && side !== "down") return null;
+    const frac = verdict?.kellyFrac;
+    if (frac == null || frac < 0.02) return null;
+    const quotes = five ? { up, down, at: quoteAt } : { up: l15.up, down: l15.down, at: l15.quoteAt };
+    const ask = side === "up" ? quotes.up.ask : quotes.down.ask;
+    if (ask == null || ask <= 0.01 || ask >= 0.99) return null;
+    if (quotes.at && Date.now() - quotes.at > 8_000) return null;
+    const listed = five ? market : l15.market;
+    const tokenId = side === "up" ? listed?.up : listed?.down;
+    if (!tokenId) return null;
+    const other = five ? live15 : live5;
+    const otherWin = five ? l15.win : win;
+    const same = Boolean(other && other.win === otherWin && other.side === side);
+    const sized = stakeFraction({ base: Math.min(frac, tradeCap / 100), sameSideAlready: same });
+    const dollars = Math.round(tradeCash * sized.frac * 100) / 100;
+    if (dollars < 1) return null;
+    liveLock = { span, win: windowStart, side, dollars };
+    liveTriedAt = Date.now();
+    return {
+      windowStart,
+      span,
+      tokenId,
+      ask,
+      dollars,
+      privateKey: signerKey,
+      apiKey: poly.apiKey,
+      secret: poly.secret,
+      passphrase: poly.passphrase,
+      funder: tradeAddress,
+      signatureType: tradeSig,
+    };
+  }
+
   const api: Engine = {
     start() {
       users += 1;
@@ -2755,42 +2833,16 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
     },
     liveJob() {
       if (tradePaused || !signerKey || !poly || !tradeAddress) return null;
-      if (phase !== "open" || !market?.accepting || !win) return null;
-      if (liveFilledWin === win) return null;
-      if (liveLockWin === win && Date.now() - liveTriedAt < 20_000) return null;
-      const left = (win + 300) * 1000 - Date.now();
-      if (left < 15_000) return null;
-      const side = verdictSnap?.side;
-      if (side !== "up" && side !== "down") return null;
-      const frac = verdictSnap?.kellyFrac;
-      if (frac == null || frac < 0.02 || tradeCash == null || tradeCash < 1) return null;
-      const ask = side === "up" ? up.ask : down.ask;
-      if (ask == null || ask <= 0.01 || ask >= 0.99) return null;
-      if (quoteAt && Date.now() - quoteAt > 8_000) return null;
-      const tokenId = side === "up" ? market.up : market.down;
-      if (!tokenId) return null;
-      const dollars = Math.round(tradeCash * Math.min(frac, tradeCap / 100) * 100) / 100;
-      if (dollars < 1) return null;
-      liveLockWin = win;
-      liveTriedAt = Date.now();
-      return {
-        windowStart: win,
-        tokenId,
-        ask,
-        dollars,
-        privateKey: signerKey,
-        apiKey: poly.apiKey,
-        secret: poly.secret,
-        passphrase: poly.passphrase,
-        funder: tradeAddress,
-        signatureType: tradeSig,
-      };
+      return liveCandidate(900) ?? liveCandidate(300);
     },
-    markLive(windowStart, note, filled) {
+    markLive(windowStart, note, filled, span) {
       tradeNote = note.replace(/0x[a-fA-F0-9]{64}/g, "0x…").slice(0, 180);
-      if (filled) {
-        liveFilledWin = windowStart;
-        liveLockWin = 0;
+      if (filled && liveLock && liveLock.win === windowStart && (span == null || liveLock.span === span)) {
+        const hold = { win: liveLock.win, side: liveLock.side };
+        if (liveLock.span === 900) live15 = hold;
+        else live5 = hold;
+        if (tradeCash != null) tradeCash = Math.max(0, Math.round((tradeCash - liveLock.dollars) * 100) / 100);
+        liveLock = null;
       }
       save();
       emit();
@@ -2810,6 +2862,7 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
       }
       return {
         windowStart: 0,
+        span: 300,
         tokenId: "",
         ask: 0,
         dollars: 0,
@@ -2838,6 +2891,7 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
       if (!poly || (!signerKey && !tradeAddress)) return null;
       return {
         windowStart: 0,
+        span: 300,
         tokenId: "",
         ask: 0,
         dollars: 0,
