@@ -2322,6 +2322,9 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
         tradePaused = true;
         tradeNote = "Key removed.";
         save();
+      } else if (cmd.kind === "trade-sig") {
+        tradeSig = cmd.signatureType;
+        save();
       } else if (cmd.kind === "trade-check") {
         wantCheck = true;
         tradeNote = "Checking the API. No order is sent.";

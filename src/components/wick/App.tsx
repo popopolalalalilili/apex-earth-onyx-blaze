@@ -298,19 +298,22 @@ function TradeDesk({ snap }: { snap: Snap }) {
   const desk = snap.trade ?? { address: null, paused: true, cap: 25, keySaved: false, signatureType: 1 as const, note: "" };
   const [address, setAddress] = useState(desk.address ?? "");
   const [cap, setCap] = useState(String(desk.cap));
+  const [apiKey, setApiKey] = useState("");
+  const [secret, setSecret] = useState("");
+  const [passphrase, setPassphrase] = useState("");
   const [key, setKey] = useState("");
   const [sig, setSig] = useState<"0" | "1" | "2">(String(desk.signatureType ?? 1) as "0" | "1" | "2");
   const [points, setPoints] = useState<{ t: number; pnl: number }[]>([]);
   const [hint, setHint] = useState("");
   const [busy, setBusy] = useState(false);
-  const [press, setPress] = useState<"" | "test" | "pause" | "wallet">("");
+  const [press, setPress] = useState<"" | "test" | "pause" | "save">("");
 
   useEffect(() => {
     if (desk.address) setAddress(desk.address);
   }, [desk.address]);
 
   useEffect(() => {
-    if (press !== "test") return;
+    if (press !== "test" && press !== "save") return;
     if (desk.note.startsWith("Checking")) return;
     setPress("");
   }, [desk.note, press]);
@@ -344,54 +347,56 @@ function TradeDesk({ snap }: { snap: Snap }) {
 
   const last = points.length ? points[points.length - 1].pnl : null;
   const tone = last == null ? "" : last > 0.005 ? "pos" : last < -0.005 ? "neg" : "";
-  const api = describeApi(press === "test" ? "Checking" : desk.note, snap.polySaved);
+  const checking = press === "test" || press === "save" || desk.note.startsWith("Checking");
+  const api = describeApi(checking ? "Checking" : desk.note, snap.polySaved);
 
-  function flash(which: "pause" | "wallet") {
-    setPress(which);
-    window.setTimeout(() => setPress((cur) => (cur === which ? "" : cur)), 700);
-  }
-
-  function saveWallet() {
-    const next = address.trim();
-    if (!/^0x[a-fA-F0-9]{40}$/.test(next)) {
-      setHint("Paste the 0x wallet address.");
+  function saveAll() {
+    const addr = address.trim();
+    if (!/^0x[a-fA-F0-9]{40}$/.test(addr)) {
+      setHint("Paste the wallet address.");
       return;
     }
-    setHint("");
-    flash("wallet");
-    live.connectTrade(next);
-  }
-
-  function saveCap() {
+    const apiFilled = apiKey.trim().length >= 8 && secret.trim().length >= 8 && passphrase.trim().length >= 8;
+    const apiPartial = apiKey.trim() !== "" || secret.trim() !== "" || passphrase.trim() !== "";
+    if (apiPartial && !apiFilled) {
+      setHint("Fill in the API key, secret and passphrase together.");
+      return;
+    }
+    if (!apiFilled && !snap.polySaved) {
+      setHint("Fill in the API key, secret and passphrase.");
+      return;
+    }
+    const raw = key.trim();
+    const hex = raw.startsWith("0x") || raw.startsWith("0X") ? raw.slice(2) : raw;
+    const keyFilled = /^[a-fA-F0-9]{64}$/.test(hex);
+    if (raw !== "" && !keyFilled) {
+      setHint("The private key should be 64 hex characters.");
+      return;
+    }
+    if (!keyFilled && !desk.keySaved) {
+      setHint("Paste the private key.");
+      return;
+    }
     const n = Number(cap);
     if (!Number.isFinite(n) || n < 1) {
       setHint("The cap has to be at least $1.");
       return;
     }
-    live.setTradeCap(n);
-    setHint("Cap saved.");
-  }
-
-  function saveKey() {
-    const raw = key.trim();
-    const hex = raw.startsWith("0x") || raw.startsWith("0X") ? raw.slice(2) : raw;
-    if (!/^[a-fA-F0-9]{64}$/.test(hex)) {
-      setHint("The private key should be 64 hex characters.");
-      return;
-    }
-    if (!snap.polySaved) {
-      setHint("Add the API key in Settings first.");
-      return;
-    }
-    live.saveTradeKey(`0x${hex}`, Number(sig) as 0 | 1 | 2);
-    setKey("");
-    setHint("Key saved.");
-  }
-
-  function testApi() {
     setHint("");
-    setPress("test");
-    live.checkTrade();
+    setPress("save");
+    void live.saveAccount({
+      address: addr,
+      cap: n,
+      signatureType: Number(sig) as 0 | 1 | 2,
+      apiKey: apiFilled ? apiKey.trim() : undefined,
+      secret: apiFilled ? secret.trim() : undefined,
+      passphrase: apiFilled ? passphrase.trim() : undefined,
+      privateKey: keyFilled ? `0x${hex}` : undefined,
+    });
+    setApiKey("");
+    setSecret("");
+    setPassphrase("");
+    setKey("");
   }
 
   return (
@@ -399,23 +404,33 @@ function TradeDesk({ snap }: { snap: Snap }) {
       <div className="sim-tools">
         <div>
           <h2 className="card-title">5 minute account</h2>
-          <p className="cal">Save wallet loads the chart. Test API checks the key. It does not buy.</p>
+          <p className="cal">One save. It stores the account and checks the key. Nothing is bought.</p>
         </div>
         <div className="trade-actions">
-          <button type="button" className={press === "wallet" ? "modal-btn is-down" : "modal-btn"} onClick={saveWallet}>
-            {press === "wallet" && <Spinner />}
-            Save wallet
+          <button type="button" className={press === "save" ? "modal-btn is-down" : "modal-btn"} onClick={saveAll} disabled={press === "save"}>
+            {press === "save" && <Spinner />}
+            Save
           </button>
-          <button type="button" className={press === "test" ? "modal-btn is-down" : "modal-btn"} onClick={testApi} disabled={press === "test"}>
+          <button
+            type="button"
+            className={press === "test" ? "modal-btn is-down" : "modal-btn"}
+            onClick={() => {
+              setHint("");
+              setPress("test");
+              live.checkTrade();
+            }}
+            disabled={press === "test" || press === "save"}
+          >
             {press === "test" && <Spinner />}
-            Test API
+            Test again
           </button>
           <button
             type="button"
             className={press === "pause" ? "modal-btn is-down" : "modal-btn"}
             disabled={!desk.address}
             onClick={() => {
-              flash("pause");
+              setPress("pause");
+              window.setTimeout(() => setPress((cur) => (cur === "pause" ? "" : cur)), 700);
               live.pauseTrade(!desk.paused);
             }}
           >
@@ -428,34 +443,36 @@ function TradeDesk({ snap }: { snap: Snap }) {
       <div className="trade-flags">
         <span className={`trade-flag ${api.kind}`}>{api.kind === "wait" && <Spinner />}{api.label}</span>
         <span className="trade-flag">{desk.paused ? "Paused" : "Resumed"}</span>
-        <span className={`trade-flag ${desk.keySaved ? "ok" : ""}`}>{desk.keySaved ? "Key saved" : "No key"}</span>
+        <span className={`trade-flag ${snap.polySaved && desk.keySaved ? "ok" : ""}`}>
+          {snap.polySaved && desk.keySaved ? "Saved" : "Not saved"}
+        </span>
       </div>
       {(hint || api.hint) && <p className="cal trade-hint">{hint || api.hint}</p>}
 
-      <div className="trade-row">
+      <div className="trade-form">
         <label>
           Wallet
-          <input value={address} onChange={(e) => setAddress(e.target.value)} placeholder="0x…" spellCheck={false} />
+          <input value={address} onChange={(e) => setAddress(e.target.value)} placeholder="0x…" spellCheck={false} autoComplete="off" />
         </label>
         <label>
           Max to trade
           <input value={cap} onChange={(e) => setCap(e.target.value)} inputMode="decimal" />
         </label>
-        <button type="button" className="modal-btn" onClick={saveCap}>
-          Save cap
-        </button>
-      </div>
-      <div className="trade-row">
+        <label>
+          API key
+          <input type="password" value={apiKey} onChange={(e) => setApiKey(e.target.value)} placeholder={snap.polySaved ? "Saved" : ""} autoComplete="off" spellCheck={false} />
+        </label>
+        <label>
+          Secret
+          <input type="password" value={secret} onChange={(e) => setSecret(e.target.value)} placeholder={snap.polySaved ? "Saved" : ""} autoComplete="off" spellCheck={false} />
+        </label>
+        <label>
+          Passphrase
+          <input type="password" value={passphrase} onChange={(e) => setPassphrase(e.target.value)} placeholder={snap.polySaved ? "Saved" : ""} autoComplete="off" spellCheck={false} />
+        </label>
         <label>
           Private key
-          <input
-            type="password"
-            value={key}
-            onChange={(e) => setKey(e.target.value)}
-            placeholder={desk.keySaved ? "Saved" : "0x…"}
-            autoComplete="off"
-            spellCheck={false}
-          />
+          <input type="password" value={key} onChange={(e) => setKey(e.target.value)} placeholder={desk.keySaved ? "Saved" : "0x…"} autoComplete="off" spellCheck={false} />
         </label>
         <label>
           Login
@@ -465,14 +482,6 @@ function TradeDesk({ snap }: { snap: Snap }) {
             <option value="0">Key is the wallet</option>
           </select>
         </label>
-        <button type="button" className="modal-btn" onClick={saveKey}>
-          Save key
-        </button>
-        {desk.keySaved && (
-          <button type="button" className="modal-btn" onClick={() => live.clearTradeKey()}>
-            Remove key
-          </button>
-        )}
       </div>
 
       <div className="sim-top">
@@ -493,7 +502,7 @@ function TradeDesk({ snap }: { snap: Snap }) {
 function describeApi(raw: string, saved: boolean): { kind: "idle" | "wait" | "ok" | "bad"; label: string; hint: string } {
   if (raw.startsWith("Checking")) return { kind: "wait", label: "Checking", hint: "" };
   if (raw.startsWith("API works") || raw.startsWith("API key works")) return { kind: "ok", label: "API works", hint: "" };
-  if (!saved || raw.includes("not saved")) return { kind: "bad", label: "No API key", hint: "Add it in Settings." };
+  if (!saved || raw.includes("not saved")) return { kind: "bad", label: "No API key", hint: "Fill in the fields and press Save." };
   if (raw.includes("rejected") || raw.includes("Unauthorized") || raw.includes("Invalid") || raw.includes("failed") || raw.includes("Polymarket said")) {
     return { kind: "bad", label: "API does not work", hint: "The key, secret or passphrase was not accepted." };
   }
@@ -1322,30 +1331,11 @@ function shortTime(startSec: number): string {
 
 function Settings({ snap, onClose }: { snap: Snap; onClose: () => void }) {
   const [form, setForm] = useState<Settings>(() => live.settings());
-  const [apiKey, setApiKey] = useState("");
-  const [secret, setSecret] = useState("");
-  const [passphrase, setPassphrase] = useState("");
-  const [polyNote, setPolyNote] = useState("");
-  const canSave = apiKey.trim().length >= 8 && secret.trim().length >= 8 && passphrase.trim().length >= 8;
 
   function patch(p: Partial<Settings>) {
     const next = { ...form, ...p };
     setForm(next);
     live.patchSettings(p);
-  }
-
-  function savePoly() {
-    if (!canSave) return;
-    live.savePoly(apiKey.trim(), secret.trim(), passphrase.trim());
-    setApiKey("");
-    setSecret("");
-    setPassphrase("");
-    setPolyNote("Sent to the worker. The keys are not shown again.");
-  }
-
-  function clearPoly() {
-    live.clearPoly();
-    setPolyNote("Remove sent. The worker drops the keys.");
   }
 
   return (
@@ -1371,52 +1361,6 @@ function Settings({ snap, onClose }: { snap: Snap; onClose: () => void }) {
           <span>Book {snap.clobLive ? "live" : "rest"}</span>
           <span>Reconnects {snap.reconnects}</span>
         </div>
-        <h3>Polymarket API</h3>
-        <p className="poly-status">{snap.polySaved ? "Saved on the worker." : "Not saved."}</p>
-        <label className="field">
-          API key
-          <input
-            type="password"
-            autoComplete="off"
-            spellCheck={false}
-            value={apiKey}
-            onChange={(e) => setApiKey(e.target.value)}
-          />
-        </label>
-        <label className="field">
-          Secret
-          <input
-            type="password"
-            autoComplete="off"
-            spellCheck={false}
-            value={secret}
-            onChange={(e) => setSecret(e.target.value)}
-          />
-        </label>
-        <label className="field">
-          Passphrase
-          <input
-            type="password"
-            autoComplete="off"
-            spellCheck={false}
-            value={passphrase}
-            onChange={(e) => setPassphrase(e.target.value)}
-          />
-        </label>
-        <div className="modal-actions">
-          <button type="button" className="modal-btn" disabled={!canSave} onClick={savePoly}>
-            Save API
-          </button>
-          {snap.polySaved && (
-            <button type="button" className="modal-btn" onClick={clearPoly}>
-              Remove
-            </button>
-          )}
-        </div>
-        {polyNote && <p className="poly-status">{polyNote}</p>}
-        <p className="hint">
-          The keys stay on the worker. This page does not keep them, and they are not sent back to the browser. Paper only. Nothing here places an order.
-        </p>
         <Field label="Lookback, seconds" value={form.lookbackSec} step={30} onChange={(n) => patch({ lookbackSec: n })} />
         <Field label="Extra caution on the wobble" value={form.tail} step={0.05} onChange={(n) => patch({ tail: n })} />
         <Field label="Exchange gap, dollars" value={form.basis} step={1} onChange={(n) => patch({ basis: n })} />

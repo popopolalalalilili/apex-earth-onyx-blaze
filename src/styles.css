@@ -160,7 +160,27 @@ button, input, select { font-family: inherit; color: inherit; }
 .trade-flag.bad { color: var(--down-text); }
 .trade-flag.wait { color: var(--text); }
 .trade-hint { margin: -6px 0 14px; }
-.trade-row { display: flex; gap: 10px; align-items: end; flex-wrap: wrap; margin: 0 0 16px; }
+.trade-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 12px;
+  margin: 0 0 16px;
+}
+.trade-form label { display: flex; flex-direction: column; gap: 6px; color: var(--mid); font-size: 12px; }
+.trade-form input,
+.trade-form select {
+  height: 36px;
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #111;
+  color: var(--text);
+  padding: 0 12px;
+  font-family: var(--mono);
+}
+@media (max-width: 640px) {
+  .trade-form { grid-template-columns: 1fr; }
+}
 .trade-row label { display: flex; flex-direction: column; gap: 6px; color: var(--mid); font-size: 12px; }
 .trade-row input,
 .trade-row select {

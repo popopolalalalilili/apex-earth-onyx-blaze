@@ -174,6 +174,28 @@ export const live = {
   saveTradeKey(privateKey: string, signatureType: 0 | 1 | 2) {
     void send({ kind: "trade-key", privateKey, signatureType });
   },
+  async saveAccount(input: {
+    address: string;
+    cap: number;
+    signatureType: 0 | 1 | 2;
+    apiKey?: string;
+    secret?: string;
+    passphrase?: string;
+    privateKey?: string;
+  }) {
+    if (input.apiKey && input.secret && input.passphrase) {
+      await send({ kind: "poly", apiKey: input.apiKey, secret: input.secret, passphrase: input.passphrase });
+    }
+    await send({ kind: "trade-connect", address: input.address });
+    if (input.privateKey) await send({ kind: "trade-key", privateKey: input.privateKey, signatureType: input.signatureType });
+    else await send({ kind: "trade-sig", signatureType: input.signatureType });
+    await send({ kind: "trade-cap", cap: input.cap });
+    noteHold = { text: "Checking the API. No order is sent.", previous: snap.trade?.note ?? "", until: Date.now() + 20_000 };
+    const base = snap.trade ?? { address: null, paused: true, cap: input.cap, keySaved: false, signatureType: input.signatureType, note: "" };
+    snap = { ...snap, trade: { ...base, address: input.address, cap: input.cap, signatureType: input.signatureType, note: noteHold.text } };
+    emit();
+    await send({ kind: "trade-check" });
+  },
   clearTradeKey() {
     void send({ kind: "trade-key-clear" });
   },
