@@ -429,7 +429,7 @@ function TradeDesk({ snap }: { snap: Snap }) {
         </span>
       </div>
       {(hint || api.hint) && <p className="cal trade-hint">{hint || api.hint}</p>}
-      <p className="cal trade-hint">{orderLine(snap.kellyFrac, desk.cash ?? null, desk.cap)}</p>
+      <p className="cal trade-hint">{orderLine(snap.kellyFrac, desk.cash ?? null, desk.cap, desk.paused, snap.reason, desk.note)}</p>
 
       <div className="trade-form">
         <label>
@@ -469,14 +469,16 @@ function TradeDesk({ snap }: { snap: Snap }) {
   );
 }
 
-function orderLine(frac: number | null, cash: number | null, cap: number): string {
+function orderLine(frac: number | null, cash: number | null, cap: number, paused: boolean, reason: string | null, note: string): string {
+  const refusal = /refused|rejected|did not accept|403|401/.test(note) ? note : "";
+  if (paused) return refusal ? `Paused. ${refusal}` : "Paused. Press Resume to buy.";
   if (cash == null) return "Balance has not loaded yet.";
-  if (frac == null || frac < 0.02) return "This window is under 2% of the balance, so nothing is bought.";
+  if (frac == null || frac < 0.02) return reason ? `No buy. ${reason}` : "No buy this window.";
   const use = Math.min(frac, cap / 100);
   const dollars = Math.round(cash * use * 100) / 100;
   const pct = `${Math.round(use * 1000) / 10}%`;
   if (dollars < 1) return `This window is ${pct} of the balance, under $1, so nothing is bought.`;
-  return `This window buys ${pct} of the balance, about $${dollars.toFixed(2)}.`;
+  return refusal || `This window buys ${pct} of the balance, about $${dollars.toFixed(2)}.`;
 }
 
 function describeApi(raw: string, saved: boolean): { kind: "idle" | "wait" | "ok" | "bad"; label: string; hint: string } {

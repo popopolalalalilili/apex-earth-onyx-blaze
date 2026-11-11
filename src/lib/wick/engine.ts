@@ -780,6 +780,7 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
         if (data.trade.signatureType === 0 || data.trade.signatureType === 1 || data.trade.signatureType === 2) tradeSig = data.trade.signatureType;
         if (typeof data.trade.filledWin === "number") liveFilledWin = data.trade.filledWin;
         if (typeof data.trade.note === "string") tradeNote = data.trade.note.slice(0, 180);
+        if (tradeNote.startsWith("Order 403")) liveFilledWin = 0;
       }
       if ("signer" in data) signerKey = data.signer?.privateKey && /^0x[a-fA-F0-9]{64}$/.test(data.signer.privateKey) ? data.signer.privateKey : null;
     } catch {
@@ -2787,8 +2788,10 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
     },
     markLive(windowStart, note, filled) {
       tradeNote = note.replace(/0x[a-fA-F0-9]{64}/g, "0x…").slice(0, 180);
-      if (filled) liveFilledWin = windowStart;
-      else if (liveLockWin === windowStart) liveLockWin = 0;
+      if (filled) {
+        liveFilledWin = windowStart;
+        liveLockWin = 0;
+      }
       save();
       emit();
     },

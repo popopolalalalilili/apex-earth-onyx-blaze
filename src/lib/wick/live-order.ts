@@ -26,10 +26,26 @@ export async function postFiveBuy(job: LiveJob): Promise<string> {
     },
     { tickSize, negRisk },
     OrderType.FOK,
-  )) as { success?: boolean; errorMsg?: string; orderID?: string; status?: string };
-  if (resp?.success === false) throw new Error(resp.errorMsg || "Order rejected");
-  const id = resp?.orderID ? `${resp.orderID.slice(0, 8)}…` : "sent";
-  return `${resp?.status || "ok"} ${id}`;
+  )) as { success?: boolean; errorMsg?: string; error?: unknown; orderID?: string; status?: string | number };
+  const refused = orderRefusal(resp);
+  if (refused) throw new Error(refused);
+  const id = resp.orderID ? `${resp.orderID.slice(0, 8)}…` : "sent";
+  return `${resp.status || "ok"} ${id}`;
+}
+
+function orderRefusal(resp: { success?: boolean; errorMsg?: string; error?: unknown; orderID?: string; status?: string | number }): string | null {
+  const status = typeof resp.status === "number" ? resp.status : Number(resp.status);
+  const detail = clip(resp.errorMsg || resp.error);
+  if (resp.success === false) return detail || "Order rejected";
+  if (Number.isFinite(status) && status >= 400) return detail ? `Polymarket refused the order (${status}). ${detail}` : `Polymarket refused the order (${status}).`;
+  if (resp.error) return detail || "Order rejected";
+  if (!resp.orderID) return "Polymarket did not accept the order.";
+  return null;
+}
+
+function clip(value: unknown): string {
+  const text = typeof value === "string" ? value : value == null ? "" : JSON.stringify(value);
+  return text.replace(/\s+/g, " ").trim().slice(0, 140);
 }
 
 /** Collateral the funder can spend, in dollars. Null when neither source answers. */
