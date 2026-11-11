@@ -116,7 +116,7 @@ export function parseCommand(raw: unknown): WickCommand | null {
   if (row.kind === "trade-pause") return { kind: "trade-pause", paused: row.paused === true };
   if (row.kind === "trade-cap") {
     const cap = Number(row.cap);
-    if (!Number.isFinite(cap) || cap < 1 || cap > 100000) return null;
+    if (!Number.isFinite(cap) || cap < 1 || cap > 100) return null;
     return { kind: "trade-cap", cap: Math.round(cap * 100) / 100 };
   }
   if (row.kind === "trade-disconnect") return { kind: "trade-disconnect" };

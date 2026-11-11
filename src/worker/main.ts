@@ -11,7 +11,7 @@ import { createServer } from "node:http";
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { createEngine, type Engine, type Persist } from "../lib/wick/engine.ts";
-import { checkAccount, deriveCreds, postFiveBuy } from "../lib/wick/live-order.ts";
+import { checkAccount, deriveCreds, postFiveBuy, readCash } from "../lib/wick/live-order.ts";
 import { blankWorker, type LiveFile, type WorkerHealth } from "../lib/wick/protocol.ts";
 import { createStore, type Store } from "../lib/wick/store.ts";
 
@@ -27,6 +27,7 @@ let lastSuccessAt: number | null = null;
 let lastError: string | null = null;
 let status: WorkerHealth["status"] = "starting";
 let liveBusy = false;
+let cashAt = 0;
 
 function healthBody() {
   const now = Date.now();
@@ -182,6 +183,18 @@ async function lead(store: Store) {
         } catch (err) {
           const msg = err instanceof Error ? err.message : "API check failed";
           engine.markLive(0, msg.slice(0, 180), false);
+        }
+      }
+      if (Date.now() - cashAt > 20_000) {
+        const account = engine.account();
+        if (account) {
+          cashAt = Date.now();
+          try {
+            const cash = await readCash(account);
+            if (cash != null) engine.setCash(cash);
+          } catch {
+            /* keep the last balance */
+          }
         }
       }
       if (!liveBusy) {

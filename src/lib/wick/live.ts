@@ -156,13 +156,13 @@ export const live = {
   },
   pauseTrade(paused: boolean) {
     pauseHold = { paused, until: Date.now() + 8_000 };
-    const base = snap.trade ?? { address: null, paused: true, cap: 25, keySaved: false, signatureType: 1 as const, note: "" };
+    const base = snap.trade ?? { address: null, paused: true, cap: 25, cash: null, keySaved: false, signatureType: 1 as const, note: "" };
     snap = { ...snap, trade: { ...base, paused } };
     emit();
     void send({ kind: "trade-pause", paused });
   },
   checkTrade() {
-    const base = snap.trade ?? { address: null, paused: true, cap: 25, keySaved: false, signatureType: 1 as const, note: "" };
+    const base = snap.trade ?? { address: null, paused: true, cap: 25, cash: null, keySaved: false, signatureType: 1 as const, note: "" };
     noteHold = { text: "Checking the API. No order is sent.", previous: base.note, until: Date.now() + 15_000 };
     snap = { ...snap, trade: { ...base, note: noteHold.text } };
     emit();
@@ -186,7 +186,7 @@ export const live = {
     await send({ kind: "trade-cap", cap: input.cap });
     await send({ kind: "trade-derive" });
     noteHold = { text: "Checking the API. No order is sent.", previous: snap.trade?.note ?? "", until: Date.now() + 20_000 };
-    const base = snap.trade ?? { address: null, paused: true, cap: input.cap, keySaved: false, signatureType: input.signatureType, note: "" };
+    const base = snap.trade ?? { address: null, paused: true, cap: input.cap, cash: null, keySaved: false, signatureType: input.signatureType, note: "" };
     snap = { ...snap, trade: { ...base, address: input.address, cap: input.cap, signatureType: input.signatureType, note: noteHold.text } };
     emit();
     await send({ kind: "trade-check" });

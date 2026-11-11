@@ -196,6 +196,7 @@ export type TradeDesk = {
   address: string | null;
   paused: boolean;
   cap: number;
+  cash: number | null;
   keySaved: boolean;
   signatureType: 0 | 1 | 2;
   note: string;
@@ -301,7 +302,7 @@ export type Persist = {
   scratches?: Scratch[];
   /** Worker-only. Never copy this onto the public snapshot. */
   poly?: { apiKey: string; secret: string; passphrase: string } | null;
-  trade?: { address?: string | null; paused?: boolean; cap?: number; signatureType?: number; filledWin?: number; note?: string };
+  trade?: { address?: string | null; paused?: boolean; cap?: number; cash?: number | null; signatureType?: number; filledWin?: number; note?: string };
   /** Worker-only. Never copy this onto the public snapshot. */
   signer?: { privateKey: string } | null;
 };
@@ -387,7 +388,7 @@ export function blankSnap(): Snap {
     waiting15: null,
     shadowLane: { verdict: "skip", call: null, reason: null, edge: null, gate: null },
     polySaved: false,
-    trade: { address: null, paused: true, cap: 25, keySaved: false, signatureType: 1, note: "" },
+    trade: { address: null, paused: true, cap: 25, cash: null, keySaved: false, signatureType: 1, note: "" },
   };
 }
 
@@ -550,6 +551,9 @@ export type Engine = {
   /** Private key waiting to be exchanged for a trading key. Never put this on the snapshot. */
   takeDerive: () => string | null;
   dropCheck: () => void;
+  /** Saved Polymarket login, for a balance read. Null when the desk has no key. */
+  account: () => LiveJob | null;
+  setCash: (cash: number | null) => void;
 };
 
 const NO_HOST: EngineHost = {
@@ -570,6 +574,7 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
   let tradeAddress: string | null = null;
   let tradePaused = true;
   let tradeCap = 25;
+  let tradeCash: number | null = null;
   let tradeSig: 0 | 1 | 2 = 1;
   let tradeNote = "";
   let signerKey: string | null = null;
@@ -769,7 +774,9 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
       if (data.trade) {
         if ("address" in data.trade) tradeAddress = clipTradeAddress(data.trade.address);
         if (typeof data.trade.paused === "boolean") tradePaused = data.trade.paused;
-        if (typeof data.trade.cap === "number" && data.trade.cap >= 1 && data.trade.cap <= 100000) tradeCap = data.trade.cap;
+        if (typeof data.trade.cap === "number" && data.trade.cap >= 1 && data.trade.cap <= 100) tradeCap = data.trade.cap;
+        else if (typeof data.trade.cap === "number" && data.trade.cap > 100) tradeCap = 25;
+        if (typeof data.trade.cash === "number" && Number.isFinite(data.trade.cash) && data.trade.cash >= 0) tradeCash = data.trade.cash;
         if (data.trade.signatureType === 0 || data.trade.signatureType === 1 || data.trade.signatureType === 2) tradeSig = data.trade.signatureType;
         if (typeof data.trade.filledWin === "number") liveFilledWin = data.trade.filledWin;
         if (typeof data.trade.note === "string") tradeNote = data.trade.note.slice(0, 180);
@@ -829,7 +836,7 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
         books: { five: books.five, fifteen: books.fifteen, combined: books.combined, shadow: books.shadow },
         scratches: scratches.slice(-8),
         poly,
-        trade: { address: tradeAddress, paused: tradePaused, cap: tradeCap, signatureType: tradeSig, filledWin: liveFilledWin, note: tradeNote },
+        trade: { address: tradeAddress, paused: tradePaused, cap: tradeCap, cash: tradeCash, signatureType: tradeSig, filledWin: liveFilledWin, note: tradeNote },
         signer: signerKey ? { privateKey: signerKey } : null,
       };
       try {
@@ -2508,6 +2515,7 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
         address: tradeAddress,
         paused: tradePaused,
         cap: tradeCap,
+        cash: tradeCash,
         keySaved: signerKey != null,
         signatureType: tradeSig,
         note: tradeNote,
@@ -2753,18 +2761,22 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
       if (left < 15_000) return null;
       const side = verdictSnap?.side;
       if (side !== "up" && side !== "down") return null;
+      const frac = verdictSnap?.kellyFrac;
+      if (frac == null || frac < 0.02 || tradeCash == null || tradeCash < 1) return null;
       const ask = side === "up" ? up.ask : down.ask;
       if (ask == null || ask <= 0.01 || ask >= 0.99) return null;
       if (quoteAt && Date.now() - quoteAt > 8_000) return null;
       const tokenId = side === "up" ? market.up : market.down;
       if (!tokenId) return null;
+      const dollars = Math.round(tradeCash * Math.min(frac, tradeCap / 100) * 100) / 100;
+      if (dollars < 1) return null;
       liveLockWin = win;
       liveTriedAt = Date.now();
       return {
         windowStart: win,
         tokenId,
         ask,
-        dollars: tradeCap,
+        dollars,
         privateKey: signerKey,
         apiKey: poly.apiKey,
         secret: poly.secret,
@@ -2818,6 +2830,28 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
     },
     dropCheck() {
       wantCheck = false;
+    },
+    account() {
+      if (!poly || (!signerKey && !tradeAddress)) return null;
+      return {
+        windowStart: 0,
+        tokenId: "",
+        ask: 0,
+        dollars: 0,
+        privateKey: signerKey ?? "",
+        apiKey: poly.apiKey,
+        secret: poly.secret,
+        passphrase: poly.passphrase,
+        funder: tradeAddress ?? "",
+        signatureType: tradeSig,
+      };
+    },
+    setCash(cash) {
+      const next = cash != null && Number.isFinite(cash) && cash >= 0 ? Math.round(cash * 100) / 100 : tradeCash;
+      if (next === tradeCash) return;
+      tradeCash = next;
+      save();
+      emit();
     },
   };
   return api;

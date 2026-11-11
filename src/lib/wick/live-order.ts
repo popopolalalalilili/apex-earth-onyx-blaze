@@ -32,7 +32,20 @@ export async function postFiveBuy(job: LiveJob): Promise<string> {
   return `${resp?.status || "ok"} ${id}`;
 }
 
-/** Asks Polymarket if the saved key is accepted. Does not place an order. */
+/** Collateral the funder can spend, in dollars. Null when Polymarket does not say. */
+export async function readCash(job: LiveJob): Promise<number | null> {
+  const client = clientFor(job);
+  const bal = (await client.getBalanceAllowance({ asset_type: AssetType.COLLATERAL })) as {
+    balance?: string;
+    error?: string;
+  };
+  if (bal?.error) return null;
+  const raw = bal?.balance;
+  if (raw == null || raw === "") return null;
+  const n = Number(raw);
+  if (!Number.isFinite(n)) return null;
+  return String(raw).includes(".") ? n : n / 1_000_000;
+}
 export async function checkAccount(job: LiveJob): Promise<string> {
   if (job.privateKey) {
     const client = clientFor(job);

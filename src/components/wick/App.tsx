@@ -1,4 +1,4 @@
-import { useEffect, useId, useLayoutEffect, useRef, useState, useSyncExternalStore, type FormEvent } from "react";
+import { useEffect, useId, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import type { RelBin, Settings, Side, SimFill, SimPoint, Snap } from "@/lib/wick/engine";
 import type { BookId, BookView, Pos } from "@/lib/wick/desk";
 import { centsLabel, chanceLabel, clock, dollars, formatWindow, remainParts, signedCents, signedDollars } from "@/lib/wick/format";
@@ -23,65 +23,13 @@ function readRoute(): { tab: "live" | "sim" | "trade"; which: BookTab } {
   return { tab: "live", which: "five" };
 }
 
-function useWick(on: boolean): Snap {
+function useWick(): Snap {
   const snap = useSyncExternalStore(live.subscribe, live.getSnapshot, live.getServerSnapshot);
   useEffect(() => {
-    if (!on) return;
     live.start();
     return () => live.stop();
-  }, [on]);
+  }, []);
   return snap;
-}
-
-function SiteLock({ ready, onUnlock }: { ready: boolean; onUnlock: () => void }) {
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [busy, setBusy] = useState(false);
-
-  async function submit(e: FormEvent) {
-    e.preventDefault();
-    if (!ready || busy) return;
-    setBusy(true);
-    setError("");
-    try {
-      const res = await fetch("/api/gate", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ password }),
-      });
-      if (!res.ok) {
-        setError("Wrong password.");
-        setBusy(false);
-        return;
-      }
-      onUnlock();
-    } catch {
-      setError("Could not reach the site.");
-      setBusy(false);
-    }
-  }
-
-  return (
-    <div className="gate">
-      <form className="gate-card" onSubmit={(e) => void submit(e)}>
-        <div className="mark">wick</div>
-        <h1>Enter the password</h1>
-        <p>This page stays closed until the password is right.</p>
-        <input
-          type="password"
-          autoFocus
-          autoComplete="current-password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          disabled={!ready || busy}
-        />
-        <p className="gate-error">{error}</p>
-        <button type="submit" disabled={!ready || busy}>
-          {busy ? "Checking" : "Continue"}
-        </button>
-      </form>
-    </div>
-  );
 }
 
 function useWorker(): WorkerHealth {
@@ -89,28 +37,12 @@ function useWorker(): WorkerHealth {
 }
 
 export function WickApp() {
-  const [gate, setGate] = useState<"wait" | "in" | "no">("wait");
-  const snap = useWick(gate === "in");
+  const snap = useWick();
   const worker = useWorker();
   const reduced = useReducedMotion();
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [tab, setTab] = useState<"live" | "sim" | "trade">("live");
   const [which, setWhich] = useState<BookTab>("five");
-
-  useEffect(() => {
-    let stop = false;
-    fetch("/api/gate", { cache: "no-store" })
-      .then((res) => res.json())
-      .then((body: { ok?: boolean }) => {
-        if (!stop) setGate(body.ok ? "in" : "no");
-      })
-      .catch(() => {
-        if (!stop) setGate("no");
-      });
-    return () => {
-      stop = true;
-    };
-  }, []);
 
   useEffect(() => {
     const route = readRoute();
@@ -179,8 +111,6 @@ export function WickApp() {
   const waiting = snap.price == null && snap.phase !== "resolving";
   const fiveLeft = snap.windowStart ? remainParts(snap.now, snap.windowStart, 300).total : 0;
   const modelP = snap.call === "down" ? snap.model?.pDown : snap.model?.pUp;
-
-  if (gate !== "in") return <SiteLock ready={gate === "no"} onUnlock={() => setGate("in")} />;
 
   return (
     <div className="wick">
@@ -365,7 +295,7 @@ function SimPanel({ snap, which, onWhich }: { snap: Snap; which: BookTab; onWhic
 }
 
 function TradeDesk({ snap }: { snap: Snap }) {
-  const desk = snap.trade ?? { address: null, paused: true, cap: 25, keySaved: false, signatureType: 1 as const, note: "" };
+  const desk = snap.trade ?? { address: null, paused: true, cap: 25, cash: null as number | null, keySaved: false, signatureType: 1 as const, note: "" };
   const [address, setAddress] = useState(desk.address ?? "");
   const [cap, setCap] = useState(String(desk.cap));
   const [key, setKey] = useState("");
@@ -435,8 +365,8 @@ function TradeDesk({ snap }: { snap: Snap }) {
       return;
     }
     const n = Number(cap);
-    if (!Number.isFinite(n) || n < 1) {
-      setHint("The cap has to be at least $1.");
+    if (!Number.isFinite(n) || n < 1 || n > 100) {
+      setHint("The percent has to be between 1 and 100.");
       return;
     }
     setHint("");
@@ -455,7 +385,7 @@ function TradeDesk({ snap }: { snap: Snap }) {
       <div className="sim-tools">
         <div>
           <h2 className="card-title">5 minute account</h2>
-          <p className="cal">Wallet, private key and login. One save. Nothing is bought.</p>
+          <p className="cal">Orders use a percent of your Polymarket balance. Nothing is bought while paused.</p>
         </div>
         <div className="trade-actions">
           <button type="button" className={press === "save" ? "modal-btn is-down" : "modal-btn"} onClick={saveAll} disabled={press === "save"}>
@@ -493,12 +423,13 @@ function TradeDesk({ snap }: { snap: Snap }) {
 
       <div className="trade-flags">
         <span className={`trade-flag ${api.kind}`}>{api.kind === "wait" && <Spinner />}{api.label}</span>
-        <span className="trade-flag">{desk.paused ? "Paused" : "Resumed"}</span>
+        <span className="trade-flag">{desk.cash == null ? "Balance unknown" : `Balance ${signedDollars(desk.cash, 2).replace("+", "")}`}</span>
         <span className={`trade-flag ${snap.polySaved && desk.keySaved ? "ok" : ""}`}>
           {snap.polySaved && desk.keySaved ? "Saved" : "Not saved"}
         </span>
       </div>
       {(hint || api.hint) && <p className="cal trade-hint">{hint || api.hint}</p>}
+      <p className="cal trade-hint">{orderLine(snap.kellyFrac, desk.cash ?? null, desk.cap)}</p>
 
       <div className="trade-form">
         <label>
@@ -506,7 +437,7 @@ function TradeDesk({ snap }: { snap: Snap }) {
           <input value={address} onChange={(e) => setAddress(e.target.value)} placeholder="0x…" spellCheck={false} autoComplete="off" />
         </label>
         <label>
-          Max to trade
+          Max % of balance
           <input value={cap} onChange={(e) => setCap(e.target.value)} inputMode="decimal" />
         </label>
         <label>
@@ -536,6 +467,16 @@ function TradeDesk({ snap }: { snap: Snap }) {
       </article>
     </section>
   );
+}
+
+function orderLine(frac: number | null, cash: number | null, cap: number): string {
+  if (cash == null) return "Balance has not loaded yet.";
+  if (frac == null || frac < 0.02) return "This window is under 2% of the balance, so nothing is bought.";
+  const use = Math.min(frac, cap / 100);
+  const dollars = Math.round(cash * use * 100) / 100;
+  const pct = `${Math.round(use * 1000) / 10}%`;
+  if (dollars < 1) return `This window is ${pct} of the balance, under $1, so nothing is bought.`;
+  return `This window buys ${pct} of the balance, about $${dollars.toFixed(2)}.`;
 }
 
 function describeApi(raw: string, saved: boolean): { kind: "idle" | "wait" | "ok" | "bad"; label: string; hint: string } {

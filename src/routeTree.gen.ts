@@ -10,7 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ApiGateRouteImport } from './routes/api/gate'
 import { Route as ApiOpenRouteImport } from './routes/api/open'
 import { Route as ApiPolyPnlRouteImport } from './routes/api/poly-pnl'
 import { Route as ApiWickRouteImport } from './routes/api/wick'
@@ -18,11 +17,6 @@ import { Route as ApiWickRouteImport } from './routes/api/wick'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiGateRoute = ApiGateRouteImport.update({
-  id: '/api/gate',
-  path: '/api/gate',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiOpenRoute = ApiOpenRouteImport.update({
@@ -43,14 +37,12 @@ const ApiWickRoute = ApiWickRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/api/gate': typeof ApiGateRoute
   '/api/open': typeof ApiOpenRoute
   '/api/poly-pnl': typeof ApiPolyPnlRoute
   '/api/wick': typeof ApiWickRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/api/gate': typeof ApiGateRoute
   '/api/open': typeof ApiOpenRoute
   '/api/poly-pnl': typeof ApiPolyPnlRoute
   '/api/wick': typeof ApiWickRoute
@@ -58,23 +50,20 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/api/gate': typeof ApiGateRoute
   '/api/open': typeof ApiOpenRoute
   '/api/poly-pnl': typeof ApiPolyPnlRoute
   '/api/wick': typeof ApiWickRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/gate' | '/api/open' | '/api/poly-pnl' | '/api/wick'
+  fullPaths: '/' | '/api/open' | '/api/poly-pnl' | '/api/wick'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/gate' | '/api/open' | '/api/poly-pnl' | '/api/wick'
-  id:
-    '__root__' | '/' | '/api/gate' | '/api/open' | '/api/poly-pnl' | '/api/wick'
+  to: '/' | '/api/open' | '/api/poly-pnl' | '/api/wick'
+  id: '__root__' | '/' | '/api/open' | '/api/poly-pnl' | '/api/wick'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ApiGateRoute: typeof ApiGateRoute
   ApiOpenRoute: typeof ApiOpenRoute
   ApiPolyPnlRoute: typeof ApiPolyPnlRoute
   ApiWickRoute: typeof ApiWickRoute
@@ -87,13 +76,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/gate': {
-      id: '/api/gate'
-      path: '/api/gate'
-      fullPath: '/api/gate'
-      preLoaderRoute: typeof ApiGateRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/open': {
@@ -122,7 +104,6 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ApiGateRoute: ApiGateRoute,
   ApiOpenRoute: ApiOpenRoute,
   ApiPolyPnlRoute: ApiPolyPnlRoute,
   ApiWickRoute: ApiWickRoute,
