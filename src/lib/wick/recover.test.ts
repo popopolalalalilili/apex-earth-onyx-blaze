@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { freshBook, type Pos } from "./desk.ts";
 import { createEngine, type Persist, type RecoverSummary, type Settings } from "./engine.ts";
+import { parseCommand } from "./protocol.ts";
 
 const settings: Settings = {
   lookbackSec: 600,
@@ -122,4 +123,40 @@ test("a restarted engine reloads all three books and their open positions", () =
   assert.ok(again);
   same(loaded, again as RecoverSummary);
   second.stop();
+});
+
+test("polymarket keys stay on the worker and are not copied onto the snapshot", () => {
+  const secret = "test-secret-value";
+  const cmd = parseCommand({
+    kind: "poly",
+    apiKey: "test-api-key",
+    secret,
+    passphrase: "test-pass-phrase",
+  });
+  assert.equal(cmd?.kind, "poly");
+  assert.equal(parseCommand({ kind: "poly", apiKey: "short", secret, passphrase: "test-pass-phrase" }), null);
+
+  let saved: Persist | null = null;
+  let storedSecret: string | null = null;
+  const engine = createEngine({
+    read: () => saved,
+    write: (data) => {
+      saved = data;
+      storedSecret = data.poly?.secret ?? null;
+    },
+    feeds: false,
+  });
+  engine.push(cmd!);
+  engine.start();
+  const snap = engine.getSnapshot();
+  const published = JSON.stringify({ settings: engine.settings(), snap });
+  assert.equal(snap.polySaved, true);
+  assert.equal(published.includes(secret), false);
+  assert.equal(storedSecret, secret);
+  engine.push({ kind: "poly-clear" });
+  engine.stop();
+  engine.start();
+  assert.equal(engine.getSnapshot().polySaved, false);
+  assert.equal(storedSecret, null);
+  engine.stop();
 });

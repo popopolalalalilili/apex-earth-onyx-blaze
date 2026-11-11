@@ -7,7 +7,9 @@ export type WickCommand =
   | { kind: "target"; price: number | null }
   | { kind: "paper"; side: "up" | "down" }
   | { kind: "reset"; book: BookName }
-  | { kind: "import"; body: Record<string, unknown> };
+  | { kind: "import"; body: Record<string, unknown> }
+  | { kind: "poly"; apiKey: string; secret: string; passphrase: string }
+  | { kind: "poly-clear" };
 
 export type WorkerHealth = {
   status: "starting" | "leading" | "standby" | "offline" | "stopped";
@@ -89,7 +91,23 @@ export function parseCommand(raw: unknown): WickCommand | null {
     if (JSON.stringify(body).length > 1_500_000) return null;
     return { kind: "import", body };
   }
+  if (row.kind === "poly") {
+    const apiKey = clipSecret(row.apiKey);
+    const secret = clipSecret(row.secret);
+    const passphrase = clipSecret(row.passphrase);
+    if (!apiKey || !secret || !passphrase) return null;
+    return { kind: "poly", apiKey, secret, passphrase };
+  }
+  if (row.kind === "poly-clear") return { kind: "poly-clear" };
   return null;
+}
+
+function clipSecret(v: unknown): string | null {
+  if (typeof v !== "string") return null;
+  const s = v.trim();
+  if (s.length < 8 || s.length > 256) return null;
+  if (/[\u0000-\u001f]/.test(s)) return null;
+  return s;
 }
 
 /** A dead process must not look like it is still leading. */

@@ -188,6 +188,7 @@ export type Snap = {
   waiting5: WaitSnap | null;
   waiting15: WaitSnap | null;
   shadowLane: CallSnap;
+  polySaved: boolean;
 };
 
 export type LaneSnap = {
@@ -275,6 +276,8 @@ export type Persist = {
   sim?: { cash: number; pos: SimPos | null; fills: SimFill[]; fees?: number; curve?: SimPoint[]; trades?: SimTrade[]; tradedWin?: number };
   books?: Partial<Record<"five" | "fifteen" | "combined" | "shadow", Book>>;
   scratches?: Scratch[];
+  /** Worker-only. Never copy this onto the public snapshot. */
+  poly?: { apiKey: string; secret: string; passphrase: string } | null;
 };
 
 function emptyQuote(): Quote {
@@ -357,6 +360,7 @@ export function blankSnap(): Snap {
     waiting5: null,
     waiting15: null,
     shadowLane: { verdict: "skip", call: null, reason: null, edge: null, gate: null },
+    polySaved: false,
   };
 }
 
@@ -527,6 +531,7 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
   const inbox: WickCommand[] = [];
   let users = 0;
   let settings: Settings = { ...DEFAULTS };
+  let poly: { apiKey: string; secret: string; passphrase: string } | null = null;
   let tape: TapeMark[] = [];
   let paper: PaperTrade[] = [];
   let calib: CalibRow[] = [];
@@ -714,6 +719,7 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
       if (savedBooks?.five) books.five = mergeBook("five", savedBooks.five);
       if (savedBooks?.shadow) books.shadow = mergeBook("shadow", savedBooks.shadow);
       if (Array.isArray(data.scratches)) scratches = data.scratches.slice(-8);
+      if ("poly" in data) poly = data.poly == null ? null : readPoly(data.poly) ?? poly;
     } catch {
       /* ignore broken local storage */
     }
@@ -767,6 +773,7 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
         },
         books: { five: books.five, fifteen: books.fifteen, combined: books.combined, shadow: books.shadow },
         scratches: scratches.slice(-8),
+        poly,
       };
       try {
         host.write(data);
@@ -2233,6 +2240,12 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
         applyPersist(cmd.body as Partial<Persist>);
         save();
         emit();
+      } else if (cmd.kind === "poly") {
+        poly = { apiKey: cmd.apiKey, secret: cmd.secret, passphrase: cmd.passphrase };
+        save();
+      } else if (cmd.kind === "poly-clear") {
+        poly = null;
+        save();
       }
     }
   }
@@ -2399,6 +2412,7 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
       waiting5: waitSnap(wait5, win, model),
       waiting15: waitSnap(wait15, l15.win, l15.model),
       shadowLane,
+      polySaved: poly != null,
     };
   }
 
@@ -2805,6 +2819,17 @@ function readTrades(raw: unknown): SimTrade[] {
     });
   }
   return out.slice(-500);
+}
+
+function readPoly(raw: unknown): { apiKey: string; secret: string; passphrase: string } | null {
+  if (!raw || typeof raw !== "object") return null;
+  const row = raw as Record<string, unknown>;
+  const apiKey = typeof row.apiKey === "string" ? row.apiKey.trim() : "";
+  const secret = typeof row.secret === "string" ? row.secret.trim() : "";
+  const passphrase = typeof row.passphrase === "string" ? row.passphrase.trim() : "";
+  if (apiKey.length < 8 || secret.length < 8 || passphrase.length < 8) return null;
+  if (apiKey.length > 256 || secret.length > 256 || passphrase.length > 256) return null;
+  return { apiKey, secret, passphrase };
 }
 
 function sanitize(s: Settings): Settings {

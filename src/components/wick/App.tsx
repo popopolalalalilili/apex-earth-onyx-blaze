@@ -122,6 +122,9 @@ export function WickApp() {
           <button type="button" className={tab === "sim" ? "on" : ""} onClick={() => go("sim", which)}>
             Simulation
           </button>
+          <button type="button" onClick={() => setSettingsOpen(true)}>
+            Settings
+          </button>
         </nav>
       </header>
       <p className="worker-line">{workerLine(worker, snap.now)}</p>
@@ -1103,6 +1106,11 @@ function shortTime(startSec: number): string {
 
 function Settings({ snap, onClose }: { snap: Snap; onClose: () => void }) {
   const [form, setForm] = useState<Settings>(() => live.settings());
+  const [apiKey, setApiKey] = useState("");
+  const [secret, setSecret] = useState("");
+  const [passphrase, setPassphrase] = useState("");
+  const [polyNote, setPolyNote] = useState("");
+  const canSave = apiKey.trim().length >= 8 && secret.trim().length >= 8 && passphrase.trim().length >= 8;
 
   function patch(p: Partial<Settings>) {
     const next = { ...form, ...p };
@@ -1110,9 +1118,29 @@ function Settings({ snap, onClose }: { snap: Snap; onClose: () => void }) {
     live.patchSettings(p);
   }
 
+  function savePoly() {
+    if (!canSave) return;
+    live.savePoly(apiKey.trim(), secret.trim(), passphrase.trim());
+    setApiKey("");
+    setSecret("");
+    setPassphrase("");
+    setPolyNote("Sent to the worker. The keys are not shown again.");
+  }
+
+  function clearPoly() {
+    live.clearPoly();
+    setPolyNote("Remove sent. The worker drops the keys.");
+  }
+
   return (
     <div className="scrim" onMouseDown={onClose}>
-      <aside className="drawer" role="dialog" aria-label="Settings" onMouseDown={(e) => e.stopPropagation()}>
+      <div
+        className="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Settings"
+        onMouseDown={(e) => e.stopPropagation()}
+      >
         <div className="drawer-h">
           <h2>Settings</h2>
           <button type="button" className="gear" onClick={onClose} aria-label="Close settings">
@@ -1127,6 +1155,52 @@ function Settings({ snap, onClose }: { snap: Snap; onClose: () => void }) {
           <span>Book {snap.clobLive ? "live" : "rest"}</span>
           <span>Reconnects {snap.reconnects}</span>
         </div>
+        <h3>Polymarket API</h3>
+        <p className="poly-status">{snap.polySaved ? "Saved on the worker." : "Not saved."}</p>
+        <label className="field">
+          API key
+          <input
+            type="password"
+            autoComplete="off"
+            spellCheck={false}
+            value={apiKey}
+            onChange={(e) => setApiKey(e.target.value)}
+          />
+        </label>
+        <label className="field">
+          Secret
+          <input
+            type="password"
+            autoComplete="off"
+            spellCheck={false}
+            value={secret}
+            onChange={(e) => setSecret(e.target.value)}
+          />
+        </label>
+        <label className="field">
+          Passphrase
+          <input
+            type="password"
+            autoComplete="off"
+            spellCheck={false}
+            value={passphrase}
+            onChange={(e) => setPassphrase(e.target.value)}
+          />
+        </label>
+        <div className="modal-actions">
+          <button type="button" className="modal-btn" disabled={!canSave} onClick={savePoly}>
+            Save API
+          </button>
+          {snap.polySaved && (
+            <button type="button" className="modal-btn" onClick={clearPoly}>
+              Remove
+            </button>
+          )}
+        </div>
+        {polyNote && <p className="poly-status">{polyNote}</p>}
+        <p className="hint">
+          The keys stay on the worker. This page does not keep them, and they are not sent back to the browser. Paper only. Nothing here places an order.
+        </p>
         <Field label="Lookback, seconds" value={form.lookbackSec} step={30} onChange={(n) => patch({ lookbackSec: n })} />
         <Field label="Extra caution on the wobble" value={form.tail} step={0.05} onChange={(n) => patch({ tail: n })} />
         <Field label="Exchange gap, dollars" value={form.basis} step={1} onChange={(n) => patch({ basis: n })} />
@@ -1162,9 +1236,9 @@ function Settings({ snap, onClose }: { snap: Snap; onClose: () => void }) {
           Soft click on a book fill and on a $1 log
         </label>
         <p className="hint">
-          The stake is half the Kelly fraction from the chance, the price, and the fee. It is smaller when the window is still early, and smaller under this safety price. It is not a ban, and it is not 10%. The cap is 25% of that book's cash. Combined uses half of that when the other window is already on the same side. Shadow uses 55¢ as its safety price. A buy still has to clear this extra edge, and also the fee plus the spread. Leave the highest buy empty for no cap. U and D log a personal $1. That log is not a book. Settings and resets are sent to the worker. The books keep running when this page is closed. Nothing here is sent to Polymarket. Chainlink 60s is the price their chart uses.
+          The stake is half the Kelly fraction from the chance, the price, and the fee. It is smaller when the window is still early, and smaller under this safety price. It is not a ban, and it is not 10%. The cap is 25% of that book's cash. Combined uses half of that when the other window is already on the same side. Shadow uses 55¢ as its safety price. A buy still has to clear this extra edge, and also the fee plus the spread. Leave the highest buy empty for no cap. U and D log a personal $1. That log is not a book. Settings and resets are sent to the worker. The books keep running when this page is closed. Chainlink 60s is the price their chart uses.
         </p>
-      </aside>
+      </div>
     </div>
   );
 }

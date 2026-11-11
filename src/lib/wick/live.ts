@@ -130,6 +130,12 @@ export const live = {
     emit();
     void send({ kind: "settings", patch });
   },
+  savePoly(apiKey: string, secret: string, passphrase: string) {
+    void send({ kind: "poly", apiKey, secret, passphrase });
+  },
+  clearPoly() {
+    void send({ kind: "poly-clear" });
+  },
   setTarget(price: number | null) {
     void send({ kind: "target", price });
   },
