@@ -255,6 +255,26 @@ export function signal(book: Book, lane: Lane, now: number): void {
   book.note = openReason;
 }
 
+/**
+ * Should a real position be sold right now? Yes when the sim sold it, or when the sim's own exit rule
+ * fires on the real entry price. The bid is what the sell is priced from.
+ */
+export function liveExitCall(
+  pos: { side: Side; entry: number },
+  lane: Lane,
+  simSold: boolean,
+): { bid: number; reason: string } | null {
+  const q = pos.side === "up" ? lane.up : lane.down;
+  const bid = q.bid;
+  if (bid == null || bid <= 0.01 || bid >= 0.99) return null;
+  if (simSold) return { bid, reason: "The sim sold this window, so the real position is sold too." };
+  if (!lane.open || !lane.model) return null;
+  const sellFee = feePerShare(bid, lane.feeRate, lane.feeExp);
+  const pSide = pos.side === "up" ? lane.model.pUp : lane.model.pDown;
+  const decision = exitDecision(bid, sellFee, pSide, pos.entry);
+  return decision.sell && decision.reason ? { bid, reason: decision.reason } : null;
+}
+
 export function resolve(book: Book, span: Span, win: number, outcome: Side | null, at = Date.now()): void {
   const pos = book.positions.find((p) => p.span === span && p.windowStart === win);
   if (!pos) return;

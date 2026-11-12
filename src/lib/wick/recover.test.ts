@@ -168,3 +168,35 @@ test("polymarket keys stay on the worker and are not copied onto the snapshot", 
   assert.equal(storedKey, key);
   engine.stop();
 });
+
+test("a real position survives a restart, so it can still be sold", () => {
+  const live = {
+    span: 300 as const,
+    win: 1_700_000_000,
+    side: "up" as const,
+    tokenId: "123456789",
+    shares: 12.5,
+    cost: 10,
+    entry: 0.8,
+    at: 1_700_000_010_000,
+  };
+  let saved: Persist = {
+    ...seed(),
+    trade: { address: "0x" + "1".repeat(40), paused: false, cap: 25, cash: 20, positions: [live, { span: 7 } as never] },
+  };
+  const engine = createEngine({
+    read: () => saved,
+    write: (data) => {
+      saved = data;
+    },
+    directOpen: true,
+    feeds: false,
+  });
+  engine.start();
+  engine.setCash(21);
+  // The broken row is dropped. The real one is kept and written back.
+  assert.deepEqual(saved.trade?.positions, [live]);
+  // No key saved, so no sell is ever built from it.
+  assert.equal(engine.liveExit(), null);
+  engine.stop();
+});

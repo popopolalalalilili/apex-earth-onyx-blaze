@@ -2,13 +2,30 @@ import { createWalletClient, http, type WalletClient } from "viem";
 import { polygon } from "viem/chains";
 import { privateKeyToAccount } from "viem/accounts";
 import { AssetType, Chain, ClobClient, OrderType, Side, SignatureTypeV2 } from "@polymarket/clob-client-v2";
-import type { LiveJob } from "./engine";
+import type { LiveJob, LiveSell } from "./engine";
+
+type OrderResp = {
+  success?: boolean;
+  errorMsg?: string;
+  error?: unknown;
+  orderID?: string;
+  status?: string | number;
+  takingAmount?: string;
+  makingAmount?: string;
+};
+
+function amount(raw: string | undefined): number | null {
+  if (raw == null || raw === "") return null;
+  const n = Number(raw);
+  return Number.isFinite(n) && n > 0 ? n : null;
+}
 
 /**
  * Signs and posts one fill-or-kill buy. The key stays in this process.
  * A failure string never includes the key.
+ * Returns what was bought, so the position can be sold again later.
  */
-export async function postFiveBuy(job: LiveJob): Promise<string> {
+export async function postFiveBuy(job: LiveJob): Promise<{ line: string; shares: number | null; spent: number | null }> {
   const client = clientFor(job);
   const tickSize = await client.getTickSize(job.tokenId);
   const negRisk = await client.getNegRisk(job.tokenId);
@@ -22,14 +39,59 @@ export async function postFiveBuy(job: LiveJob): Promise<string> {
     },
     { tickSize, negRisk },
     OrderType.FOK,
-  )) as { success?: boolean; errorMsg?: string; error?: unknown; orderID?: string; status?: string | number };
+  )) as OrderResp;
   const refused = orderRefusal(resp);
   if (refused) throw new Error(refused);
   const id = resp.orderID ? `${resp.orderID.slice(0, 8)}…` : "sent";
-  return `${resp.status || "ok"} ${id}`;
+  // On a buy, taking is the shares received and making is the dollars paid.
+  return { line: `${resp.status || "ok"} ${id}`, shares: amount(resp.takingAmount), spent: amount(resp.makingAmount) };
 }
 
-function orderRefusal(resp: { success?: boolean; errorMsg?: string; error?: unknown; orderID?: string; status?: string | number }): string | null {
+/**
+ * Sells a position we hold, fill-or-kill, at the bid or a little under it.
+ * It sells what the wallet really holds of this token, not what we think we bought.
+ */
+export async function postSell(job: LiveSell): Promise<{ line: string; proceeds: number | null }> {
+  const client = clientFor(job);
+  const tickSize = await client.getTickSize(job.tokenId);
+  const negRisk = await client.getNegRisk(job.tokenId);
+  let shares = job.shares;
+  try {
+    const bal = (await client.getBalanceAllowance({ asset_type: AssetType.CONDITIONAL, token_id: job.tokenId })) as {
+      balance?: string;
+      error?: string;
+    };
+    if (!bal?.error) {
+      const held = units(bal?.balance);
+      if (held != null) shares = held;
+    }
+  } catch {
+    /* fall back to the size we recorded */
+  }
+  shares = Math.floor(shares * 100) / 100;
+  if (!(shares > 0)) throw new Error("No shares to sell yet.");
+  const tick = Number(tickSize) > 0 ? Number(tickSize) : 0.01;
+  const decimals = Math.max(0, Math.round(-Math.log10(tick)));
+  const floor = Math.max(tick, Math.round((job.bid - 0.03) / tick) * tick);
+  const resp = (await client.createAndPostMarketOrder(
+    {
+      tokenID: job.tokenId,
+      price: Number(floor.toFixed(decimals)),
+      amount: shares,
+      side: Side.SELL,
+      orderType: OrderType.FOK,
+    },
+    { tickSize, negRisk },
+    OrderType.FOK,
+  )) as OrderResp;
+  const refused = orderRefusal(resp);
+  if (refused) throw new Error(refused);
+  const id = resp.orderID ? `${resp.orderID.slice(0, 8)}…` : "sent";
+  // On a sell, taking is the dollars received.
+  return { line: `${resp.status || "ok"} ${id}`, proceeds: amount(resp.takingAmount) };
+}
+
+function orderRefusal(resp: OrderResp): string | null {
   const status = typeof resp.status === "number" ? resp.status : Number(resp.status);
   const detail = clip(resp.errorMsg || resp.error);
   if (resp.success === false) return detail || "Order rejected";
@@ -176,7 +238,7 @@ function readCreds(raw: unknown): { apiKey: string; secret: string; passphrase: 
   if (!apiKey || !row.secret || !row.passphrase) return null;
   return { apiKey, secret: row.secret, passphrase: row.passphrase };
 }
-function clientFor(job: LiveJob): ClobClient {
+function clientFor(job: LiveJob | LiveSell): ClobClient {
   if (!job.funder) throw new Error("Save the deposit wallet address from your Polymarket profile.");
   return new ClobClient({
     host: "https://clob.polymarket.com",
