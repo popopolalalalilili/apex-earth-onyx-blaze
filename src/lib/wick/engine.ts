@@ -2,6 +2,7 @@ import { apiPath, polyUrl, polymarketOpenUrl, windowStart } from "./format";
 import {
   compactCurve,
   freshBook,
+  liveExitCall,
   markBook,
   present,
   resetBook as clearBook,
@@ -217,6 +218,26 @@ export type LiveJob = {
   signatureType: 0 | 1 | 2;
 };
 
+/** A real position the worker bought and still holds. Needed to sell it again. */
+export type LivePos = {
+  span: 300 | 900;
+  win: number;
+  side: "up" | "down";
+  tokenId: string;
+  shares: number;
+  cost: number;
+  entry: number;
+  at: number;
+};
+
+/** A real sell order. The sim sold this window, or the same exit rule fired on the real position. */
+export type LiveSell = Omit<LiveJob, "ask" | "dollars"> & {
+  side: "up" | "down";
+  shares: number;
+  bid: number;
+  reason: string;
+};
+
 export type LaneSnap = {
   windowStart: number;
   phase: Snap["phase"];
@@ -315,6 +336,7 @@ export type Persist = {
     filledSide?: "up" | "down" | null;
     filled15?: number;
     filled15Side?: "up" | "down" | null;
+    positions?: LivePos[];
     note?: string;
   };
   /** Worker-only. Never copy this onto the public snapshot. */
@@ -558,9 +580,18 @@ export type Engine = {
   resetBook: (id: "five" | "fifteen" | "combined" | "shadow") => void;
   exportBooks: () => void;
   push: (cmd: WickCommand) => void;
-  /** Real 5-minute order, or null when the desk is paused, missing a key, or already sent. */
+  /** Real 15-minute order, or null when the desk is paused, missing a key, or already sent. */
   liveJob: () => LiveJob | null;
-  markLive: (windowStart: number, note: string, filled: boolean, span?: 300 | 900) => void;
+  markLive: (
+    windowStart: number,
+    note: string,
+    filled: boolean,
+    span?: 300 | 900,
+    fill?: { shares: number | null; spent: number | null },
+  ) => void;
+  /** Real sell for a position we hold, or null. Runs while paused too, so a pause never strands a position. */
+  liveExit: () => LiveSell | null;
+  markExit: (windowStart: number, span: 300 | 900, note: string, sold: boolean, proceeds?: number | null) => void;
   /** Read-only Polymarket check. Null when nothing was asked, or the desk is missing a key. */
   takeCheck: () => LiveJob | null;
   /** Private key waiting to be exchanged for a trading key. Never put this on the snapshot. */
@@ -595,8 +626,11 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
   let signerKey: string | null = null;
   let live5: { win: number; side: "up" | "down" | null } | null = null;
   let live15: { win: number; side: "up" | "down" | null } | null = null;
-  let liveLock: { span: 300 | 900; win: number; side: "up" | "down"; dollars: number } | null = null;
+  let liveLock: { span: 300 | 900; win: number; side: "up" | "down"; dollars: number; tokenId: string; ask: number } | null = null;
   let liveTriedAt = 0;
+  let livePos: LivePos[] = [];
+  let liveExitTriedAt = 0;
+  let lastLanes: { five: Lane; fifteen: Lane } | null = null;
   let wantCheck = false;
   let wantDerive = false;
   let tape: TapeMark[] = [];
@@ -800,6 +834,22 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
         if (typeof data.trade.filled15 === "number" && data.trade.filled15 > 0) {
           live15 = { win: data.trade.filled15, side: data.trade.filled15Side === "up" || data.trade.filled15Side === "down" ? data.trade.filled15Side : null };
         }
+        if (Array.isArray(data.trade.positions)) {
+          livePos = data.trade.positions.filter(
+            (p): p is LivePos =>
+              Boolean(p) &&
+              (p.span === 300 || p.span === 900) &&
+              typeof p.win === "number" &&
+              (p.side === "up" || p.side === "down") &&
+              typeof p.tokenId === "string" &&
+              p.tokenId.length > 0 &&
+              Number.isFinite(p.shares) &&
+              p.shares > 0 &&
+              Number.isFinite(p.cost) &&
+              Number.isFinite(p.entry) &&
+              Number.isFinite(p.at),
+          );
+        }
         if (typeof data.trade.note === "string") tradeNote = data.trade.note.slice(0, 180);
         if (tradeNote.startsWith("Order 403")) live5 = null;
       }
@@ -868,6 +918,7 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
           filledSide: live5?.side ?? null,
           filled15: live15?.win ?? 0,
           filled15Side: live15?.side ?? null,
+          positions: livePos,
           note: tradeNote,
         },
         signer: signerKey ? { privateKey: signerKey } : null,
@@ -1885,6 +1936,7 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
     }, now);
     signal(books.combined, fifteen, now);
     signal(books.combined, five, now);
+    lastLanes = { five, fifteen };
     const lanes = [five, fifteen];
     for (const book of [books.five, books.fifteen, books.combined, books.shadow]) {
       touchCurve(book, book.cash + markBook(book, lanes) - 100, now);
@@ -2620,6 +2672,16 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
     save();
   }
 
+  /** True when a paper book that follows this span sold in that window. Side null matches either side. */
+  function simSold(span: 300 | 900, windowStart: number, side: "up" | "down" | null): boolean {
+    const list = span === 900 ? [books.combined, books.fifteen] : [books.combined, books.five];
+    return list.some((book) =>
+      book.fills.some(
+        (f) => f.action === "sell" && f.span === span && f.windowStart === windowStart && (side == null || f.side === side),
+      ),
+    );
+  }
+
   function liveCandidate(span: 300 | 900): LiveJob | null {
     if (!signerKey || !poly || !tradeAddress || tradeCash == null || tradeCash < 1) return null;
     const five = span === 300;
@@ -2630,6 +2692,8 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
     if (held?.win === windowStart) return null;
     if (liveLock?.span === span && liveLock.win === windowStart && Date.now() - liveTriedAt < 20_000) return null;
     if ((windowStart + span) * 1000 - Date.now() < 15_000) return null;
+    // The sim already bought and sold this window. A real buy now would be held to the end alone.
+    if (simSold(span, windowStart, null)) return null;
     const verdict = five ? verdictSnap : l15.verdict;
     const side = verdict?.side;
     if (side !== "up" && side !== "down") return null;
@@ -2648,7 +2712,7 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
     const sized = stakeFraction({ base: Math.min(frac, tradeCap / 100), sameSideAlready: same });
     const dollars = Math.round(tradeCash * sized.frac * 100) / 100;
     if (dollars < 1) return null;
-    liveLock = { span, win: windowStart, side, dollars };
+    liveLock = { span, win: windowStart, side, dollars, tokenId, ask };
     liveTriedAt = Date.now();
     return {
       windowStart,
@@ -2833,16 +2897,78 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
     },
     liveJob() {
       if (tradePaused || !signerKey || !poly || !tradeAddress) return null;
-      return liveCandidate(900) ?? liveCandidate(300);
+      // Real money trades the 15-minute window only. The 5-minute window stays on the paper books.
+      return liveCandidate(900);
     },
-    markLive(windowStart, note, filled, span) {
+    markLive(windowStart, note, filled, span, fill) {
       tradeNote = note.replace(/0x[a-fA-F0-9]{64}/g, "0x…").slice(0, 180);
       if (filled && liveLock && liveLock.win === windowStart && (span == null || liveLock.span === span)) {
         const hold = { win: liveLock.win, side: liveLock.side };
         if (liveLock.span === 900) live15 = hold;
         else live5 = hold;
+        const spent = fill?.spent != null && fill.spent > 0 ? fill.spent : liveLock.dollars;
+        const shares = fill?.shares != null && fill.shares > 0 ? fill.shares : spent / liveLock.ask;
+        const lock = liveLock;
+        livePos = [
+          ...livePos.filter((p) => !(p.span === lock.span && p.win === lock.win)),
+          {
+            span: lock.span,
+            win: lock.win,
+            side: lock.side,
+            tokenId: lock.tokenId,
+            shares,
+            cost: spent,
+            entry: lock.ask,
+            at: Date.now(),
+          },
+        ].slice(-6);
         if (tradeCash != null) tradeCash = Math.max(0, Math.round((tradeCash - liveLock.dollars) * 100) / 100);
         liveLock = null;
+      }
+      save();
+      emit();
+    },
+    liveExit() {
+      if (!signerKey || !poly || !tradeAddress || livePos.length === 0) return null;
+      const now = Date.now();
+      // A window that ended more than two minutes ago has settled. Nothing left to sell.
+      livePos = livePos.filter((p) => now < (p.win + p.span) * 1000 + 120_000);
+      if (now - liveExitTriedAt < 4_000) return null;
+      for (const p of livePos) {
+        if ((p.win + p.span) * 1000 - now < 3_000) continue;
+        const lane = p.span === 900 ? lastLanes?.fifteen : lastLanes?.five;
+        if (!lane || lane.win !== p.win) continue;
+        const quotedAt = p.span === 900 ? l15.quoteAt : quoteAt;
+        if (quotedAt && now - quotedAt > 8_000) continue;
+        const call = liveExitCall(p, lane, simSold(p.span, p.win, p.side));
+        if (!call) continue;
+        const { bid, reason } = call;
+        liveExitTriedAt = now;
+        return {
+          windowStart: p.win,
+          span: p.span,
+          side: p.side,
+          tokenId: p.tokenId,
+          shares: p.shares,
+          bid,
+          reason,
+          privateKey: signerKey,
+          apiKey: poly.apiKey,
+          secret: poly.secret,
+          passphrase: poly.passphrase,
+          funder: tradeAddress,
+          signatureType: tradeSig,
+        };
+      }
+      return null;
+    },
+    markExit(windowStart, span, note, sold, proceeds) {
+      tradeNote = note.replace(/0x[a-fA-F0-9]{64}/g, "0x…").slice(0, 180);
+      if (sold) {
+        livePos = livePos.filter((p) => !(p.span === span && p.win === windowStart));
+        if (tradeCash != null && proceeds != null && proceeds > 0) {
+          tradeCash = Math.round((tradeCash + proceeds) * 100) / 100;
+        }
       }
       save();
       emit();

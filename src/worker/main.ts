@@ -1,6 +1,7 @@
 /**
  * Wick worker. Paper books always run here.
- * A real 5-minute order is sent only when Trade is resumed and a key is saved.
+ * A real order is sent only when Trade is resumed and a key is saved.
+ * A real position is also sold again when the sim sells it, even while Trade is paused.
  * Balances live in Postgres when DATABASE_URL is set, otherwise in WICK_DATA_DIR.
  * A second copy waits on the lease.
  *
@@ -11,7 +12,7 @@ import { createServer } from "node:http";
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { createEngine, type Engine, type Persist } from "../lib/wick/engine.ts";
-import { checkAccount, deriveCreds, postFiveBuy, readCash } from "../lib/wick/live-order.ts";
+import { checkAccount, deriveCreds, postFiveBuy, postSell, readCash } from "../lib/wick/live-order.ts";
 import { blankWorker, type LiveFile, type WorkerHealth } from "../lib/wick/protocol.ts";
 import { createStore, type Store } from "../lib/wick/store.ts";
 
@@ -159,7 +160,7 @@ async function lead(store: Store) {
   }
   if (stopped) return;
   engine.start();
-  console.log("[wick] leading. Paper books keep running. Live orders follow Combined: 15-minute first, then 5-minute, half size when both want the same side.");
+  console.log("[wick] leading. Paper books keep running. Live orders trade the 15-minute window only. The 5-minute window is paper only.");
   while (!stopped) {
     try {
       const cmds = await store.takeCommands();
@@ -197,13 +198,32 @@ async function lead(store: Store) {
           }
         }
       }
+      // A sell goes before any new buy. A held position must follow the sim out.
+      if (!liveBusy) {
+        const exit = engine.liveExit();
+        if (exit) {
+          liveBusy = true;
+          try {
+            const done = await postSell(exit);
+            engine.markExit(exit.windowStart, exit.span, `Sold ${done.line}. ${exit.reason}`, true, done.proceeds);
+          } catch (err) {
+            const msg = err instanceof Error ? err.message : "sell failed";
+            engine.markExit(exit.windowStart, exit.span, `Sell failed. ${msg}`.slice(0, 180), false);
+          } finally {
+            liveBusy = false;
+          }
+        }
+      }
       if (!liveBusy) {
         const job = engine.liveJob();
         if (job) {
           liveBusy = true;
           try {
-            const line = await postFiveBuy(job);
-            engine.markLive(job.windowStart, `Order ${line}`, true, job.span);
+            const bought = await postFiveBuy(job);
+            engine.markLive(job.windowStart, `Order ${bought.line}`, true, job.span, {
+              shares: bought.shares,
+              spent: bought.spent,
+            });
           } catch (err) {
             const msg = err instanceof Error ? err.message : "order failed";
             engine.markLive(job.windowStart, msg.slice(0, 180), false, job.span);

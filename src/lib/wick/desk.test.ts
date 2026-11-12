@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { compactCurve, freshBook, resolve, signal, touchCurve, type Lane } from "./desk.ts";
+import { compactCurve, freshBook, liveExitCall, resolve, signal, touchCurve, type Lane } from "./desk.ts";
 import type { ModelOut } from "./math.ts";
 
 function lane(over: Partial<Lane> = {}): Lane {
@@ -117,4 +117,42 @@ test("the profit line keeps the start instead of only the last minutes", () => {
   assert.equal(book.curve[0].t, start);
   assert.ok(book.curve.length <= 1200);
   assert.equal(book.curve[book.curve.length - 1].t, start + 1299 * 1000);
+});
+
+test("a real position is sold when the sim sold it, even if the real entry was a bit higher", () => {
+  const rich = lane({
+    up: { bid: 0.92, ask: 0.94, askSize: 100 },
+    model: { pUp: 0.7, pDown: 0.3, edgeUp: 0.01, edgeDown: -0.2, tau: 40 } as ModelOut,
+  });
+  // The sim's own rule fires on the real entry.
+  const own = liveExitCall({ side: "up", entry: 0.76 }, rich, false);
+  assert.equal(own?.bid, 0.92);
+  assert.match(own?.reason ?? "", /above our chance/);
+  // The real entry was above the bid, so the rule alone holds. The sim sold, so the real one sells too.
+  assert.equal(liveExitCall({ side: "up", entry: 0.95 }, rich, false), null);
+  const mirrored = liveExitCall({ side: "up", entry: 0.95 }, rich, true);
+  assert.equal(mirrored?.bid, 0.92);
+  assert.match(mirrored?.reason ?? "", /sim sold/);
+});
+
+test("a real position is held when nothing sold and the bid is under the price paid", () => {
+  const scared = lane({
+    up: { bid: 0.4, ask: 0.42, askSize: 100 },
+    model: { pUp: 0.2, pDown: 0.8, edgeUp: -0.2, edgeDown: 0.1, tau: 40 } as ModelOut,
+  });
+  assert.equal(liveExitCall({ side: "up", entry: 0.76 }, scared, false), null);
+  // No bid, no sell, even when the sim sold.
+  const noBid = lane({ up: { bid: null, ask: 0.42, askSize: 100 } });
+  assert.equal(liveExitCall({ side: "up", entry: 0.76 }, noBid, true), null);
+});
+
+test("the real side follows its own quote, not the other side", () => {
+  const rich = lane({
+    up: { bid: 0.3, ask: 0.32, askSize: 100 },
+    down: { bid: 0.66, ask: 0.68, askSize: 100 },
+    model: { pUp: 0.2, pDown: 0.6, edgeUp: -0.1, edgeDown: 0.02, tau: 40 } as ModelOut,
+  });
+  const down = liveExitCall({ side: "down", entry: 0.55 }, rich, false);
+  assert.equal(down?.bid, 0.66);
+  assert.equal(liveExitCall({ side: "up", entry: 0.2 }, lane({ open: false }), false), null);
 });
