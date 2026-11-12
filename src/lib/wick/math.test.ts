@@ -270,3 +270,27 @@ test("buckets and a settle correction stay honest", () => {
   assert.ok((bad.predicted ?? 0) > 0);
   assert.ok((bad.predictedRealized ?? 0) < 0);
 });
+
+test("brier scores an up trade and a down trade the same way", () => {
+  const mk = (side: "up" | "down", won: boolean): SimTrade => ({
+    windowStart: 1,
+    side,
+    ask: 0.8,
+    shares: 10,
+    cost: 8.2,
+    fee: 0.2,
+    pnl: won ? 1.8 : -8.2,
+    pModel: 0.9,
+    edge: 0.05,
+    tau: 100,
+    targetKind: "polymarket",
+    priceAgeMs: 100,
+    exit: "settle",
+  });
+  const run = (side: "up" | "down") => [...Array(9).fill(0).map(() => mk(side, true)), mk(side, false)];
+  const up = summarizeTrades(run("up")).brier ?? NaN;
+  const down = summarizeTrades(run("down")).brier ?? NaN;
+  // 90% on the side we bought, right 9 times in 10: (0.1^2 * 9 + 0.9^2) / 10 = 0.09.
+  assert.ok(Math.abs(up - 0.09) < 1e-9);
+  assert.ok(Math.abs(down - up) < 1e-9);
+});

@@ -758,8 +758,8 @@ export function summarizeTrades(trades: SimTrade[]): SimReport {
     }
     if (t.exit === "settle" && t.pModel != null && t.shares > 0) {
       const sideWon = t.pnl + t.cost > t.shares * 0.5;
-      const p = t.side === "up" ? t.pModel : 1 - t.pModel;
-      brierRows.push({ p, y: sideWon ? 1 : 0 });
+      // pModel is already the chance of the side we bought, up or down. Do not flip it for down trades.
+      brierRows.push({ p: t.pModel, y: sideWon ? 1 : 0 });
     }
   }
   const n = trades.length;
