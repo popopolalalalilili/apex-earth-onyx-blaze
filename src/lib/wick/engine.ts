@@ -580,7 +580,7 @@ export type Engine = {
   resetBook: (id: "five" | "fifteen" | "combined" | "shadow") => void;
   exportBooks: () => void;
   push: (cmd: WickCommand) => void;
-  /** Real 5-minute order, or null when the desk is paused, missing a key, or already sent. */
+  /** Real 15-minute order, or null when the desk is paused, missing a key, or already sent. */
   liveJob: () => LiveJob | null;
   markLive: (
     windowStart: number,
@@ -2897,7 +2897,8 @@ export function createEngine(host: EngineHost = NO_HOST): Engine {
     },
     liveJob() {
       if (tradePaused || !signerKey || !poly || !tradeAddress) return null;
-      return liveCandidate(900) ?? liveCandidate(300);
+      // Real money trades the 15-minute window only. The 5-minute window stays on the paper books.
+      return liveCandidate(900);
     },
     markLive(windowStart, note, filled, span, fill) {
       tradeNote = note.replace(/0x[a-fA-F0-9]{64}/g, "0x…").slice(0, 180);

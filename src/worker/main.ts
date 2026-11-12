@@ -160,7 +160,7 @@ async function lead(store: Store) {
   }
   if (stopped) return;
   engine.start();
-  console.log("[wick] leading. Paper books keep running. Live orders follow Combined: 15-minute first, then 5-minute, half size when both want the same side.");
+  console.log("[wick] leading. Paper books keep running. Live orders trade the 15-minute window only. The 5-minute window is paper only.");
   while (!stopped) {
     try {
       const cmds = await store.takeCommands();
